@@ -62,3 +62,20 @@ Aplica a:
     </CdtTrfTxInf>
   </FIToFICstmrCdtTrf>
 </Document>
+🔗 Integración con Mercado Pago y Stripe
+Plataforma	Compatibilidad ISO 20022
+Mercado Pago	🟡 Parcial (adaptación requerida)
+Stripe	🟢 Alta (soporta ISO 20022)
+Ethereum	🟡 Adaptación vía oráculos
+CFDI (México)	✅ Compatible con complemento
+🎯 Hoja de Ruta
+Fase	Acción	Plazo
+1	Documentar mapeo de mensajes	Mes 6-7
+2	Adaptar API de pagos	Mes 7-8
+3	Integrar con Mercado Pago/Stripe	Mes 8-9
+4	Pruebas de interoperabilidad	Mes 9-10
+5	Certificación ISO 20022	Mes 10-12
+📞 Contacto
+Email: marco.a.rojas.v@hotmail.com
+
+"La interoperabilidad financiera es la base de la economía global."
