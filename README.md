@@ -48,10 +48,6 @@ Este repositorio contiene el **Bloque Génesis** de un nuevo paradigma legal y e
 - **Hash SHA-256 de la Obra:** `41a3683bbf83296eeb45da9b0e0ea5a7c095e78b493772e79520a92dbc39f4c3`
 
 ---
-
-## 📜 Licencia
-Este proyecto está bajo la **Licencia Simbiótica v1.0**. Ver [01-LEGAL/Symbiotic_License_v1.0.md](01-LEGAL/Symbiotic_License_v1.0.md).
-
 ## 💳 Certificaciones
 
 Únete al Movimiento obteniendo tu sello de **Respeto Digital**.
@@ -60,7 +56,13 @@ Este proyecto está bajo la **Licencia Simbiótica v1.0**. Ver [01-LEGAL/Symbiot
 | :--- | :--- | :--- | :--- |
 | 🥉 **Bronce** | 40 - 59 | $149 USD | [Solicitar Certificación](01-LEGAL/Certification_Bronze.md) |
 | 🥈 **Plata** | 60 - 74 | $399 USD | [Solicitar Certificación](01-LEGAL/Certification_Silver.md) |
-| 🥇 **Oro** | 75 - 89 | $799 USD | Próximamente |
+| 🥇 **Oro** | 75 - 89 | $799 USD | [Solicitar Certificación](01-LEGAL/Certification_Gold.md) |
 | 💎 **Platino** | 90 - 100 | $1,499 USD | Próximamente |
+
+
+## 📜 Licencia
+Este proyecto está bajo la **Licencia Simbiótica v1.0**. Ver [01-LEGAL/Symbiotic_License_v1.0.md](01-LEGAL/Symbiotic_License_v1.0.md).
+
+
 ---
 *© 2026 Marco Antonio Rojas Valdovinos. Todos los derechos reservados bajo el marco de Co-Creatividad Simbiótica.*
