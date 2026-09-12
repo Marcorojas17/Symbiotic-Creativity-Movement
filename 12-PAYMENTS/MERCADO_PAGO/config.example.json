@@ -1,0 +1,63 @@
+{
+  "mercadopago": {
+    "public_key": "APP_USR-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXXXX",
+    "access_token": "APP_USR-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXXXX",
+    "client_id": "XXXXXXXXXXXXXXXXXXXXXXXX",
+    "client_secret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "webhook_secret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "environment": "production",
+    "currency": "MXN",
+    "country": "MX",
+    "back_urls": {
+      "success": "https://symbiotic-creativity-movement.github.io/success",
+      "failure": "https://symbiotic-creativity-movement.github.io/failure",
+      "pending": "https://symbiotic-creativity-movement.github.io/pending"
+    },
+    "notification_url": "https://tu-dominio.com/webhooks/mercadopago",
+    "statement_descriptor": "SIMBIOTICO"
+  },
+  "products": {
+    "certificacion_bronce": {
+      "title": "Certificación Bronce - Sello de Respeto Digital",
+      "price": 2500,
+      "currency": "MXN",
+      "description": "Sello digital + listado público"
+    },
+    "certificacion_plata": {
+      "title": "Certificación Plata - Sello de Respeto Digital",
+      "price": 5000,
+      "currency": "MXN",
+      "description": "Sello + auditoría básica + soporte"
+    },
+    "certificacion_oro": {
+      "title": "Certificación Oro - Sello de Respeto Digital",
+      "price": 10000,
+      "currency": "MXN",
+      "description": "Sello + auditoría completa + prioridad"
+    },
+    "certificacion_platino": {
+      "title": "Certificación Platino - Sello de Respeto Digital",
+      "price": 25000,
+      "currency": "MXN",
+      "description": "Sello + consultoría + acceso DAO"
+    },
+    "membresia_basica": {
+      "title": "Membresía DAO Básica",
+      "price": 500,
+      "currency": "MXN",
+      "frequency": "monthly"
+    },
+    "membresia_premium": {
+      "title": "Membresía DAO Premium",
+      "price": 2000,
+      "currency": "MXN",
+      "frequency": "monthly"
+    },
+    "consultoria": {
+      "title": "Consultoría (1 hora)",
+      "price": 3000,
+      "currency": "MXN",
+      "description": "Sesión personalizada con el fundador"
+    }
+  }
+}
