@@ -17,3 +17,17 @@
 
 ## 🎯 Objetivo
 Construir una comunidad global de creadores, desarrolladores, abogados y empresas que crean en la simbiosis Humano-IA.
+# 🤝 Comunidad y Ética Simbiótica
+
+> *"Solos somos creadores; juntos somos un movimiento imparable."*
+
+## 🌱 Cómo Unirse al Movimiento
+- 👤 **Creadores:** Registra tus obras bajo la Licencia Simbiótica.
+- 🏢 **Empresas:** Solicita la certificación "Sello de Respeto Digital".
+- 💻 **Desarrolladores:** Contribuye al código abierto de la API y los Smart Contracts.
+- 💰 **Inversores:** Adquiere tokens de gobernanza $SYMBIO.
+
+## 📜 Código de Conducta
+- Respeto absoluto a la autoría humana.
+- Transparencia total en el uso de IA.
+- Ética inquebrantable en la defensa de los derechos digitales.
