@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-
 /**
  * @title GenesisDAO
  * @author Marco Antonio Rojas Valdovinos
@@ -10,8 +8,6 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
  * @dev Utiliza el token $SYMBIO para votar Propuestas de Mejora Simbiotica (SIPs).
  */
 contract GenesisDAO {
-    
-    // ============ ESTRUCTURAS ============
     
     struct Proposal {
         uint256 id;
@@ -27,17 +23,13 @@ contract GenesisDAO {
         mapping(address => bool) hasVoted;
     }
     
-    // ============ ESTADO ============
-    
-    IERC20 public symbioticToken;
+    address public symbioticToken;
     uint256 public proposalCount;
     uint256 public votingPeriod = 7 days;
-    uint256 public proposalThreshold = 1000 * 10**18; // 1000 $SYMBIO para proponer
-    uint256 public quorumPercentage = 10; // 10% del suministro para validez
+    uint256 public proposalThreshold = 1000 * 10**18;
+    uint256 public quorumPercentage = 10;
     
     mapping(uint256 => Proposal) public proposals;
-    
-    // ============ EVENTOS ============
     
     event ProposalCreated(
         uint256 indexed id,
@@ -50,25 +42,16 @@ contract GenesisDAO {
     event ProposalExecuted(uint256 indexed id);
     event ProposalCanceled(uint256 indexed id);
     
-    // ============ MODIFICADORES ============
-    
     modifier onlyTokenHolder() {
-        require(symbioticToken.balanceOf(msg.sender) >= proposalThreshold, "No tienes suficientes $SYMBIO");
+        require(IERC20Like(symbioticToken).balanceOf(msg.sender) >= proposalThreshold, "No tienes suficientes $SYMBIO");
         _;
     }
     
-    // ============ CONSTRUCTOR ============
-    
     constructor(address _symbioticToken) {
         require(_symbioticToken != address(0), "Token invalido");
-        symbioticToken = IERC20(_symbioticToken);
+        symbioticToken = _symbioticToken;
     }
     
-    // ============ FUNCIONES PRINCIPALES ============
-    
-    /**
-     * @notice Crea una nueva Propuesta de Mejora Simbiotica (SIP).
-     */
     function propose(
         string memory _title,
         string memory _description
@@ -90,9 +73,6 @@ contract GenesisDAO {
         return proposalId;
     }
     
-    /**
-     * @notice Vota a favor o en contra de una propuesta.
-     */
     function vote(uint256 _proposalId, bool _support) external {
         Proposal storage proposal = proposals[_proposalId];
         require(proposal.id != 0, "Propuesta no existe");
@@ -100,7 +80,7 @@ contract GenesisDAO {
         require(block.timestamp <= proposal.endTime, "Votacion ha terminado");
         require(!proposal.hasVoted[msg.sender], "Ya has votado");
         
-        uint256 weight = symbioticToken.balanceOf(msg.sender);
+        uint256 weight = IERC20Like(symbioticToken).balanceOf(msg.sender);
         require(weight > 0, "No tienes $SYMBIO para votar");
         
         proposal.hasVoted[msg.sender] = true;
@@ -114,9 +94,6 @@ contract GenesisDAO {
         emit VoteCast(msg.sender, _proposalId, _support, weight);
     }
     
-    /**
-     * @notice Ejecuta una propuesta aprobada.
-     */
     function execute(uint256 _proposalId) external {
         Proposal storage proposal = proposals[_proposalId];
         require(proposal.id != 0, "Propuesta no existe");
@@ -125,8 +102,7 @@ contract GenesisDAO {
         require(!proposal.canceled, "Propuesta cancelada");
         require(proposal.forVotes > proposal.againstVotes, "Propuesta rechazada");
         
-        // Verificar quorum
-        uint256 totalSupply = symbioticToken.totalSupply();
+        uint256 totalSupply = IERC20Like(symbioticToken).totalSupply();
         uint256 totalVotes = proposal.forVotes + proposal.againstVotes;
         require((totalVotes * 100) / totalSupply >= quorumPercentage, "No alcanzo el quorum");
         
@@ -134,9 +110,6 @@ contract GenesisDAO {
         emit ProposalExecuted(_proposalId);
     }
     
-    /**
-     * @notice Cancela una propuesta (solo el proponente).
-     */
     function cancel(uint256 _proposalId) external {
         Proposal storage proposal = proposals[_proposalId];
         require(proposal.proposer == msg.sender, "Solo el proponente puede cancelar");
@@ -144,8 +117,6 @@ contract GenesisDAO {
         proposal.canceled = true;
         emit ProposalCanceled(_proposalId);
     }
-    
-    // ============ FUNCIONES DE CONSULTA ============
     
     function getProposal(uint256 _proposalId) external view returns (
         uint256 id,
@@ -177,16 +148,9 @@ contract GenesisDAO {
     function hasVoted(uint256 _proposalId, address _voter) external view returns (bool) {
         return proposals[_proposalId].hasVoted[_voter];
     }
-    
-    // ============ FUNCIONES ADMINISTRATIVAS ============
-    
-    function setVotingPeriod(uint256 _newPeriod) external {
-        require(msg.sender == address(this), "Solo la DAO puede cambiar esto");
-        votingPeriod = _newPeriod;
-    }
-    
-    function setQuorum(uint256 _newQuorum) external {
-        require(msg.sender == address(this), "Solo la DAO puede cambiar esto");
-        quorumPercentage = _newQuorum;
-    }
+}
+
+interface IERC20Like {
+    function balanceOf(address account) external view returns (uint256);
+    function totalSupply() external view returns (uint256);
 }
