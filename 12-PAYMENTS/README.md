@@ -51,3 +51,25 @@ Esta carpeta contiene la integración de **pasarelas de pago** para cobrar certi
 ---
 
 ## 🔗 Flujo de Pago
+Cliente → Selecciona producto → Pago → Webhook → NFT/Certificado → Confirmación
+
+---
+
+## 📜 Webhooks
+
+| Plataforma | Endpoint |
+|------------|----------|
+| Mercado Pago | `/webhooks/mercadopago` |
+| Stripe | `/webhooks/stripe` |
+| Crypto | `/webhooks/crypto` |
+
+---
+
+## 📞 Contacto
+
+- **Email:** marco.a.rojas.v@hotmail.com
+- **GitHub:** https://github.com/Symbiotic-Creativity-Movement
+
+---
+
+*"El dinero no es el objetivo, es el combustible que mueve el movimiento."*
