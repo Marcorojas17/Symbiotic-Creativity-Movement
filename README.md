@@ -52,5 +52,10 @@ Este repositorio contiene el **Bloque Génesis** de un nuevo paradigma legal y e
 ## 📜 Licencia
 Este proyecto está bajo la **Licencia Simbiótica v1.0**. Ver [01-LEGAL/Symbiotic_License_v1.0.md](01-LEGAL/Symbiotic_License_v1.0.md).
 
+## 💳 Certificaciones
+
+Únete al Movimiento obteniendo tu sello de **Respeto Digital**.
+
+- **🥉 Certificación Bronce:** [Solicita aquí tu certificación](01-LEGAL/Certification_Bronze.md)
 ---
 *© 2026 Marco Antonio Rojas Valdovinos. Todos los derechos reservados bajo el marco de Co-Creatividad Simbiótica.*
