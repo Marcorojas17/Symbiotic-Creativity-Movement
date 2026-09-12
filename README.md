@@ -57,7 +57,7 @@ Este repositorio contiene el **Bloque Génesis** de un nuevo paradigma legal y e
 | 🥉 **Bronce** | 40 - 59 | $149 USD | [Solicitar Certificación](01-LEGAL/Certification_Bronze.md) |
 | 🥈 **Plata** | 60 - 74 | $399 USD | [Solicitar Certificación](01-LEGAL/Certification_Silver.md) |
 | 🥇 **Oro** | 75 - 89 | $799 USD | [Solicitar Certificación](01-LEGAL/Certification_Gold.md) |
-| 💎 **Platino** | 90 - 100 | $1,499 USD | Próximamente |
+| 💎 **Platino** | 90 - 100 | $1,499 USD | [Solicitar Certificación](01-LEGAL/Certification_Platinum.md) |
 
 
 ## 📜 Licencia
