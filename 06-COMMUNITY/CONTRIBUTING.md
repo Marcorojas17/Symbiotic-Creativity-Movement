@@ -2,8 +2,6 @@
 
 ¡Gracias por querer unirte al **Movimiento de Co-Creatividad Simbiótica y Respeto Digital**!
 
-Este documento explica cómo puedes contribuir al desarrollo del estándar internacional.
-
 ---
 
 ## 🌱 Formas de Contribuir
@@ -12,55 +10,49 @@ Este documento explica cómo puedes contribuir al desarrollo del estándar inter
 - Registra tus obras bajo la **Licencia Simbiótica v1.0**.
 - Declara el porcentaje Humano-IA en cada obra.
 - Comparte tu experiencia en GitHub Discussions.
-- Promueve el movimiento en tus redes.
 
 ### 2. 💻 Como Desarrollador
 - Contribuye a los Smart Contracts (Solidity).
 - Mejora la API de verificación (Node.js/Python).
-- Crea integraciones con Adobe, Figma, Canva, Midjourney.
-- Escribe tests y documentación técnica.
+- Crea integraciones con Adobe, Figma, Canva.
 
 ### 3. ⚖️ Como Abogado
 - Propón mejoras a la Licencia Simbiótica.
-- Ayuda a redactar las SIPs (Propuestas de Mejora).
-- Representa al Movimiento en casos legales.
+- Ayuda a redactar las SIPs.
 - Asesora en cumplimiento normativo (ISO/NOM).
 
 ### 4. 🏢 Como Empresa
 - Solicita el **Sello de Respeto Digital**.
 - Integra el **Respect Score** en tus procesos.
 - Únete a la DAO como miembro fundador.
-- Patrocina el desarrollo del estándar.
 
 ### 5. 🎨 Como Diseñador
 - Mejora la identidad visual del Movimiento.
 - Diseña el UI/UX de la plataforma.
-- Crea material promocional (pitch deck, landing page).
+- Crea material promocional.
 
 ---
 
 ## 📝 Proceso de Contribución
 
 1. **Fork** el repositorio.
-2. Crea una rama con tu propuesta: `feature/nueva-idea`.
-3. Haz commit con mensajes claros y descriptivos.
-4. Abre un **Pull Request** explicando tu contribución.
-5. Espera la revisión de la comunidad y del Consejo de Ética.
+2. Crea una rama: `feature/nueva-idea`.
+3. Haz commit con mensajes claros.
+4. Abre un **Pull Request**.
+5. Espera la revisión de la comunidad.
 
 ---
 
-## 🗳️ Propuestas de Mejora Simbiótica (SIPs)
+## 🗳️ Propuestas de Mejora (SIPs)
 
-Si tienes una idea para mejorar el estándar:
-
-1. Crea un archivo en `04-GOVERNANCE/` con el formato: `SIP-XXXX_Titulo.md`.
-2. Sigue la plantilla de las SIPs existentes (SIP-0001, SIP-0002).
+1. Crea un archivo en `04-GOVERNANCE/`: `SIP-XXXX_Titulo.md`.
+2. Sigue la plantilla de las SIPs existentes.
 3. Abre un Pull Request.
-4. La DAO votará la propuesta en un plazo de 7 días.
+4. La DAO votará en un plazo de 7 días.
 
 ---
 
-## 🎯 Áreas Prioritarias de Contribución
+## 🎯 Áreas Prioritarias
 
 | Área | Necesidad | Recompensa |
 |------|-----------|------------|
@@ -76,7 +68,6 @@ Si tienes una idea para mejorar el estándar:
 
 - **Email:** marco.a.rojas.v@hotmail.com
 - **GitHub:** https://github.com/Symbiotic-Creativity-Movement
-- **Discussions:** [Foro oficial](https://github.com/Symbiotic-Creativity-Movement/discussions)
 
 ---
 
