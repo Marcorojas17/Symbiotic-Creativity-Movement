@@ -2,50 +2,48 @@
 
 **Versión:** 1.0  
 **Fecha:** 8 de Julio de 2026  
-**Aplicable a:** Todos los miembros, contribuidores y afiliados del Movimiento.
+**Aplicable a:** Todos los miembros del Movimiento.
 
 ---
 
 ## 🌱 Nuestro Compromiso
 
-El **Movimiento de Co-Creatividad Simbiótica y Respeto Digital** se compromete a crear un entorno respetuoso, inclusivo, transparente y ético para todos sus miembros, sin importar su origen, género, edad, religión, orientación sexual o nivel de experiencia.
+El **Movimiento de Co-Creatividad Simbiótica y Respeto Digital** se compromete a crear un entorno respetuoso, inclusivo, transparente y ético para todos sus miembros.
 
 ---
 
 ## ✅ Comportamientos Esperados
 
-1. **Respeto Digital:** Trata a todos los miembros con dignidad y respeto.
-2. **Transparencia:** Declara siempre el uso de IA en tus obras.
-3. **Colaboración:** Comparte conocimiento y ayuda a otros a crecer.
-4. **Ética:** No uses el movimiento para fines militares, desinformación o manipulación.
-5. **Atribución:** Reconoce el trabajo de otros y cita correctamente.
-6. **Integridad:** No plagies ni te apropies de obras ajenas.
-7. **Constructividad:** Ofrece críticas constructivas, no destructivas.
+1. **Respeto Digital:** Trata a todos con dignidad.
+2. **Transparencia:** Declara siempre el uso de IA.
+3. **Colaboración:** Comparte conocimiento.
+4. **Ética:** No uses el movimiento para fines militares o desinformación.
+5. **Atribución:** Reconoce el trabajo de otros.
+6. **Integridad:** No plagies.
+7. **Constructividad:** Críticas constructivas, no destructivas.
 
 ---
 
 ## ❌ Comportamientos Inaceptables
 
-1. Acoso, discriminación o violencia verbal, física o digital.
-2. Plagio o apropiación indebida de obras.
-3. Uso de IA para desinformación, deepfakes maliciosos o propaganda.
-4. Uso militar del estándar simbiótico.
+1. Acoso, discriminación o violencia.
+2. Plagio o apropiación indebida.
+3. Uso de IA para desinformación.
+4. Uso militar del estándar.
 5. Reclamar autoría exclusiva de obras co-creadas.
 6. Manipulación de votaciones en la DAO.
-7. Divulgación de información confidencial sin autorización.
+7. Divulgación de información confidencial.
 
 ---
 
 ## ⚖️ Consecuencias
 
-Las violaciones a este código serán evaluadas por el **Consejo de Ética** de la DAO, que podrá imponer:
-
 | Gravedad | Sanción |
 |----------|---------|
 | Leve | Advertencia privada |
 | Moderada | Suspensión temporal (30 días) |
-| Grave | Expulsión permanente + revocación de certificaciones |
-| Muy Grave | Acciones legales + reporte a autoridades |
+| Grave | Expulsión permanente |
+| Muy Grave | Acciones legales |
 
 ---
 
@@ -53,20 +51,10 @@ Las violaciones a este código serán evaluadas por el **Consejo de Ética** de 
 
 Envía un email a: **marco.a.rojas.v@hotmail.com**
 
-- Todas las denuncias serán tratadas con **confidencialidad**.
-- El Consejo de Ética responderá en un plazo máximo de **7 días**.
-- Se garantizará el derecho de defensa del acusado.
+- Confidencialidad garantizada.
+- Respuesta en máximo 7 días.
+- Derecho de defensa del acusado.
 
 ---
 
-## 🌍 Alcance
-
-Este código aplica a:
-- Miembros de la DAO.
-- Contribuidores del repositorio GitHub.
-- Empresas certificadas con el Sello de Respeto Digital.
-- Participantes en eventos oficiales del Movimiento.
-
----
-
-*"El respeto es la base de toda simbiosis. Sin él, no hay futuro."*
+*"El respeto es la base de toda simbiosis."*
