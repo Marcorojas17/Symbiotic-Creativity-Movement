@@ -1,35 +1,77 @@
-# 💰 Integración con Mercado Pago (LATAM)
+# 🟡 Mercado Pago - Integración LATAM
 
-Mercado Pago es la pasarela de pago líder en Latinoamérica. Ideal para cobrar en MXN, ARS, BRL, CLP, COP.
+**Versión:** 1.0  
+**País:** México, Argentina, Brasil, Chile, Colombia  
+**Monedas:** MXN, ARS, BRL, CLP, COP  
+**Documentación Oficial:** https://www.mercadopago.com.mx/developers
+
+---
+
+## 📋 Resumen
+
+Mercado Pago es la pasarela de pago líder en Latinoamérica. Permite cobrar con tarjeta de crédito, débito, efectivo, transferencia y meses sin intereses.
+
+---
 
 ## 🎯 Productos a Cobrar
 
-| Producto | Precio (MXN) | Tipo |
-|----------|--------------|------|
-| Certificación Bronce | $2,500 | Pago único |
-| Certificación Plata | $5,000 | Pago único |
-| Certificación Oro | $10,000 | Pago único |
-| Certificación Platino | $25,000 | Pago único |
-| Membresía DAO Básica | $500/mes | Suscripción |
-| Membresía DAO Premium | $2,000/mes | Suscripción |
-| Consultoría (1 hora) | $3,000 | Pago único |
+| Producto | Precio (MXN) | Tipo | Link |
+|----------|--------------|------|------|
+| Certificación Bronce | $2,500 | Pago único | [Ver](payment-links.md#bronce) |
+| Certificación Plata | $5,000 | Pago único | [Ver](payment-links.md#plata) |
+| Certificación Oro | $10,000 | Pago único | [Ver](payment-links.md#oro) |
+| Certificación Platino | $25,000 | Pago único | [Ver](payment-links.md#platino) |
+| Membresía DAO Básica | $500/mes | Suscripción | [Ver](subscriptions.md#basica) |
+| Membresía DAO Premium | $2,000/mes | Suscripción | [Ver](subscriptions.md#premium) |
+| Consultoría (1 hora) | $3,000 | Pago único | [Ver](payment-links.md#consultoria) |
 
-## 🔗 Links de Pago
-
-- **Certificación Bronce:** [Link Mercado Pago]
-- **Certificación Plata:** [Link Mercado Pago]
-- **Certificación Oro:** [Link Mercado Pago]
-- **Certificación Platino:** [Link Mercado Pago]
-- **Membresía DAO:** [Link Suscripción]
+---
 
 ## ⚙️ Configuración
 
 1. Crea cuenta en [Mercado Pago](https://www.mercadopago.com.mx).
-2. Genera credenciales de producción.
-3. Configura webhooks para confirmación de pagos.
-4. Integra con el Smart Contract `RoyaltySplitter.sol`.
+2. Verifica tu identidad (RFC, INE).
+3. Genera credenciales de producción:
+   - **Public Key:** `APP_USR-...`
+   - **Access Token:** `APP_USR-...`
+4. Configura webhooks en: [webhooks.md](webhooks.md)
+5. Copia el archivo `config.example.json` a `config.json` y llena tus datos.
 
-## 📜 Webhooks
+---
 
-- **URL:** `https://tu-dominio.com/webhooks/mercadopago`
-- **Eventos:** `payment.created`, `payment.updated`, `subscription.created`
+## 📂 Documentación
+
+- [Links de Pago](payment-links.md)
+- [Suscripciones](subscriptions.md)
+- [Checkout Pro](checkout-pro.md)
+- [Webhooks](webhooks.md)
+- [Configuración](config.example.json)
+- [Tests](tests.md)
+
+---
+Cliente → Link de Pago → Mercado Pago → Webhook → Confirmación → NFT
+
+
+---
+
+## 📊 Comisiones
+
+| Método | Comisión |
+|--------|----------|
+| Tarjeta de crédito | 3.49% + IVA |
+| Tarjeta de débito | 2.89% + IVA |
+| Transferencia | 0% |
+| Efectivo | 3.99% + IVA |
+
+---
+
+## 📞 Soporte
+
+- **Email:** marco.a.rojas.v@hotmail.com
+- **Mercado Pago:** https://www.mercadopago.com.mx/ayuda
+
+---
+
+*"Mercado Pago es la puerta de entrada al mercado latinoamericano."*
+
+## 🔗 Flujo de Pago
