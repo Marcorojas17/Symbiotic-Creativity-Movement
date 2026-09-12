@@ -48,16 +48,22 @@ Este repositorio contiene el **Bloque Génesis** de un nuevo paradigma legal y e
 - **Hash SHA-256 de la Obra:** `41a3683bbf83296eeb45da9b0e0ea5a7c095e78b493772e79520a92dbc39f4c3`
 
 ---
-## 💳 Certificaciones
+## 💳 Certificaciones y Servicios
 
-Únete al Movimiento obteniendo tu sello de **Respeto Digital**.
+Únete al Movimiento obteniendo tu sello de **Respeto Digital** o agenda una consultoría estratégica.
 
+### Certificaciones
 | Nivel | Respect Score | Inversión | Enlace |
 | :--- | :--- | :--- | :--- |
 | 🥉 **Bronce** | 40 - 59 | $149 USD | [Solicitar Certificación](01-LEGAL/Certification_Bronze.md) |
 | 🥈 **Plata** | 60 - 74 | $399 USD | [Solicitar Certificación](01-LEGAL/Certification_Silver.md) |
 | 🥇 **Oro** | 75 - 89 | $799 USD | [Solicitar Certificación](01-LEGAL/Certification_Gold.md) |
 | 💎 **Platino** | 90 - 100 | $1,499 USD | [Solicitar Certificación](01-LEGAL/Certification_Platinum.md) |
+
+### Servicios Profesionales
+| Servicio | Duración | Inversión | Enlace |
+| :--- | :--- | :--- | :--- |
+| 💼 **Consultoría Individual** | 60 minutos | $99 USD | [Agendar Consultoría](01-LEGAL/Consultoria_Individual.md) |
 
 
 ## 📜 Licencia
