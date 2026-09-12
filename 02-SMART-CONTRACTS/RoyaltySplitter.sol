@@ -2,120 +2,95 @@
 pragma solidity ^0.8.20;
 
 /**
- * @title SymbioticToken ($SYMBIO)
+ * @title RoyaltySplitter
  * @author Marco Antonio Rojas Valdovinos
- * @notice Token de gobernanza del Movimiento de Co-Creatividad Simbiotica y Respeto Digital.
- * @dev Suministro maximo: 100,000,000 $SYMBIO. Deflacionario y con gobernanza DAO.
+ * @notice Distribuye regalias automaticamente: 51% al Creador Humano, 49% al Fondo del Movimiento.
+ * @dev Basado en el Bloque Genesis: Safe Creative ID 2607086319439
+ *      Hash SHA-256: 41a3683bbf83296eeb45da9b0e0ea5a7c095e78b493772e79520a92dbc39f4c3
  */
-contract SymbioticToken {
+contract RoyaltySplitter {
     
-    string public name = "Symbiotic Token";
-    string public symbol = "$SYMBIO";
-    uint8 public decimals = 18;
+    address public humanCreator;
+    address public movementFund;
+    uint256 public totalDistributed;
+    uint256 public totalHumanShare;
+    uint256 public totalMovementShare;
     
-    uint256 public constant MAX_SUPPLY = 100_000_000 * 10**18;
-    uint256 public totalSupply;
+    uint256 public constant HUMAN_PERCENTAGE = 51;
+    uint256 public constant MOVEMENT_PERCENTAGE = 49;
+    uint256 public constant BASIS_POINTS = 100;
     
-    address public founder;
-    address public treasury;
-    bool public allocationsDistributed;
-    
-    mapping(address => uint256) public balanceOf;
-    mapping(address => mapping(address => uint256)) public allowance;
-    
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-    event AllocationsDistributed(
-        address indexed founder,
-        address indexed treasury,
-        uint256 communityAmount,
-        uint256 founderAmount,
-        uint256 treasuryAmount,
-        uint256 investorAmount
+    event RoyaltyReceived(address indexed payer, uint256 amount);
+    event RoyaltyDistributed(
+        address indexed payer,
+        uint256 totalAmount,
+        uint256 humanShare,
+        uint256 movementShare,
+        uint256 timestamp
     );
+    event AddressesUpdated(address newHumanCreator, address newMovementFund);
     
-    modifier onlyFounder() {
-        require(msg.sender == founder, "Solo el fundador puede ejecutar esto");
+    modifier onlyHumanCreator() {
+        require(msg.sender == humanCreator, "Solo el creador humano puede ejecutar esto");
         _;
     }
     
-    constructor(address _founder, address _treasury) {
-        require(_founder != address(0), "Founder invalido");
-        require(_treasury != address(0), "Treasury invalido");
-        founder = _founder;
-        treasury = _treasury;
+    constructor(address _humanCreator, address _movementFund) {
+        require(_humanCreator != address(0), "Creador humano invalido");
+        require(_movementFund != address(0), "Fondo del movimiento invalido");
+        humanCreator = _humanCreator;
+        movementFund = _movementFund;
     }
     
-    function distributeAllocations() external onlyFounder {
-        require(!allocationsDistributed, "Asignaciones ya distribuidas");
-        
-        uint256 communityAmount = 40_000_000 * 10**18;
-        uint256 founderAmount = 30_000_000 * 10**18;
-        uint256 treasuryAmount = 20_000_000 * 10**18;
-        uint256 investorAmount = 10_000_000 * 10**18;
-        
-        _mint(address(this), communityAmount);
-        _mint(founder, founderAmount);
-        _mint(treasury, treasuryAmount);
-        _mint(address(this), investorAmount);
-        
-        allocationsDistributed = true;
-        
-        emit AllocationsDistributed(
-            founder,
-            treasury,
-            communityAmount,
-            founderAmount,
-            treasuryAmount,
-            investorAmount
-        );
+    receive() external payable {
+        _distribute(msg.value);
     }
     
-    function transfer(address _to, uint256 _amount) external returns (bool) {
-        require(_to != address(0), "Destinatario invalido");
-        require(balanceOf[msg.sender] >= _amount, "Saldo insuficiente");
+    fallback() external payable {
+        _distribute(msg.value);
+    }
+    
+    function payRoyalties() external payable {
+        _distribute(msg.value);
+    }
+    
+    function _distribute(uint256 _amount) internal {
+        require(_amount > 0, "El monto debe ser mayor a 0");
         
-        balanceOf[msg.sender] -= _amount;
-        balanceOf[_to] += _amount;
+        uint256 humanAmount = (_amount * HUMAN_PERCENTAGE) / BASIS_POINTS;
+        uint256 movementAmount = _amount - humanAmount;
         
-        emit Transfer(msg.sender, _to, _amount);
-        return true;
-    }
-    
-    function approve(address _spender, uint256 _amount) external returns (bool) {
-        allowance[msg.sender][_spender] = _amount;
-        emit Approval(msg.sender, _spender, _amount);
-        return true;
-    }
-    
-    function transferFrom(address _from, address _to, uint256 _amount) external returns (bool) {
-        require(_to != address(0), "Destinatario invalido");
-        require(balanceOf[_from] >= _amount, "Saldo insuficiente");
-        require(allowance[_from][msg.sender] >= _amount, "Allowance insuficiente");
+        (bool sentHuman, ) = payable(humanCreator).call{value: humanAmount}("");
+        require(sentHuman, "Fallo al enviar al creador humano");
         
-        balanceOf[_from] -= _amount;
-        balanceOf[_to] += _amount;
-        allowance[_from][msg.sender] -= _amount;
+        (bool sentMovement, ) = payable(movementFund).call{value: movementAmount}("");
+        require(sentMovement, "Fallo al enviar al fondo del movimiento");
         
-        emit Transfer(_from, _to, _amount);
-        return true;
+        totalDistributed += _amount;
+        totalHumanShare += humanAmount;
+        totalMovementShare += movementAmount;
+        
+        emit RoyaltyReceived(msg.sender, _amount);
+        emit RoyaltyDistributed(msg.sender, _amount, humanAmount, movementAmount, block.timestamp);
     }
     
-    function mintReward(address _to, uint256 _amount) external onlyFounder {
-        require(totalSupply + _amount <= MAX_SUPPLY, "Excede el suministro maximo");
-        _mint(_to, _amount);
+    function updateAddresses(address _newHumanCreator, address _newMovementFund) external onlyHumanCreator {
+        require(_newHumanCreator != address(0), "Nuevo creador invalido");
+        require(_newMovementFund != address(0), "Nuevo fondo invalido");
+        humanCreator = _newHumanCreator;
+        movementFund = _newMovementFund;
+        emit AddressesUpdated(_newHumanCreator, _newMovementFund);
     }
     
-    function _mint(address _to, uint256 _amount) internal {
-        totalSupply += _amount;
-        balanceOf[_to] += _amount;
-        emit Transfer(address(0), _to, _amount);
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
     }
     
-    function burn(uint256 _amount) external {
-        require(balanceOf[msg.sender] >= _amount, "Saldo insuficiente");
-        balanceOf[msg.sender] -= _amount;
-        totalSupply -= _amount;
-        emit Transfer(msg.sender, address(0), _amount);
+    function getStats() external view returns (
+        uint256 _totalDistributed,
+        uint256 _totalHumanShare,
+        uint256 _totalMovementShare
+    ) {
+        return (totalDistributed, totalHumanShare, totalMovementShare);
     }
 }
