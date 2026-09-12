@@ -93,7 +93,7 @@
   .nav-item:hover .arrow { transform: rotate(180deg); }
 
   .dropdown {
-    position: absolute; top: 100%; left: 0; min-width: 320px;
+    position: absolute; top: 100%; left: 0; min-width: 340px;
     background: rgba(5, 5, 8, 0.98); backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 255, 247, 0.3); border-top: 2px solid var(--cyan);
     box-shadow: 0 10px 40px rgba(0, 255, 247, 0.2); padding: 10px 0;
@@ -186,6 +186,55 @@
     box-shadow: 0 0 40px var(--magenta), 0 0 80px var(--magenta); transform: scale(1.05);
   }
 
+  .structure {
+    margin: 50px 0; padding: 40px 30px;
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.03), rgba(255, 0, 229, 0.03));
+    border: 1px solid rgba(0, 255, 247, 0.3); border-left: 3px solid var(--cyan);
+    backdrop-filter: blur(10px);
+  }
+  .structure h2 {
+    color: var(--cyan); font-size: 1.4em; letter-spacing: 5px;
+    margin-bottom: 15px; text-shadow: 0 0 15px var(--cyan);
+    text-align: center;
+  }
+  .structure h2::before { content: '// '; color: var(--magenta); }
+  .structure h2::after { display: none; }
+  .structure .subtitle-struct {
+    text-align: center; color: #666; font-size: 0.8em;
+    letter-spacing: 3px; margin-bottom: 40px; padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 255, 247, 0.15);
+  }
+  .struct-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  .struct-category {
+    background: var(--bg-card); border: 1px solid rgba(0, 255, 247, 0.2);
+    padding: 25px; transition: all 0.3s;
+  }
+  .struct-category:hover {
+    border-color: var(--cyan); box-shadow: 0 0 30px rgba(0, 255, 247, 0.3);
+    transform: translateY(-5px);
+  }
+  .struct-category h3 {
+    color: var(--cyan); font-size: 1em; letter-spacing: 3px;
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 255, 247, 0.2);
+    text-shadow: 0 0 10px var(--cyan);
+  }
+  .struct-category ul { list-style: none; }
+  .struct-category ul li { padding: 8px 0; font-size: 0.85em; }
+  .struct-category ul li a {
+    color: #b0b0b0; text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+    transition: all 0.3s;
+  }
+  .struct-category ul li a:hover {
+    color: var(--cyan); padding-left: 5px;
+    text-shadow: 0 0 10px var(--cyan);
+  }
+  .struct-category ul li a::before { content: '▸'; color: var(--cyan); font-size: 0.9em; }
+
   .disclaimer {
     background: rgba(255, 200, 0, 0.05);
     border: 1px solid rgba(255, 200, 0, 0.3);
@@ -200,13 +249,13 @@
     scroll-margin-top: 90px;
   }
   section:first-of-type { border-top: none; }
-  h2 {
+  h2.section-title {
     color: var(--cyan); font-size: 1.6em; letter-spacing: 5px;
     margin-bottom: 30px; text-transform: uppercase; font-weight: 400;
     text-shadow: 0 0 15px var(--cyan); display: flex; align-items: center; gap: 15px;
   }
-  h2::before { content: '//'; color: var(--magenta); font-size: 1.2em; text-shadow: 0 0 10px var(--magenta); }
-  h2::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); }
+  h2.section-title::before { content: '//'; color: var(--magenta); font-size: 1.2em; text-shadow: 0 0 10px var(--magenta); }
+  h2.section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); }
   p { color: #b0b0b0; margin-bottom: 15px; }
 
   blockquote {
@@ -218,16 +267,6 @@
     display: block; color: #666; font-size: 0.85em; margin-top: 15px;
     font-style: normal; letter-spacing: 3px;
   }
-
-  .objectives { display: grid; gap: 20px; }
-  .objective {
-    display: flex; gap: 25px; padding: 25px 30px; background: var(--bg-card);
-    border: 1px solid rgba(0, 255, 247, 0.2); border-left: 3px solid var(--cyan);
-    backdrop-filter: blur(10px); transition: all 0.3s;
-  }
-  .objective:hover { border-color: var(--cyan); box-shadow: 0 0 30px rgba(0, 255, 247, 0.3); transform: translateX(8px); }
-  .objective .num { color: var(--cyan); font-size: 1.8em; font-weight: bold; min-width: 60px; text-shadow: 0 0 15px var(--cyan); }
-  .objective p { margin: 0; color: #ccc; align-self: center; }
 
   .services { display: grid; gap: 25px; }
   .service {
@@ -310,6 +349,48 @@
   }
   .contact-item a:hover { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
 
+  /* VALIDADOR */
+  #drop-zone {
+    border: 2px dashed var(--cyan);
+    padding: 50px 30px;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+  }
+  #drop-zone:hover {
+    background: rgba(0, 255, 247, 0.05);
+    box-shadow: 0 0 30px rgba(0, 255, 247, 0.2);
+  }
+  #drop-zone p { color: var(--cyan); font-size: 1.1em; margin-bottom: 8px; }
+  #drop-zone small { color: #666; font-size: 0.85em; }
+
+  #result { margin-top: 30px; display: none; }
+  .hash-box {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 18px;
+    word-break: break-all;
+    font-size: 0.85em;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--cyan);
+  }
+  .hash-box.ref { border-left-color: var(--gold); }
+  .hash-box .label {
+    color: #666; font-size: 0.7em; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 8px; display: block;
+  }
+  .hash-box .value { color: var(--cyan); }
+  .hash-box.ref .value { color: var(--gold); }
+
+  .match-result {
+    margin-top: 25px; padding: 20px; text-align: center;
+    font-size: 1em; font-weight: bold;
+    border: 1px solid;
+  }
+  .match-result.match { color: var(--green); border-color: var(--green); background: rgba(0, 255, 136, 0.08); }
+  .match-result.nomatch { color: var(--gold); border-color: var(--gold); background: rgba(212, 175, 55, 0.08); }
+
   footer {
     text-align: center; padding: 70px 20px 40px; color: #666;
     font-size: 0.85em; letter-spacing: 2px; position: relative;
@@ -360,10 +441,10 @@
     h1 { font-size: 1.6em; letter-spacing: 5px; }
     .symbol-big { font-size: 3em; }
     .subtitle { font-size: 0.7em; letter-spacing: 2px; }
-    h2 { font-size: 1.2em; letter-spacing: 3px; }
+    h2.section-title { font-size: 1.2em; letter-spacing: 3px; }
+    .structure h2 { font-size: 1.1em; }
+    .struct-grid { grid-template-columns: 1fr; }
     .service-header { flex-direction: column; align-items: flex-start; }
-    .objective { flex-direction: column; gap: 10px; }
-    .objective .num { font-size: 1.4em; }
     .whatsapp-float { width: 55px; height: 55px; font-size: 1.6em; bottom: 20px; right: 20px; }
     .nav-logo { font-size: 0.9em; letter-spacing: 2px; }
     .nav-logo .symbol { font-size: 1.2em; }
@@ -385,15 +466,15 @@
         <a href="#top" class="nav-link">Inicio</a>
       </li>
       <li class="nav-item">
-        <a href="#movimiento" class="nav-link">Movimiento <span class="arrow">▼</span></a>
+        <a href="#estructura" class="nav-link">Estructura <span class="arrow">▼</span></a>
         <ul class="dropdown">
+          <li><a href="#estructura">🏛️ Estructura Oficial</a></li>
           <li><a href="historia.html">📜 Historia de Fundación</a></li>
           <li><a href="como-funciona.html">⚙️ Cómo Funciona</a></li>
           <li><a href="criptografia.html">🔐 Base Criptográfica</a></li>
           <li><a href="casos.html">🏆 Casos de Éxito</a></li>
-          <li><a href="#que-es">¿Qué es SCDR-001?</a></li>
-          <li><a href="#objetivos">Objetivos</a></li>
-          <li><a href="#verificacion">Verificación Pública</a></li>
+          <li><a href="#autoridad">🛡️ Por qué tiene peso</a></li>
+          <li><a href="#validador">🔍 Validador SHA-256</a></li>
         </ul>
       </li>
       <li class="nav-item">
@@ -425,7 +506,6 @@
   </div>
 </nav>
 
-<!-- FONDO ANIMADO -->
 <canvas id="matrix-canvas"></canvas>
 <div class="grid-bg"></div>
 <div class="glow-orb orb-1"></div>
@@ -454,9 +534,78 @@
     <a href="https://forms.gle/pi5NihvEzJ1Un9vw8" class="cta" target="_blank" rel="noopener">▸ SOLICITA TU DIAGNÓSTICO POR $99</a>
   </div>
 
+  <!-- ESTRUCTURA OFICIAL -->
+  <div class="structure" id="estructura">
+    <h2>Estructura Oficial Completa</h2>
+    <p class="subtitle-struct">// Todos los recursos del ecosistema SCDR-001 //</p>
+
+    <div class="struct-grid">
+
+      <div class="struct-category">
+        <h3>📚 DOCUMENTACIÓN</h3>
+        <ul>
+          <li><a href="historia.html">Historia de Fundación</a></li>
+          <li><a href="como-funciona.html">Cómo Funciona el Estándar</a></li>
+          <li><a href="criptografia.html">Base Criptográfica</a></li>
+          <li><a href="casos.html">Casos de Éxito</a></li>
+        </ul>
+      </div>
+
+      <div class="struct-category">
+        <h3>🛡️ SERVICIOS</h3>
+        <ul>
+          <li><a href="#servicios">Diagnóstico SCDR-001 ($99)</a></li>
+          <li><a href="geo.html">Diagnóstico GEO ($149)</a></li>
+          <li><a href="#servicios">Informe Detallado ($199)</a></li>
+          <li><a href="#servicios">Consultoría Individual ($99)</a></li>
+        </ul>
+      </div>
+
+      <div class="struct-category">
+        <h3>🏅 CERTIFICACIONES</h3>
+        <ul>
+          <li><a href="#servicios">Sello Bronce ($149)</a></li>
+          <li><a href="#servicios">Sello Plata ($399)</a></li>
+          <li><a href="#servicios">Sello Oro ($799)</a></li>
+          <li><a href="#servicios">Sello Platino ($1,499)</a></li>
+        </ul>
+      </div>
+
+      <div class="struct-category">
+        <h3>🔍 VERIFICACIÓN</h3>
+        <ul>
+          <li><a href="https://www.safecreative.org/certificate/2607086319439" target="_blank">Safe Creative</a></li>
+          <li><a href="https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e" target="_blank">Anclaje en Ethereum</a></li>
+          <li><a href="#autoridad">Por qué tiene peso</a></li>
+          <li><a href="#validador">Validador SHA-256</a></li>
+        </ul>
+      </div>
+
+      <div class="struct-category">
+        <h3>⚖️ LEGAL</h3>
+        <ul>
+          <li><a href="01-LEGAL/cookies.html">Política de Cookies</a></li>
+          <li><a href="01-LEGAL/privacidad.html">Política de Privacidad</a></li>
+          <li><a href="01-LEGAL/terminos.html">Términos y Condiciones</a></li>
+          <li><a href="01-LEGAL/aviso-legal.html">Aviso Legal</a></li>
+        </ul>
+      </div>
+
+      <div class="struct-category">
+        <h3>📞 CONTACTO</h3>
+        <ul>
+          <li><a href="mailto:marco.a.rojas.v@hotmail.com">Email directo</a></li>
+          <li><a href="https://wa.me/527225862335" target="_blank">WhatsApp</a></li>
+          <li><a href="https://forms.gle/pi5NihvEzJ1Un9vw8" target="_blank">Formulario diagnóstico</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
   <!-- QUÉ ES -->
   <section id="que-es">
-    <h2>¿Qué es esto?</h2>
+    <h2 class="section-title">¿Qué es esto?</h2>
     <p>El <strong style="color: var(--cyan);">8 de julio de 2026</strong>, se registró el Acta Fundacional que establece las bases para una relación simbiótica entre creadores humanos e inteligencia artificial.</p>
     <blockquote>
       "No dejaremos que la IA nos reemplace; la integraremos en una simbiosis donde ambos ganamos."
@@ -469,20 +618,85 @@
     <strong>⚠ AVISO IMPORTANTE:</strong> SCDR-001 es un <strong>estándar privado e independiente</strong> desarrollado por Simbiosis Digital. <strong>NO es una certificación oficial ISO ni NOM.</strong> Nuestro marco está <em>alineado con principios</em> de normas internacionales (como ISO 42001 e ISO 56000) y con la NOM-151-SCFI-2016 para preservación de datos, pero no somos un organismo certificador acreditado. Somos una metodología de auditoría preventiva y blindaje documental. <strong>No somos abogados.</strong>
   </div>
 
+  <!-- AUTORIDAD -->
+  <section id="autoridad">
+    <h2 class="section-title">¿Por qué este estándar tiene peso?</h2>
+
+    <div class="services">
+      <div class="service">
+        <div class="service-header"><h3>🔐 Certeza Criptográfica</h3></div>
+        <p>El hash SHA-256 de tu obra, registrado en Safe Creative y anclado en Ethereum, es prueba matemática ante cualquier tribunal. No depende de que te crean. Depende de que el código corre como dice el contrato.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-header"><h3>⚖️ Vacío Legal Llenado</h3></div>
+        <p>Las leyes actuales dicen que "la IA no puede registrar derechos de autor, solo los humanos". Esto deja a miles de empresas en un limbo. Nuestro Respect Score deslinda qué porcentaje hizo el humano y qué porcentaje la IA.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-header"><h3>🌐 Estándar de Facto</h3></div>
+        <p>En tecnología, los estándares no los crean los gobiernos. Los crean quienes dominan el mercado: ZIP, HTTP, Markdown. Si 50 agencias adoptan el Sello de Respeto Digital, el mercado asume que ese es el estándar.</p>
+      </div>
+
+      <div class="service">
+        <div class="service-header"><h3>📜 Normas Aplicables</h3></div>
+        <p>Nuestro marco está alineado con NOM-151-SCFI-2016 (conservación de datos), ISO 42001 (gestión de IA) e ISO 56000 (gestión de innovación). No somos certificadores acreditados, pero diseñamos para cumplir con sus requisitos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALIDADOR SHA-256 -->
+  <section id="validador">
+    <h2 class="section-title">Validador de Integridad SHA-256</h2>
+    <p>Arrastra cualquier archivo y verifica su hash SHA-256 en vivo. Si coincide con el nuestro, tienes prueba matemática de que el archivo es idéntico al que anclamos en blockchain.</p>
+
+    <div id="drop-zone">
+      <p>📁 Arrastra tu archivo aquí</p>
+      <small>o haz clic para seleccionar</small>
+      <input type="file" id="file-input" style="display: none;">
+    </div>
+
+    <div id="result">
+      <div class="hash-box">
+        <span class="label">// HASH SHA-256 DE TU ARCHIVO</span>
+        <span class="value" id="hash-output"></span>
+      </div>
+
+      <div class="hash-box ref">
+        <span class="label">// HASH DE REFERENCIA (Acta Fundacional SCDR-001)</span>
+        <span class="value">41a3683bbf83296eeb45da9b0e0ea5a7c095e78b493772e79520a92dbc39f4c3</span>
+      </div>
+
+      <div id="match-result" class="match-result"></div>
+    </div>
+  </section>
+
   <!-- OBJETIVOS -->
   <section id="objetivos">
-    <h2>Objetivos</h2>
-    <div class="objectives">
-      <div class="objective"><span class="num">01</span><p>Desarrollar un estándar privado de referencia para la co-creación Humano-IA, con miras a alinearse con buenas prácticas internacionales.</p></div>
-      <div class="objective"><span class="num">02</span><p>Proteger los derechos de autor y la transparencia en la era de la IA generativa.</p></div>
-      <div class="objective"><span class="num">03</span><p>Diseñar un modelo de regalías justas 51/49 (Humano/IA) como referencia ética para la industria.</p></div>
-      <div class="objective"><span class="num">04</span><p>Fomentar el "Respeto Digital" como valor fundamental de la nueva economía creativa.</p></div>
+    <h2 class="section-title">Objetivos</h2>
+    <div class="services">
+      <div class="service">
+        <div class="service-header"><h3>01 — Estándar de Referencia</h3></div>
+        <p>Desarrollar un estándar privado de referencia para la co-creación Humano-IA, con miras a alinearse con buenas prácticas internacionales.</p>
+      </div>
+      <div class="service">
+        <div class="service-header"><h3>02 — Protección de Derechos</h3></div>
+        <p>Proteger los derechos de autor y la transparencia en la era de la IA generativa.</p>
+      </div>
+      <div class="service">
+        <div class="service-header"><h3>03 — Modelo de Regalías Justas</h3></div>
+        <p>Diseñar un modelo de regalías justas 51/49 (Humano/IA) como referencia ética para la industria.</p>
+      </div>
+      <div class="service">
+        <div class="service-header"><h3>04 — Respeto Digital</h3></div>
+        <p>Fomentar el "Respeto Digital" como valor fundamental de la nueva economía creativa.</p>
+      </div>
     </div>
   </section>
 
   <!-- SERVICIOS -->
   <section id="servicios">
-    <h2>Servicios de Blindaje Documental</h2>
+    <h2 class="section-title">Servicios de Blindaje Documental</h2>
     <div class="services">
 
       <div class="service">
@@ -538,7 +752,7 @@
 
   <!-- VERIFICACIÓN -->
   <section id="verificacion">
-    <h2>Verificación Pública</h2>
+    <h2 class="section-title">Verificación Pública</h2>
     <ul class="verify-list">
       <li><a href="https://www.safecreative.org/certificate/2607086319439" target="_blank" rel="noopener">Registro Safe Creative — ID 2607086319439</a></li>
       <li><a href="https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e" target="_blank" rel="noopener">Anclaje en Blockchain Ethereum (hash verificable)</a></li>
@@ -547,7 +761,7 @@
 
   <!-- ÚNETE -->
   <section id="movimiento">
-    <h2>Únete al Movimiento</h2>
+    <h2 class="section-title">Únete al Movimiento</h2>
     <p style="font-size: 1.1em; color: var(--cyan); font-style: italic; text-shadow: 0 0 15px var(--cyan);">El futuro no se espera. Se construye.</p>
     <p>Creadores, desarrolladores, abogados y empresas: este es su llamado. Juntos estamos reescribiendo las reglas de la creación en la era de la inteligencia artificial.</p>
 
@@ -614,6 +828,58 @@ setInterval(draw, 50);
 document.querySelectorAll('.nav-menu a').forEach(link => {
   link.addEventListener('click', () => document.querySelector('.nav-menu').classList.remove('active'));
 });
+</script>
+
+<!-- SCRIPT DEL VALIDADOR SHA-256 -->
+<script>
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+const result = document.getElementById('result');
+const hashOutput = document.getElementById('hash-output');
+const matchResult = document.getElementById('match-result');
+const REF_HASH = '41a3683bbf83296eeb45da9b0e0ea5a7c095e78b493772e79520a92dbc39f4c3';
+
+dropZone.addEventListener('click', () => fileInput.click());
+
+dropZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropZone.style.borderColor = 'var(--magenta)';
+  dropZone.style.background = 'rgba(255, 0, 229, 0.05)';
+});
+
+dropZone.addEventListener('dragleave', () => {
+  dropZone.style.borderColor = 'var(--cyan)';
+  dropZone.style.background = 'var(--bg-card)';
+});
+
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.style.borderColor = 'var(--cyan)';
+  dropZone.style.background = 'var(--bg-card)';
+  if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files.length) handleFile(e.target.files[0]);
+});
+
+async function handleFile(file) {
+  const buffer = await file.arrayBuffer();
+  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  hashOutput.textContent = hashHex;
+  result.style.display = 'block';
+
+  if (hashHex === REF_HASH) {
+    matchResult.className = 'match-result match';
+    matchResult.innerHTML = '✅ COINCIDE — Este es el Acta Fundacional original';
+  } else {
+    matchResult.className = 'match-result nomatch';
+    matchResult.innerHTML = '📄 HASH REGISTRADO — No coincide con el Acta Fundacional, pero este es tu hash de referencia. Guárdalo.';
+  }
+}
 </script>
 
 </body>
