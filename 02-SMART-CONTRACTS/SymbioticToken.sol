@@ -1,32 +1,30 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-
 /**
  * @title SymbioticToken ($SYMBIO)
  * @author Marco Antonio Rojas Valdovinos
  * @notice Token de gobernanza del Movimiento de Co-Creatividad Simbiotica y Respeto Digital.
  * @dev Suministro maximo: 100,000,000 $SYMBIO. Deflacionario y con gobernanza DAO.
  */
-contract SymbioticToken is ERC20, ERC20Burnable, Ownable {
+contract SymbioticToken {
     
-    // ============ ESTADO ============
+    string public name = "Symbiotic Token";
+    string public symbol = "$SYMBIO";
+    uint8 public decimals = 18;
     
     uint256 public constant MAX_SUPPLY = 100_000_000 * 10**18;
-    uint256 public constant COMMUNITY_ALLOCATION = 40_000_000 * 10**18; // 40%
-    uint256 public constant FOUNDER_ALLOCATION = 30_000_000 * 10**18;   // 30%
-    uint256 public constant TREASURY_ALLOCATION = 20_000_000 * 10**18;  // 20%
-    uint256 public constant INVESTOR_ALLOCATION = 10_000_000 * 10**18;  // 10%
+    uint256 public totalSupply;
     
-    address public treasury;
     address public founder;
+    address public treasury;
     bool public allocationsDistributed;
     
-    // ============ EVENTOS ============
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
     
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
     event AllocationsDistributed(
         address indexed founder,
         address indexed treasury,
@@ -36,66 +34,88 @@ contract SymbioticToken is ERC20, ERC20Burnable, Ownable {
         uint256 investorAmount
     );
     
-    event TokensMinted(address indexed to, uint256 amount, string reason);
+    modifier onlyFounder() {
+        require(msg.sender == founder, "Solo el fundador puede ejecutar esto");
+        _;
+    }
     
-    // ============ CONSTRUCTOR ============
-    
-    constructor(
-        address _founder,
-        address _treasury
-    ) ERC20("Symbiotic Token", "$SYMBIO") Ownable(_founder) {
+    constructor(address _founder, address _treasury) {
         require(_founder != address(0), "Founder invalido");
         require(_treasury != address(0), "Treasury invalido");
         founder = _founder;
         treasury = _treasury;
     }
     
-    // ============ FUNCIONES PRINCIPALES ============
-    
-    /**
-     * @notice Distribuye las asignaciones iniciales. Solo puede ejecutarse una vez.
-     */
-    function distributeAllocations() external onlyOwner {
+    function distributeAllocations() external onlyFounder {
         require(!allocationsDistributed, "Asignaciones ya distribuidas");
         
-        // 40% Comunidad (se mantiene en el contrato para recompensas futuras)
-        _mint(address(this), COMMUNITY_ALLOCATION);
+        uint256 communityAmount = 40_000_000 * 10**18;
+        uint256 founderAmount = 30_000_000 * 10**18;
+        uint256 treasuryAmount = 20_000_000 * 10**18;
+        uint256 investorAmount = 10_000_000 * 10**18;
         
-        // 30% Fundador
-        _mint(founder, FOUNDER_ALLOCATION);
-        
-        // 20% Tesoreria
-        _mint(treasury, TREASURY_ALLOCATION);
-        
-        // 10% Inversores (se mantiene en el contrato para venta)
-        _mint(address(this), INVESTOR_ALLOCATION);
+        _mint(address(this), communityAmount);
+        _mint(founder, founderAmount);
+        _mint(treasury, treasuryAmount);
+        _mint(address(this), investorAmount);
         
         allocationsDistributed = true;
         
         emit AllocationsDistributed(
             founder,
             treasury,
-            COMMUNITY_ALLOCATION,
-            FOUNDER_ALLOCATION,
-            TREASURY_ALLOCATION,
-            INVESTOR_ALLOCATION
+            communityAmount,
+            founderAmount,
+            treasuryAmount,
+            investorAmount
         );
     }
     
-    /**
-     * @notice Permite a la DAO acunar tokens para recompensas (solo owner/DAO).
-     */
-    function mintReward(address _to, uint256 _amount, string memory _reason) external onlyOwner {
-        require(totalSupply() + _amount <= MAX_SUPPLY, "Excede el suministro maximo");
-        _mint(_to, _amount);
-        emit TokensMinted(_to, _amount, _reason);
+    function transfer(address _to, uint256 _amount) external returns (bool) {
+        require(_to != address(0), "Destinatario invalido");
+        require(balanceOf[msg.sender] >= _amount, "Saldo insuficiente");
+        
+        balanceOf[msg.sender] -= _amount;
+        balanceOf[_to] += _amount;
+        
+        emit Transfer(msg.sender, _to, _amount);
+        return true;
     }
     
-    /**
-     * @notice Actualiza la tesoreria (solo owner).
-     */
-    function updateTreasury(address _newTreasury) external onlyOwner {
-        require(_newTreasury != address(0), "Tesoreria invalida");
-        treasury = _newTreasury;
+    function approve(address _spender, uint256 _amount) external returns (bool) {
+        allowance[msg.sender][_spender] = _amount;
+        emit Approval(msg.sender, _spender, _amount);
+        return true;
+    }
+    
+    function transferFrom(address _from, address _to, uint256 _amount) external returns (bool) {
+        require(_to != address(0), "Destinatario invalido");
+        require(balanceOf[_from] >= _amount, "Saldo insuficiente");
+        require(allowance[_from][msg.sender] >= _amount, "Allowance insuficiente");
+        
+        balanceOf[_from] -= _amount;
+        balanceOf[_to] += _amount;
+        allowance[_from][msg.sender] -= _amount;
+        
+        emit Transfer(_from, _to, _amount);
+        return true;
+    }
+    
+    function mintReward(address _to, uint256 _amount) external onlyFounder {
+        require(totalSupply + _amount <= MAX_SUPPLY, "Excede el suministro maximo");
+        _mint(_to, _amount);
+    }
+    
+    function _mint(address _to, uint256 _amount) internal {
+        totalSupply += _amount;
+        balanceOf[_to] += _amount;
+        emit Transfer(address(0), _to, _amount);
+    }
+    
+    function burn(uint256 _amount) external {
+        require(balanceOf[msg.sender] >= _amount, "Saldo insuficiente");
+        balanceOf[msg.sender] -= _amount;
+        totalSupply -= _amount;
+        emit Transfer(msg.sender, address(0), _amount);
     }
 }
