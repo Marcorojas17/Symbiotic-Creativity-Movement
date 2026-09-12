@@ -56,6 +56,11 @@ Este proyecto está bajo la **Licencia Simbiótica v1.0**. Ver [01-LEGAL/Symbiot
 
 Únete al Movimiento obteniendo tu sello de **Respeto Digital**.
 
-- **🥉 Certificación Bronce:** [Solicita aquí tu certificación](01-LEGAL/Certification_Bronze.md)
+| Nivel | Respect Score | Inversión | Enlace |
+| :--- | :--- | :--- | :--- |
+| 🥉 **Bronce** | 40 - 59 | $149 USD | [Solicitar Certificación](01-LEGAL/Certification_Bronze.md) |
+| 🥈 **Plata** | 60 - 74 | $399 USD | [Solicitar Certificación](01-LEGAL/Certification_Silver.md) |
+| 🥇 **Oro** | 75 - 89 | $799 USD | Próximamente |
+| 💎 **Platino** | 90 - 100 | $1,499 USD | Próximamente |
 ---
 *© 2026 Marco Antonio Rojas Valdovinos. Todos los derechos reservados bajo el marco de Co-Creatividad Simbiótica.*
