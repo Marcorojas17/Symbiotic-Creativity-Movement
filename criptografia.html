@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base Criptográfica - Simbiosis Digital</title>
+<meta name="description" content="Conoce la base criptográfica del Estándar SCDR-001: SHA-256, ECDSA, Ed25519, Merkle Trees y sellado de tiempo cualificado.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cyan: #00fff7; --magenta: #ff00e5; --purple: #9d00ff;
+    --gold: #d4af37; --green: #00ff88; --bg: #050508;
+    --bg-card: rgba(10, 10, 20, 0.7);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: #e0e0e0;
+    font-family: 'Courier New', 'Monaco', monospace;
+    line-height: 1.7; min-height: 100vh; overflow-x: hidden;
+    background-image:
+      linear-gradient(rgba(0, 255, 247, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 247, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow-orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none; opacity: 0.3; }
+  .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; left: -100px; }
+  .orb-2 { width: 500px; height: 500px; background: var(--magenta); bottom: -150px; right: -150px; }
+  .container {
+    max-width: 950px; margin: 0 auto; padding: 40px 20px;
+    position: relative; z-index: 10;
+  }
+  .back {
+    display: inline-block; margin-bottom: 30px; color: var(--cyan);
+    text-decoration: none; font-size: 0.85em; letter-spacing: 2px;
+    padding: 8px 15px; border: 1px solid var(--cyan); transition: all 0.3s;
+  }
+  .back:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
+  h1 {
+    color: var(--cyan); font-size: 2.2em; letter-spacing: 5px;
+    margin-bottom: 10px; text-shadow: 0 0 20px var(--cyan);
+    text-align: center;
+  }
+  h1::before { content: '// '; color: var(--magenta); }
+  .subtitle {
+    text-align: center; color: #666; font-size: 0.85em;
+    letter-spacing: 3px; margin-bottom: 50px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(0, 255, 247, 0.15);
+  }
+  .intro-box {
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.05), rgba(255, 0, 229, 0.05));
+    border: 1px solid var(--cyan); border-left: 3px solid var(--cyan);
+    padding: 25px 30px; margin: 30px 0;
+    font-size: 1em; color: #ccc;
+  }
+  .intro-box strong { color: var(--cyan); }
+
+  h2 {
+    color: var(--cyan); font-size: 1.4em; letter-spacing: 4px;
+    margin: 50px 0 25px; text-shadow: 0 0 15px var(--cyan);
+    display: flex; align-items: center; gap: 15px;
+  }
+  h2::before { content: '//'; color: var(--magenta); }
+  h2::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); }
+
+  h3 {
+    color: var(--cyan); font-size: 1em; letter-spacing: 2px;
+    margin: 25px 0 12px; text-shadow: 0 0 10px var(--cyan);
+  }
+
+  p { color: #b0b0b0; margin-bottom: 15px; }
+  strong { color: var(--cyan); }
+  code {
+    background: rgba(0, 255, 247, 0.1); color: var(--cyan);
+    padding: 2px 8px; font-size: 0.9em; border-radius: 2px;
+  }
+
+  .crypto-card {
+    background: var(--bg-card); border: 1px solid rgba(0, 255, 247, 0.2);
+    border-left: 3px solid var(--cyan); padding: 25px 30px;
+    margin: 20px 0; backdrop-filter: blur(10px); transition: all 0.3s;
+  }
+  .crypto-card:hover {
+    border-color: var(--cyan); box-shadow: 0 0 30px rgba(0, 255, 247, 0.3);
+    transform: translateX(5px);
+  }
+  .crypto-card .header {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 15px; margin-bottom: 12px;
+  }
+  .crypto-card h4 {
+    color: var(--cyan); font-size: 1em; letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--cyan);
+  }
+  .crypto-card .status {
+    padding: 4px 12px; font-size: 0.7em; letter-spacing: 2px;
+    border: 1px solid var(--green); color: var(--green);
+  }
+  .crypto-card p { font-size: 0.9em; margin-bottom: 10px; }
+  .crypto-card .where {
+    font-size: 0.8em; color: #666; margin-top: 10px;
+    padding-top: 10px; border-top: 1px solid rgba(0, 255, 247, 0.1);
+  }
+  .crypto-card .where strong { color: var(--gold); }
+
+  .table {
+    width: 100%; border-collapse: collapse; margin: 20px 0;
+    font-size: 0.85em;
+  }
+  .table th, .table td {
+    border: 1px solid rgba(0, 255, 247, 0.2);
+    padding: 12px 15px; text-align: left;
+  }
+  .table th {
+    background: rgba(0, 255, 247, 0.08); color: var(--cyan);
+    letter-spacing: 1px;
+  }
+  .table td { color: #b0b0b0; }
+  .table td strong { color: var(--cyan); }
+
+  .hash-example {
+    background: rgba(0, 0, 0, 0.5); border-left: 3px solid var(--gold);
+    padding: 15px 20px; margin: 15px 0;
+    font-size: 0.8em; color: #999; word-break: break-all;
+  }
+  .hash-example strong { color: var(--gold); }
+
+  .warning-box {
+    background: rgba(255, 200, 0, 0.05);
+    border: 1px solid rgba(255, 200, 0, 0.3);
+    border-left: 3px solid var(--gold);
+    padding: 20px 25px; margin: 30px 0;
+    font-size: 0.85em; color: #ccc;
+  }
+  .warning-box strong { color: var(--gold); }
+
+  .cta-final {
+    text-align: center; margin-top: 60px; padding: 40px 30px;
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.05), rgba(255, 0, 229, 0.05));
+    border: 1px solid var(--cyan);
+  }
+  .cta-final p {
+    color: var(--cyan); font-size: 1.1em; font-style: italic;
+    margin-bottom: 25px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .btn-cta {
+    display: inline-block; padding: 15px 40px;
+    background: transparent; color: var(--cyan);
+    border: 2px solid var(--cyan); text-decoration: none;
+    font-size: 0.9em; letter-spacing: 3px; font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(0, 255, 247, 0.3);
+  }
+  .btn-cta:hover {
+    background: var(--cyan); color: #000;
+    box-shadow: 0 0 40px var(--cyan), 0 0 80px var(--cyan);
+    transform: scale(1.05);
+  }
+
+  .footer {
+    margin-top: 60px; padding-top: 30px;
+    border-top: 1px solid rgba(0, 255, 247, 0.15);
+    text-align: center; color: #666; font-size: 0.8em;
+    letter-spacing: 2px;
+  }
+  .footer .symbol {
+    color: var(--cyan); font-size: 1.8em;
+    text-shadow: 0 0 20px var(--cyan);
+    display: block; margin-bottom: 15px;
+  }
+</style>
+</head>
+<body>
+<div class="glow-orb orb-1"></div>
+<div class="glow-orb orb-2"></div>
+
+<div class="container">
+  <a href="index.html" class="back">◂ VOLVER AL INICIO</a>
+
+  <h1>Base Criptográfica</h1>
+  <p class="subtitle">// Simbiosis Digital · Estándar SCDR-001 //</p>
+
+  <div class="intro-box">
+    SCDR-001 no inventó la criptografía. <strong>Usa criptografía estándar, pública y verificable</strong> que existe desde hace décadas y está respaldada por la industria. Aquí te explico exactamente qué usamos y dónde.
+  </div>
+
+  <!-- FUNCIONES HASH -->
+  <h2>Funciones Hash</h2>
+  <p>Una función hash toma cualquier archivo y genera una "huella digital" única de tamaño fijo. Si el archivo cambia aunque sea un bit, el hash cambia completamente. Es imposible revertir el proceso.</p>
+
+  <div class="crypto-card">
+    <div class="header">
+      <h4>SHA-256</h4>
+      <span class="status">✅ EN USO</span>
+    </div>
+    <p>Genera una huella de 256 bits (64 caracteres hexadecimales). Es el estándar usado por Bitcoin, Ethereum y la mayoría de sistemas de verificación.</p>
+    <div class="hash-example">
+      <strong>Ejemplo de tu Acta Fundacional:</strong><br>
+      41a3683bbf83296eeb45da9b0e0ea5a7c095e78b493772e79520a92dbc39f4c3
+    </div>
+    <div class="where">📍 <strong>Dónde se usa:</strong> Certificados SCDR-001, Acta Fundacional, informes emitidos</div>
+  </div>
+
+  <div class="crypto-card">
+    <div class="header">
+      <h4>SHA-1 + SHA-256 + SHA-512</h4>
+      <span class="status">✅ EN USO</span>
+    </div>
+    <p>Safe Creative aplica las 3 funciones hash a tu obra en paralelo. Esto se llama "triple verificación" y hace imposible que una colisión afecte las 3 simultáneamente.</p>
+    <div class="where">📍 <strong>Dónde se usa:</strong> Registro de obras en Safe Creative</div>
+  </div>
+
+  <!-- FIRMAS DIGITALES -->
+  <h2>Firmas Digitales</h2>
+  <p>Una firma digital demuestra que un mensaje viene de quien dice venir y que no fue alterado en el camino.</p>
+
+  <div class="crypto-card">
+    <div class="header">
+      <h4>ECDSA secp256k1</h4>
+      <span class="status">✅ EN USO</span>
+    </div>
+    <p>Algoritmo de firma usado por Ethereum y Bitcoin. Cada vez que anclas una obra en Ethereum, se firma con este algoritmo.</p>
+    <div class="where">📍 <strong>Dónde se usa:</strong> Transacciones en Ethereum Mainnet</div>
+  </div>
+
+  <div class="crypto-card">
+    <div class="header">
+      <h4>Ed25519</h4>
+      <span class="status">✅ EN USO</span>
+    </div>
+    <p>Algoritmo de firma moderno, rápido y seguro. Usado por sellos de tiempo cualificados (VATES) que Safe Creative integra.</p>
+    <div class="where">📍 <strong>Dónde se usa:</strong> Sellado de tiempo cualificado (VATES)</div>
+  </div>
+
+  <!-- ESTRUCTURA DE DATOS -->
+  <h2>Estructura de Datos</h2>
+
+  <div class="crypto-card">
+    <div class="header">
+      <h4>Merkle Trees</h4>
+      <span class="status">✅ EN USO</span>
+    </div>
+    <p>Estructura de árbol que permite verificar la integridad de un conjunto grande de datos de forma eficiente. Es la base técnica de todas las blockchains.</p>
+    <div class="where">📍 <strong>Dónde se usa:</strong> Blockchain Ethereum</div>
+  </div>
+
+  <div class="crypto-card">
+    <div class="header">
+      <h4>Consenso Distribuido</h4>
+      <span class="status">✅ EN USO</span>
+    </div>
+    <p>Ethereum usa Proof of Stake para validar transacciones. Requiere que miles de nodos independientes estén de acuerdo para modificar el historial.</p>
+    <div class="where">📍 <strong>Dónde se usa:</strong> Ethereum Mainnet</div>
+  </div>
+
+  <!-- ANCLAJE TEMPORAL -->
+  <h2>Anclaje Temporal</h2>
+
+  <div class="crypto-card">
+    <div class="header">
+      <h4>Sellado de Tiempo Cualificado (VATES)</h4>
+      <span class="status">✅ EN USO</span>
+    </div>
+    <p>Autoridad de sellado de tiempo europea acreditada. Emite un token firmado que certifica que un documento existió en una fecha y hora específicas.</p>
+    <div class="where">📍 <strong>Dónde se usa:</strong> Safe Creative + SCDR-001</div>
+  </div>
+
+  <div class="crypto-card">
+    <div class="header">
+      <h4>Anclaje en Blockchain</h4>
+      <span class="status">✅ EN USO</span>
+    </div>
+    <p>El hash SHA-256 de tu obra se escribe en la blockchain de Ethereum. Esto crea un registro público, permanente e inmutable.</p>
+    <div class="hash-example">
+      <strong>Tu transacción:</strong><br>
+      0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e
+    </div>
+    <div class="where">📍 <strong>Dónde se usa:</strong> Ethereum Mainnet, verificable en Etherscan</div>
+  </div>
+
+  <!-- LO QUE NO USAMOS -->
+  <h2>Lo que NO Usamos (Y por qué)</h2>
+
+  <div class="warning-box">
+    <strong>⚠ Honestidad técnica:</strong> Existen algoritmos más avanzados (zk-SNARKs, cifrado homomórfico, post-cuántica), pero NO los usamos porque no aportan valor a este caso específico y complicarían el sistema sin necesidad.
+  </div>
+
+  <table class="table">
+    <tr>
+      <th>Algoritmo</th>
+      <th>¿Por qué no?</th>
+    </tr>
+    <tr>
+      <td><strong>zk-SNARKs</strong></td>
+      <td>Permite verificar sin revelar. Útil para privacidad extrema, no la necesitamos.</td>
+    </tr>
+    <tr>
+      <td><strong>Homomórfico</strong></td>
+      <td>Permite calcular sobre datos cifrados. Años de desarrollo, no aporta valor.</td>
+    </tr>
+    <tr>
+      <td><strong>Post-cuántica</strong></td>
+      <td>Ethereum aún no lo soporta. Sería incompatible con la blockchain actual.</td>
+    </tr>
+    <tr>
+      <td><strong>Shamir</strong></td>
+      <td>Para compartir secretos en equipo. Útil cuando crezcamos.</td>
+    </tr>
+    <tr>
+      <td><strong>Argon2id</strong></td>
+      <td>Para passwords. No para documentos.</td>
+    </tr>
+  </table>
+
+  <!-- POR QUÉ ESTO IMPORTA -->
+  <h2>Por Qué Esto Importa</h2>
+  <p>Cuando un cliente te pregunta <em>"¿por qué debo confiar en tu Sello?"</em>, la respuesta no es marketing. Es criptografía.</p>
+
+  <table class="table">
+    <tr>
+      <th>Función Criptográfica</th>
+      <th>Garantía Real</th>
+    </tr>
+    <tr>
+      <td><strong>SHA-256</strong></td>
+      <td>Tu obra no puede ser alterada sin que se detecte</td>
+    </tr>
+    <tr>
+      <td><strong>ECDSA</strong></td>
+      <td>La transacción en blockchain está firmada y no puede falsificarse</td>
+    </tr>
+    <tr>
+      <td><strong>Merkle Trees</strong></td>
+      <td>El registro es verificable por cualquier nodo independiente</td>
+    </tr>
+    <tr>
+      <td><strong>Consenso Distribuido</strong></td>
+      <td>Miles de nodos validan la información, no una sola empresa</td>
+    </tr>
+    <tr>
+      <td><strong>Sellado de Tiempo Cualificado</strong></td>
+      <td>La fecha y hora son certificadas por autoridad acreditada</td>
+    </tr>
+  </table>
+
+  <p><strong>No es una promesa. Es matemática.</strong></p>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final">
+    <p>"La confianza no se pide. Se verifica."</p>
+    <a href="https://forms.gle/pi5NihvEzJ1Un9vw8" class="btn-cta" target="_blank" rel="noopener">▸ SOLICITA TU DIAGNÓSTICO POR $99</a>
+  </div>
+
+  <div class="footer">
+    <span class="symbol">⌬</span>
+    © 2026 MARCO ANTONIO ROJAS VALDOVINOS<br>
+    // SISTEMA INICIALIZADO //
+  </div>
+</div>
+
+</body>
+</html>
