@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo Funciona - Simbiosis Digital</title>
+<meta name="description" content="Conoce cómo funciona el Estándar SCDR-001, sus bases legales y por qué es importante para creadores y agencias en LATAM.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cyan: #00fff7; --magenta: #ff00e5; --purple: #9d00ff;
+    --gold: #d4af37; --green: #00ff88; --bg: #050508;
+    --bg-card: rgba(10, 10, 20, 0.7);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: #e0e0e0;
+    font-family: 'Courier New', 'Monaco', monospace;
+    line-height: 1.7; min-height: 100vh; overflow-x: hidden;
+    background-image:
+      linear-gradient(rgba(0, 255, 247, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 247, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow-orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none; opacity: 0.3; }
+  .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; left: -100px; }
+  .orb-2 { width: 500px; height: 500px; background: var(--magenta); bottom: -150px; right: -150px; }
+  .container {
+    max-width: 950px; margin: 0 auto; padding: 40px 20px;
+    position: relative; z-index: 10;
+  }
+  .back {
+    display: inline-block; margin-bottom: 30px; color: var(--cyan);
+    text-decoration: none; font-size: 0.85em; letter-spacing: 2px;
+    padding: 8px 15px; border: 1px solid var(--cyan); transition: all 0.3s;
+  }
+  .back:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
+  h1 {
+    color: var(--cyan); font-size: 2.2em; letter-spacing: 5px;
+    margin-bottom: 10px; text-shadow: 0 0 20px var(--cyan);
+    text-align: center;
+  }
+  h1::before { content: '// '; color: var(--magenta); }
+  .subtitle {
+    text-align: center; color: #666; font-size: 0.85em;
+    letter-spacing: 3px; margin-bottom: 50px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(0, 255, 247, 0.15);
+  }
+
+  h2 {
+    color: var(--cyan); font-size: 1.4em; letter-spacing: 4px;
+    margin: 50px 0 25px; text-shadow: 0 0 15px var(--cyan);
+    display: flex; align-items: center; gap: 15px;
+  }
+  h2::before { content: '//'; color: var(--magenta); }
+  h2::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); }
+
+  h3 {
+    color: var(--cyan); font-size: 1em; letter-spacing: 2px;
+    margin: 30px 0 15px; text-shadow: 0 0 10px var(--cyan);
+  }
+
+  p { color: #b0b0b0; margin-bottom: 15px; }
+  strong { color: var(--cyan); }
+  em { color: var(--gold); font-style: normal; font-weight: bold; }
+
+  .intro-box {
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.05), rgba(255, 0, 229, 0.05));
+    border: 1px solid var(--cyan); border-left: 3px solid var(--cyan);
+    padding: 25px 30px; margin: 30px 0;
+    font-size: 1.05em; text-align: center; color: var(--cyan);
+    box-shadow: 0 0 30px rgba(0, 255, 247, 0.1);
+  }
+
+  .problem-list, .benefit-list { list-style: none; margin: 20px 0; }
+  .problem-list li, .benefit-list li {
+    padding: 15px 0 15px 30px; position: relative;
+    color: #b0b0b0; border-bottom: 1px solid rgba(0, 255, 247, 0.1);
+  }
+  .problem-list li::before {
+    content: '⚠'; position: absolute; left: 0;
+    color: var(--magenta); text-shadow: 0 0 10px var(--magenta);
+  }
+  .benefit-list li::before {
+    content: '✓'; position: absolute; left: 0;
+    color: var(--green); text-shadow: 0 0 10px var(--green);
+  }
+
+  .pillars {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px; margin: 30px 0;
+  }
+  .pillar {
+    background: var(--bg-card); border: 1px solid rgba(0, 255, 247, 0.2);
+    border-left: 3px solid var(--cyan); padding: 25px;
+    backdrop-filter: blur(10px); transition: all 0.3s;
+  }
+  .pillar:hover {
+    border-color: var(--cyan); box-shadow: 0 0 30px rgba(0, 255, 247, 0.3);
+    transform: translateY(-5px);
+  }
+  .pillar .num {
+    color: var(--cyan); font-size: 0.85em; letter-spacing: 3px;
+    margin-bottom: 8px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .pillar h4 {
+    color: var(--cyan); font-size: 1em; letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .pillar p { font-size: 0.85em; color: #999; }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 20px 0;
+    font-size: 0.88em;
+  }
+  th, td {
+    border: 1px solid rgba(0, 255, 247, 0.2);
+    padding: 12px 15px; text-align: left;
+  }
+  th {
+    background: rgba(0, 255, 247, 0.08); color: var(--cyan);
+    letter-spacing: 1px;
+  }
+  td { color: #b0b0b0; }
+  td strong { color: var(--cyan); }
+
+  .base-card {
+    background: var(--bg-card); border: 1px solid rgba(0, 255, 247, 0.2);
+    border-left: 3px solid var(--magenta); padding: 25px 30px;
+    margin: 20px 0; backdrop-filter: blur(10px);
+  }
+  .base-card h4 {
+    color: var(--magenta); font-size: 0.95em; letter-spacing: 2px;
+    margin-bottom: 12px; text-shadow: 0 0 10px var(--magenta);
+  }
+  .base-card p { font-size: 0.9em; margin-bottom: 10px; }
+
+  .cta-final {
+    text-align: center; margin-top: 60px; padding: 40px 30px;
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.05), rgba(255, 0, 229, 0.05));
+    border: 1px solid var(--cyan);
+  }
+  .cta-final p {
+    color: var(--cyan); font-size: 1.1em; font-style: italic;
+    margin-bottom: 25px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .btn-cta {
+    display: inline-block; padding: 15px 40px;
+    background: transparent; color: var(--cyan);
+    border: 2px solid var(--cyan); text-decoration: none;
+    font-size: 0.9em; letter-spacing: 3px; font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(0, 255, 247, 0.3);
+  }
+  .btn-cta:hover {
+    background: var(--cyan); color: #000;
+    box-shadow: 0 0 40px var(--cyan), 0 0 80px var(--cyan);
+    transform: scale(1.05);
+  }
+
+  .footer {
+    margin-top: 60px; padding-top: 30px;
+    border-top: 1px solid rgba(0, 255, 247, 0.15);
+    text-align: center; color: #666; font-size: 0.8em;
+    letter-spacing: 2px;
+  }
+  .footer .symbol {
+    color: var(--cyan); font-size: 1.8em;
+    text-shadow: 0 0 20px var(--cyan);
+    display: block; margin-bottom: 15px;
+  }
+</style>
+</head>
+<body>
+<div class="glow-orb orb-1"></div>
+<div class="glow-orb orb-2"></div>
+
+<div class="container">
+  <a href="index.html" class="back">◂ VOLVER AL INICIO</a>
+
+  <h1>Cómo Funciona</h1>
+  <p class="subtitle">// Simbiosis Digital · Estándar SCDR-001 //</p>
+
+  <div class="intro-box">
+    Simbiosis Digital no es un curso, no es una asesoría legal, no es un software.<br>
+    <strong>Es un sistema de organización documental</strong> que se basa en 4 pilares medibles.
+  </div>
+
+  <!-- EL PROBLEMA -->
+  <h2>El Problema que Resolvemos</h2>
+  <p>En 2024, la IA generativa cambió la creación para siempre. Textos, imágenes, música, video: todo se volvió posible en segundos. Pero nadie sabía quién era el autor.</p>
+  <ul class="problem-list">
+    <li><strong>Vacío legal:</strong> La reforma a la LFDA-2026 exige transparencia en el uso de IA, pero no dice cómo cumplirla.</li>
+    <li><strong>Inseguridad jurídica:</strong> Los creadores no pueden probar que su obra es suya cuando la IA participó.</li>
+    <li><strong>Riesgo económico:</strong> Sanciones por no declarar el uso de IA pueden llegar a miles de días de salario mínimo.</li>
+    <li><strong>Pérdida de control:</strong> Las agencias usan IA sin declararlo y los clientes se niegan a pagar diciendo "esto lo hizo la IA".</li>
+  </ul>
+
+  <!-- LOS 4 PILARES -->
+  <h2>Los 4 Pilares del Estándar</h2>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="num">// PILAR 01</div>
+      <h4>TRANSPARENCIA</h4>
+      <p>¿Declaras el % Humano-IA en tus obras? Medición: documento de declaración.</p>
+    </div>
+    <div class="pillar">
+      <div class="num">// PILAR 02</div>
+      <h4>COMPENSACIÓN</h4>
+      <p>¿Pagas regalías justas a creadores? Medición: contrato o acuerdo.</p>
+    </div>
+    <div class="pillar">
+      <div class="num">// PILAR 03</div>
+      <h4>TRAZABILIDAD</h4>
+      <p>¿Registras tus obras en blockchain? Medición: hash SHA-256 verificable.</p>
+    </div>
+    <div class="pillar">
+      <div class="num">// PILAR 04</div>
+      <h4>GOBERNANZA</h4>
+      <p>¿Participas en el estándar? Medición: registro en SIPs.</p>
+    </div>
+  </div>
+
+  <p>Cada pilar se mide del 0 al 100. La suma ponderada da tu <strong>Respect Score</strong>.</p>
+
+  <h3>Escala del Respect Score</h3>
+  <table>
+    <tr><th>Score</th><th>Nivel</th><th>Significado</th></tr>
+    <tr><td><strong>0-39</strong></td><td>❌ No certificable</td><td>Alto riesgo legal</td></tr>
+    <tr><td><strong>40-59</strong></td><td>🥉 Bronce</td><td>Compromiso inicial</td></tr>
+    <tr><td><strong>60-74</strong></td><td>🥈 Plata</td><td>Blindaje recomendado</td></tr>
+    <tr><td><strong>75-89</strong></td><td>🥇 Oro</td><td>Líder del estándar</td></tr>
+    <tr><td><strong>90-100</strong></td><td>💎 Platino</td><td>Élite del movimiento</td></tr>
+  </table>
+
+  <!-- BASES LEGALES -->
+  <h2>Las Bases Legales</h2>
+  <p>El estándar no inventó validez legal. Se apoya en 4 marcos existentes:</p>
+
+  <div class="base-card">
+    <h4>// BASE 01 · SAFE CREATIVE + CONVENIO DE BERNA</h4>
+    <p>Safe Creative es el mayor registro electrónico de propiedad intelectual del mundo, reconocido por la OMPI. Genera una <strong>prueba tecnológica irrefutable</strong> con 3 huellas criptográficas (SHA-1, SHA-256, SHA-512) y sellado de tiempo cualificado. Válida en 179 países.</p>
+  </div>
+
+  <div class="base-card">
+    <h4>// BASE 02 · NOM-151-SCFI-2016</h4>
+    <p>Norma Oficial Mexicana que reglamenta la conservación de mensajes de datos. El flujo de Safe Creative es compatible con esta norma, que garantiza que un documento no ha sido alterado desde su creación.</p>
+  </div>
+
+  <div class="base-card">
+    <h4>// BASE 03 · BLOCKCHAIN PÚBLICA + CNPCF</h4>
+    <p>El Código Nacional de Procedimientos Civiles y Familiares reconoce la blockchain pública como medio de prueba con <strong>presunción de plena validez</strong> (arts. 348-350). Anclar tu obra en Ethereum da fecha verificable.</p>
+  </div>
+
+  <div class="base-card">
+    <h4>// BASE 04 · REFORMA LFDA-2026</h4>
+    <p>La reforma introdujo sanciones por no transparentar el uso de IA. El marco SCDR-001 ayuda a organizar la evidencia documental que un abogado podría usar en tu defensa.</p>
+  </div>
+
+  <!-- PRODUCTOS -->
+  <h2>Qué Entregamos</h2>
+  <table>
+    <tr><th>Producto</th><th>Precio</th><th>Qué es</th></tr>
+    <tr><td><strong>Diagnóstico SCDR-001</strong></td><td>$99 USD</td><td>Reporte de 5-10 páginas con Respect Score y 3 riesgos</td></tr>
+    <tr><td><strong>Informe Detallado</strong></td><td>$199 USD</td><td>Reporte de 20-30 páginas con 5 cláusulas y plan 30-60-90</td></tr>
+    <tr><td><strong>Consultoría 1:1</strong></td><td>$99 USD</td><td>Sesión de 60 min con el fundador</td></tr>
+    <tr><td><strong>Sello Bronce</strong></td><td>$149 USD</td><td>Certificado + registro Safe Creative</td></tr>
+    <tr><td><strong>Sello Plata</strong></td><td>$399 USD</td><td>Todo lo anterior + cláusula + blockchain</td></tr>
+    <tr><td><strong>Sello Oro</strong></td><td>$799 USD</td><td>Todo + mención en Whitepaper + voto</td></tr>
+    <tr><td><strong>Sello Platino</strong></td><td>$1,499 USD</td><td>Todo + asiento en Consejo Asesor</td></tr>
+  </table>
+
+  <!-- IMPORTANCIA -->
+  <h2>Por Qué Es Importante</h2>
+  <p>No estamos vendiendo un producto. Estamos construyendo un futuro.</p>
+
+  <h3>Si NO lo hacemos</h3>
+  <ul class="problem-list">
+    <li>Los creadores siguen siendo despojados por la IA sin compensación.</li>
+    <li>Las agencias siguen arriesgándose a sanciones millonarias.</li>
+    <li>Los clientes siguen sin saber qué es humano y qué es máquina.</li>
+    <li>La cultura se vuelve un mar de contenido indistinguible.</li>
+  </ul>
+
+  <h3>Si SÍ lo hacemos</h3>
+  <ul class="benefit-list">
+    <li>Los creadores recuperan el control de su obra.</li>
+    <li>Las agencias pueden demostrar transparencia y ganar licitaciones.</li>
+    <li>Los clientes confían porque saben qué están comprando.</li>
+    <li>Se crea un estándar replicable en LATAM y el mundo.</li>
+  </ul>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final">
+    <p>"El futuro no se espera. Se construye."</p>
+    <a href="https://forms.gle/pi5NihvEzJ1Un9vw8" class="btn-cta" target="_blank" rel="noopener">▸ SOLICITA TU DIAGNÓSTICO POR $99</a>
+  </div>
+
+  <div class="footer">
+    <span class="symbol">⌬</span>
+    © 2026 MARCO ANTONIO ROJAS VALDOVINOS<br>
+    // SISTEMA INICIALIZADO //
+  </div>
+</div>
+
+</body>
+</html>
