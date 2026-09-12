@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico GEO + SCDR-001 - Simbiosis Digital</title>
+<meta name="description" content="Optimiza tu visibilidad en IA con el Diagnóstico GEO de Simbiosis Digital. Verifica si Google AI te cita como fuente.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cyan: #00fff7; --magenta: #ff00e5; --purple: #9d00ff;
+    --gold: #d4af37; --green: #00ff88; --bg: #050508;
+    --bg-card: rgba(10, 10, 20, 0.7);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: #e0e0e0;
+    font-family: 'Courier New', 'Monaco', monospace;
+    line-height: 1.7; min-height: 100vh; overflow-x: hidden;
+    background-image:
+      linear-gradient(rgba(0, 255, 247, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 247, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow-orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none; opacity: 0.3; }
+  .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; left: -100px; }
+  .orb-2 { width: 500px; height: 500px; background: var(--magenta); bottom: -150px; right: -150px; }
+  .container {
+    max-width: 950px; margin: 0 auto; padding: 40px 20px;
+    position: relative; z-index: 10;
+  }
+  .back {
+    display: inline-block; margin-bottom: 30px; color: var(--cyan);
+    text-decoration: none; font-size: 0.85em; letter-spacing: 2px;
+    padding: 8px 15px; border: 1px solid var(--cyan); transition: all 0.3s;
+  }
+  .back:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
+  h1 {
+    color: var(--cyan); font-size: 2.2em; letter-spacing: 5px;
+    margin-bottom: 10px; text-shadow: 0 0 20px var(--cyan);
+    text-align: center;
+  }
+  h1::before { content: '// '; color: var(--magenta); }
+  .subtitle {
+    text-align: center; color: #666; font-size: 0.85em;
+    letter-spacing: 3px; margin-bottom: 50px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(0, 255, 247, 0.15);
+  }
+  .intro-box {
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.05), rgba(255, 0, 229, 0.05));
+    border: 1px solid var(--cyan); border-left: 3px solid var(--cyan);
+    padding: 25px 30px; margin: 30px 0;
+    font-size: 1em; color: #ccc;
+  }
+  .intro-box strong { color: var(--cyan); }
+  h2 {
+    color: var(--cyan); font-size: 1.4em; letter-spacing: 4px;
+    margin: 50px 0 25px; text-shadow: 0 0 15px var(--cyan);
+    display: flex; align-items: center; gap: 15px;
+  }
+  h2::before { content: '//'; color: var(--magenta); }
+  h2::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); }
+  p { color: #b0b0b0; margin-bottom: 15px; }
+  strong { color: var(--cyan); }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.88em; }
+  th, td { border: 1px solid rgba(0, 255, 247, 0.2); padding: 12px 15px; text-align: left; }
+  th { background: rgba(0, 255, 247, 0.08); color: var(--cyan); letter-spacing: 1px; }
+  td { color: #b0b0b0; }
+  td strong { color: var(--cyan); }
+  ul { list-style: none; margin: 15px 0; }
+  ul li { padding: 10px 0 10px 25px; position: relative; color: #b0b0b0; }
+  ul li::before { content: '◆'; position: absolute; left: 0; color: var(--cyan); font-size: 0.7em; }
+  .cta-final {
+    text-align: center; margin-top: 60px; padding: 40px 30px;
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.05), rgba(255, 0, 229, 0.05));
+    border: 1px solid var(--cyan);
+  }
+  .cta-final p { color: var(--cyan); font-size: 1.1em; font-style: italic; margin-bottom: 25px; text-shadow: 0 0 10px var(--cyan); }
+  .btn-cta {
+    display: inline-block; padding: 15px 40px;
+    background: transparent; color: var(--cyan);
+    border: 2px solid var(--cyan); text-decoration: none;
+    font-size: 0.9em; letter-spacing: 3px; font-weight: bold;
+    transition: all 0.3s; box-shadow: 0 0 20px rgba(0, 255, 247, 0.3);
+  }
+  .btn-cta:hover { background: var(--cyan); color: #000; box-shadow: 0 0 40px var(--cyan), 0 0 80px var(--cyan); transform: scale(1.05); }
+  .footer { margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(0, 255, 247, 0.15); text-align: center; color: #666; font-size: 0.8em; letter-spacing: 2px; }
+  .footer .symbol { color: var(--cyan); font-size: 1.8em; text-shadow: 0 0 20px var(--cyan); display: block; margin-bottom: 15px; }
+</style>
+</head>
+<body>
+<div class="glow-orb orb-1"></div>
+<div class="glow-orb orb-2"></div>
+
+<div class="container">
+  <a href="index.html" class="back">◂ VOLVER AL INICIO</a>
+
+  <h1>Diagnóstico GEO + SCDR-001</h1>
+  <p class="subtitle">// Visibilidad en IA · Verificación Documental //</p>
+
+  <div class="intro-box">
+    Google ya mide la visibilidad en IA. Ahora es posible saber si tu marca aparece en AI Overviews. <strong>¿Estás siendo citado como fuente, o tu competencia se lleva el crédito?</strong>
+  </div>
+
+  <h2>¿Qué es GEO?</h2>
+  <p><strong>GEO (Generative Engine Optimization)</strong> es la práctica de optimizar tu contenido para que las IA (Google AI Overviews, ChatGPT, Perplexity, Claude) te citen como fuente.</p>
+  <p>Es la evolución del SEO tradicional. Antes optimizabas para aparecer en los resultados de búsqueda. Ahora optimizas para aparecer en las respuestas generativas.</p>
+
+  <h2>SEO vs GEO</h2>
+  <table>
+    <tr><th>Aspecto</th><th>SEO</th><th>GEO</th></tr>
+    <tr><td><strong>Objetivo</strong></td><td>Aparecer en SERP</td><td>Ser citado por IA</td></tr>
+    <tr><td><strong>Métrica</strong></td><td>Posiciones, tráfico</td><td>Menciones en IA</td></tr>
+    <tr><td><strong>Herramienta</strong></td><td>Google Search Console</td><td>Search Console + nuevos informes</td></tr>
+    <tr><td><strong>Resultado</strong></td><td>Usuario entra a tu web</td><td>IA cita tu información</td></tr>
+  </table>
+
+  <h2>¿Qué incluye el Diagnóstico GEO?</h2>
+  <ul>
+    <li><strong>Análisis de AI Overviews:</strong> ¿Tu marca aparece? ¿En qué consultas?</li>
+    <li><strong>Comparativa con competidores:</strong> ¿Quién está siendo citado en tu lugar?</li>
+    <li><strong>Recomendaciones de optimización:</strong> Cómo estructurar tu contenido para que Google AI te cite.</li>
+    <li><strong>Verificación SCDR-001:</strong> Registro en blockchain de los hallazgos del diagnóstico para tener prueba de su existencia.</li>
+    <li><strong>Plan de acción 30-60-90 días:</strong> Qué hacer semana a semana para mejorar tu visibilidad en IA.</li>
+  </ul>
+
+  <h2>¿Para quién es?</h2>
+  <ul>
+    <li><strong>Agencias de marketing</strong> que quieren ofrecer GEO a sus clientes.</li>
+    <li><strong>Empresas de servicios</strong> que quieren ser citadas por IA como referentes de su industria.</li>
+    <li><strong>Creadores de contenido</strong> que quieren proteger su autoría en la era de la IA.</li>
+    <li><strong>Consultores y freelancers</strong> que quieren diferenciarse con un servicio nuevo.</li>
+  </ul>
+
+  <h2>¿Cómo funciona?</h2>
+  <table>
+    <tr><th>Paso</th><th>Acción</th><th>Tiempo</th></tr>
+    <tr><td>1</td><td>Llenas un formulario de 5 minutos</td><td>5 min</td></tr>
+    <tr><td>2</td><td>Analizamos tu visibilidad en IA</td><td>48 h</td></tr>
+    <tr><td>3</td><td>Recibes tu reporte GEO + SCDR-001</td><td>48 h</td></tr>
+    <tr><td>4</td><td>Opcional: implementamos las mejoras</td><td>Personalizado</td></tr>
+  </table>
+
+  <h2>Inversión</h2>
+  <table>
+    <tr><th>Servicio</th><th>Precio</th><th>Entrega</th></tr>
+    <tr><td>Diagnóstico GEO + SCDR-001</td><td>$149 USD</td><td>48 horas</td></tr>
+    <tr><td>Bundle GEO + Diagnóstico Original</td><td>$199 USD</td><td>48 horas</td></tr>
+  </table>
+
+  <div class="cta-final">
+    <p>"Si Google no te cita, otra empresa se lleva el crédito."</p>
+    <a href="https://forms.gle/pi5NihvEzJ1Un9vw8" class="btn-cta" target="_blank" rel="noopener">▸ SOLICITAR DIAGNÓSTICO GEO</a>
+  </div>
+
+  <div class="footer">
+    <span class="symbol">⌬</span>
+    © 2026 MARCO ANTONIO ROJAS VALDOVINOS<br>
+    // SISTEMA INICIALIZADO //
+  </div>
+</div>
+
+</body>
+</html>
