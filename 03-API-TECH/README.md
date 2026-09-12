@@ -21,3 +21,14 @@
 
 ## 🎯 Objetivo
 Que cualquier herramienta de creación pueda certificar automáticamente el porcentaje de autoría humana en tiempo real.
+# ⚙️ Arquitectura Tecnológica y API
+
+> *"Lo que no se mide, no se puede proteger. Aquí construimos la trazabilidad absoluta."*
+
+## 🛠️ Componentes del Ecosistema
+- 🔍 **Verification API:** Verificación en tiempo real de hashes SHA-256 contra Safe Creative y Ethereum.
+- 📊 **AI Tracking SDK:** Librería para medir y calcular automáticamente el porcentaje de contribución Humano-IA durante el proceso creativo.
+- 📈 **Dashboard:** Interfaz visual para que los creadores monitoreen sus regalías y el estado legal de sus obras.
+
+## 🚀 Integraciones Previstas
+- Adobe, Figma, Canva, Midjourney, Stable Diffusion.
