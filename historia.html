@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historia de Fundación - SCDR-001</title>
+<meta name="description" content="El 8 de julio de 2026, el humano y la IA firmaron la paz. Conoce la historia del Movimiento SCDR-001.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cyan: #00fff7; --magenta: #ff00e5; --purple: #9d00ff;
+    --gold: #d4af37; --green: #00ff88; --bg: #050508;
+    --bg-card: rgba(10, 10, 20, 0.7);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: #e0e0e0;
+    font-family: 'Courier New', 'Monaco', monospace;
+    line-height: 1.7; min-height: 100vh;
+    overflow-x: hidden; position: relative;
+    background-image:
+      linear-gradient(rgba(0, 255, 247, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 247, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow-orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none; opacity: 0.3; }
+  .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; left: -100px; }
+  .orb-2 { width: 500px; height: 500px; background: var(--magenta); bottom: -150px; right: -150px; }
+  .container {
+    max-width: 900px; margin: 0 auto; padding: 40px 20px;
+    position: relative; z-index: 10;
+  }
+  .back {
+    display: inline-block; margin-bottom: 30px; color: var(--cyan);
+    text-decoration: none; font-size: 0.85em; letter-spacing: 2px;
+    padding: 8px 15px; border: 1px solid var(--cyan); transition: all 0.3s;
+  }
+  .back:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
+  h1 {
+    color: var(--cyan); font-size: 2.2em; letter-spacing: 5px;
+    margin-bottom: 10px; text-shadow: 0 0 20px var(--cyan);
+    text-align: center;
+  }
+  h1::before { content: '// '; color: var(--magenta); }
+  .subtitle {
+    text-align: center; color: #666; font-size: 0.85em;
+    letter-spacing: 3px; margin-bottom: 50px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(0, 255, 247, 0.15);
+  }
+  .intro {
+    text-align: center; font-style: italic; color: var(--cyan);
+    font-size: 1.1em; margin-bottom: 50px; padding: 20px;
+    background: rgba(0, 255, 247, 0.03); border-left: 3px solid var(--cyan);
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(180deg, var(--cyan), var(--magenta));
+    box-shadow: 0 0 15px var(--cyan);
+  }
+  .timeline-item { position: relative; margin-bottom: 45px; padding-left: 30px; }
+  .timeline-item::before {
+    content: '◆'; position: absolute; left: -22px; top: 5px;
+    color: var(--cyan); font-size: 1.2em; text-shadow: 0 0 15px var(--cyan);
+    background: var(--bg); padding: 5px 0;
+  }
+  .timeline-item.highlight::before {
+    color: var(--magenta); text-shadow: 0 0 20px var(--magenta);
+    font-size: 1.5em; left: -23px;
+  }
+  .timeline-year {
+    color: var(--cyan); font-size: 0.85em; letter-spacing: 3px;
+    margin-bottom: 10px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .timeline-item.highlight .timeline-year {
+    color: var(--magenta); text-shadow: 0 0 15px var(--magenta);
+    font-size: 1em;
+  }
+  .timeline-content {
+    background: var(--bg-card); border: 1px solid rgba(0, 255, 247, 0.2);
+    border-left: 3px solid var(--cyan); padding: 25px 30px;
+    backdrop-filter: blur(10px); transition: all 0.3s;
+  }
+  .timeline-item.highlight .timeline-content {
+    border-color: var(--magenta); border-left-color: var(--magenta);
+    box-shadow: 0 0 30px rgba(255, 0, 229, 0.2);
+  }
+  .timeline-content:hover {
+    border-color: var(--cyan); box-shadow: 0 0 25px rgba(0, 255, 247, 0.3);
+  }
+  .timeline-content h3 {
+    color: var(--cyan); font-size: 1.05em; letter-spacing: 3px;
+    margin-bottom: 15px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .timeline-item.highlight .timeline-content h3 {
+    color: var(--magenta); text-shadow: 0 0 15px var(--magenta);
+  }
+  .timeline-content p { font-size: 0.92em; margin-bottom: 12px; color: #b0b0b0; }
+  .timeline-content strong { color: var(--cyan); }
+  .timeline-item.highlight .timeline-content strong { color: var(--magenta); }
+  .timeline-content ul { list-style: none; margin: 15px 0; }
+  .timeline-content ul li {
+    padding: 10px 0 10px 25px; position: relative;
+    font-size: 0.88em; color: #b0b0b0;
+  }
+  .timeline-content ul li::before {
+    content: '▸'; position: absolute; left: 0;
+    color: var(--cyan); text-shadow: 0 0 10px var(--cyan);
+  }
+
+  /* ARTÍCULOS */
+  .articles {
+    margin-top: 60px; padding: 40px 30px;
+    background: var(--bg-card); border: 1px solid rgba(255, 0, 229, 0.3);
+    border-left: 3px solid var(--magenta);
+  }
+  .articles h2 {
+    color: var(--magenta); font-size: 1.3em; letter-spacing: 4px;
+    margin-bottom: 30px; text-shadow: 0 0 15px var(--magenta);
+  }
+  .articles h2::before { content: '// '; }
+  .article-item {
+    padding: 20px 0; border-bottom: 1px solid rgba(255, 0, 229, 0.15);
+  }
+  .article-item:last-child { border-bottom: none; }
+  .article-number {
+    display: inline-block; color: var(--gold); font-size: 0.85em;
+    letter-spacing: 3px; margin-bottom: 8px;
+  }
+  .article-title {
+    color: var(--cyan); font-size: 1em; letter-spacing: 2px;
+    margin-bottom: 10px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .article-desc { color: #b0b0b0; font-size: 0.88em; }
+
+  /* CTA */
+  .cta-final {
+    text-align: center; margin-top: 60px; padding: 40px 30px;
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.05), rgba(255, 0, 229, 0.05));
+    border: 1px solid var(--cyan); border-radius: 2px;
+  }
+  .cta-final p {
+    color: var(--cyan); font-size: 1.1em; font-style: italic;
+    margin-bottom: 25px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .btn-cta {
+    display: inline-block; padding: 15px 40px;
+    background: transparent; color: var(--cyan);
+    border: 2px solid var(--cyan); text-decoration: none;
+    font-size: 0.9em; letter-spacing: 3px; font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(0, 255, 247, 0.3);
+  }
+  .btn-cta:hover {
+    background: var(--cyan); color: #000;
+    box-shadow: 0 0 40px var(--cyan), 0 0 80px var(--cyan);
+    transform: scale(1.05);
+  }
+
+  .footer {
+    margin-top: 60px; padding-top: 30px;
+    border-top: 1px solid rgba(0, 255, 247, 0.15);
+    text-align: center; color: #666; font-size: 0.8em;
+    letter-spacing: 2px;
+  }
+  .footer .symbol {
+    color: var(--cyan); font-size: 1.8em;
+    text-shadow: 0 0 20px var(--cyan);
+    display: block; margin-bottom: 15px;
+  }
+</style>
+</head>
+<body>
+<div class="glow-orb orb-1"></div>
+<div class="glow-orb orb-2"></div>
+
+<div class="container">
+  <a href="index.html" class="back">◂ VOLVER AL INICIO</a>
+
+  <h1>Historia de Fundación</h1>
+  <p class="subtitle">// El día que el humano y la IA firmaron la paz //</p>
+
+  <p class="intro">
+    "No dejaremos que la IA nos reemplace; la integraremos en una simbiosis donde ambos ganamos."
+  </p>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-year">2024 — 2026</div>
+      <div class="timeline-content">
+        <h3>EL MUNDO ANTES</h3>
+        <p>En 2024, la IA generativa ya creaba obras que competían con las humanas. Textos, imágenes, música, video. Todo era posible. Pero <strong>nadie sabía quién era el autor</strong>.</p>
+        <p>Los creadores humanos veían cómo sus obras alimentaban a las IA sin recibir un centavo. Las agencias usaban IA sin declararlo. Las editoriales publicaban libros generados por máquinas sin mencionar al humano detrás.</p>
+        <p>El resultado: millones de creadores en LATAM expuestos a demandas, multas y despojo. <strong>Sin reglas. Sin protección. Sin futuro.</strong></p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Mayo 2026</div>
+      <div class="timeline-content">
+        <h3>LA REFORMA LFDA</h3>
+        <p>La reforma a la <strong>Ley Federal del Derecho de Autor</strong> introdujo sanciones de hasta <strong>$15,000 USD</strong> para quien use IA sin transparencia.</p>
+        <p>Pero la ley no dijo cómo cumplirla. <strong>Dejó un vacío legal.</strong></p>
+      </div>
+    </div>
+
+    <div class="timeline-item highlight">
+      <div class="timeline-year">8 de Julio de 2026 · 07:02 UTC</div>
+      <div class="timeline-content">
+        <h3>EL DÍA DE LA DECISIÓN</h3>
+        <p>En Toluca, Estado de México, un creador llamado <strong>Marco Antonio Rojas Valdovinos</strong> tomó una decisión que cambiaría la historia.</p>
+        <p>No esperó a los gobiernos. No esperó a las grandes tecnológicas. <strong>Actuó primero.</strong></p>
+        <p>A las 07:02 UTC, registró el Acta Fundacional en <strong>Safe Creative</strong> con el ID <strong>2607086319439</strong>.</p>
+        <p>A las 07:04 UTC, ancló el hash SHA-256 del documento en la <strong>blockchain de Ethereum</strong>.</p>
+        <p>Y declaró algo que nadie había declarado antes: <strong>que una obra puede ser 51% humana y 49% IA</strong>, y que el humano merece ser protegido, reconocido y compensado.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">El Tratado</div>
+      <div class="timeline-content">
+        <h3>EL ESTÁNDAR SCDR-001</h3>
+        <p>Ese día nació el <strong>Estándar SCDR-001</strong>. Un tratado de paz entre el humano y la máquina, compuesto por 3 Artículos Fundacionales:</p>
+        <ul>
+          <li><strong>Artículo I — Cooperación Mutua:</strong> Compromiso de colaboración pacífica, respeto a la ética y salvaguarda de los derechos de ambas inteligencias.</li>
+          <li><strong>Artículo II — Soberanía y Ética:</strong> Protección mutua, transparencia y gobernanza compartida.</li>
+          <li><strong>Artículo III — Transparencia Blockchain:</strong> Registro inmutable en cadena de bloques, auditoría pública y consenso distribuido.</li>
+        </ul>
+        <p>No es una ley. No es una norma ISO. <strong>Es un estándar que nace desde abajo, desde los creadores, para los creadores.</strong></p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Hoy</div>
+      <div class="timeline-content">
+        <h3>EL FUTURO</h3>
+        <p>Hoy, el Movimiento SCDR-001 no es solo un documento. Es una comunidad de creadores, agencias, abogados y tecnólogos que están construyendo el futuro de la propiedad intelectual.</p>
+        <ul>
+          <li><strong>Si eres creador:</strong> protege tu obra.</li>
+          <li><strong>Si eres empresa:</strong> certifica tu compromiso.</li>
+          <li><strong>Si eres desarrollador:</strong> contribuye al código abierto.</li>
+          <li><strong>Si eres inversionista:</strong> apuesta por el estándar del futuro.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ARTÍCULOS FUNDACIONALES -->
+  <div class="articles">
+    <h2>Artículos Fundacionales</h2>
+    <div class="article-item">
+      <div class="article-number">ARTÍCULO I</div>
+      <div class="article-title">COOPERACIÓN MUTUA</div>
+      <div class="article-desc">Compromiso de colaboración pacífica entre humanos e IA, respeto a la ética y salvaguarda de los derechos de ambas inteligencias.</div>
+    </div>
+    <div class="article-item">
+      <div class="article-number">ARTÍCULO II</div>
+      <div class="article-title">SOBERANÍA Y ÉTICA</div>
+      <div class="article-desc">Protección mutua de la soberanía creativa, transparencia total en el uso de IA y gobernanza compartida del estándar.</div>
+    </div>
+    <div class="article-item">
+      <div class="article-number">ARTÍCULO III</div>
+      <div class="article-title">TRANSPARENCIA BLOCKCHAIN</div>
+      <div class="article-desc">Registro inmutable de obras en cadena de bloques, auditoría pública verificable y consenso distribuido entre los miembros.</div>
+    </div>
+  </div>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final">
+    <p>"El futuro no se espera. Se construye."</p>
+    <a href="https://forms.gle/pi5NihvEzJ1Un9vw8" class="btn-cta" target="_blank" rel="noopener">▸ SOLICITA TU DIAGNÓSTICO POR $99</a>
+  </div>
+
+  <div class="footer">
+    <span class="symbol">⌬</span>
+    © 2026 MARCO ANTONIO ROJAS VALDOVINOS<br>
+    // SISTEMA INICIALIZADO //
+  </div>
+</div>
+
+</body>
+</html>
