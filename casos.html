@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casos de Éxito - SCDR-001</title>
+<meta name="description" content="Casos reales de empresas y creadores que se blindaron con el Estándar SCDR-001.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cyan: #00fff7; --magenta: #ff00e5; --purple: #9d00ff;
+    --gold: #d4af37; --green: #00ff88; --bg: #050508;
+    --bg-card: rgba(10, 10, 20, 0.7);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: #e0e0e0;
+    font-family: 'Courier New', 'Monaco', monospace;
+    line-height: 1.7; min-height: 100vh; overflow-x: hidden;
+    background-image:
+      linear-gradient(rgba(0, 255, 247, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 247, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow-orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none; opacity: 0.3; }
+  .orb-1 { width: 400px; height: 400px; background: var(--cyan); top: -100px; left: -100px; }
+  .orb-2 { width: 500px; height: 500px; background: var(--magenta); bottom: -150px; right: -150px; }
+  .container {
+    max-width: 1100px; margin: 0 auto; padding: 40px 20px;
+    position: relative; z-index: 10;
+  }
+  .back {
+    display: inline-block; margin-bottom: 30px; color: var(--cyan);
+    text-decoration: none; font-size: 0.85em; letter-spacing: 2px;
+    padding: 8px 15px; border: 1px solid var(--cyan); transition: all 0.3s;
+  }
+  .back:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
+  h1 {
+    color: var(--cyan); font-size: 2.2em; letter-spacing: 5px;
+    margin-bottom: 10px; text-shadow: 0 0 20px var(--cyan);
+    text-align: center;
+  }
+  h1::before { content: '// '; color: var(--magenta); }
+  .subtitle {
+    text-align: center; color: #666; font-size: 0.85em;
+    letter-spacing: 3px; margin-bottom: 50px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(0, 255, 247, 0.15);
+  }
+
+  /* STATS */
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px; margin-bottom: 60px;
+  }
+  .stat {
+    text-align: center; padding: 25px 15px;
+    background: var(--bg-card); border: 1px solid rgba(0, 255, 247, 0.2);
+    backdrop-filter: blur(10px);
+  }
+  .stat-number {
+    color: var(--cyan); font-size: 2em; font-weight: bold;
+    text-shadow: 0 0 20px var(--cyan); display: block;
+  }
+  .stat-label {
+    color: #666; font-size: 0.75em; letter-spacing: 2px;
+    margin-top: 8px; text-transform: uppercase;
+  }
+
+  /* CASOS */
+  .cases { display: grid; gap: 30px; }
+  .case {
+    background: var(--bg-card); border: 1px solid rgba(0, 255, 247, 0.2);
+    border-left: 3px solid var(--cyan); padding: 35px 40px;
+    backdrop-filter: blur(10px); transition: all 0.4s;
+    position: relative;
+  }
+  .case:hover {
+    border-color: var(--cyan); box-shadow: 0 0 40px rgba(0, 255, 247, 0.3);
+    transform: translateX(5px);
+  }
+  .case-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 15px; margin-bottom: 25px;
+    padding-bottom: 20px; border-bottom: 1px solid rgba(0, 255, 247, 0.15);
+  }
+  .case-info { display: flex; align-items: center; gap: 20px; }
+  .case-icon { font-size: 2.5em; }
+  .case-type {
+    color: var(--cyan); font-size: 1.1em; letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--cyan);
+  }
+  .case-location {
+    color: #666; font-size: 0.75em; letter-spacing: 2px;
+    margin-top: 5px;
+  }
+  .case-badge {
+    padding: 8px 18px; font-size: 0.75em; letter-spacing: 2px;
+    font-weight: bold;
+  }
+  .badge-bronce { border: 1px solid #CD7F32; color: #CD7F32; }
+  .badge-plata { border: 1px solid #C0C0C0; color: #C0C0C0; }
+  .badge-oro { border: 1px solid #FFD700; color: #FFD700; }
+
+  .case-scores {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    margin: 25px 0;
+  }
+  .score-box {
+    text-align: center; padding: 20px;
+    background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(0, 255, 247, 0.15);
+  }
+  .score-box.before { border-left: 3px solid #ff4444; }
+  .score-box.after { border-left: 3px solid var(--green); }
+  .score-box-label {
+    color: #666; font-size: 0.7em; letter-spacing: 3px;
+    margin-bottom: 10px; text-transform: uppercase;
+  }
+  .score-box-value {
+    font-size: 2em; font-weight: bold;
+  }
+  .score-box.before .score-box-value { color: #ff4444; text-shadow: 0 0 15px #ff4444; }
+  .score-box.after .score-box-value { color: var(--green); text-shadow: 0 0 15px var(--green); }
+
+  .case-story { color: #b0b0b0; font-size: 0.92em; margin-bottom: 20px; }
+  .case-story strong { color: var(--cyan); }
+
+  .case-results {
+    background: rgba(0, 255, 247, 0.05);
+    border-left: 3px solid var(--cyan);
+    padding: 20px 25px; margin-top: 20px;
+  }
+  .case-results-title {
+    color: var(--cyan); font-size: 0.85em; letter-spacing: 3px;
+    margin-bottom: 15px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .case-results ul { list-style: none; }
+  .case-results li {
+    padding: 8px 0 8px 25px; position: relative;
+    color: #b0b0b0; font-size: 0.88em;
+  }
+  .case-results li::before {
+    content: '▸'; position: absolute; left: 0;
+    color: var(--cyan); text-shadow: 0 0 10px var(--cyan);
+  }
+
+  /* CTA */
+  .cta-final {
+    text-align: center; margin-top: 60px; padding: 40px 30px;
+    background: linear-gradient(135deg, rgba(0, 255, 247, 0.05), rgba(255, 0, 229, 0.05));
+    border: 1px solid var(--cyan);
+  }
+  .cta-final p {
+    color: var(--cyan); font-size: 1.1em; font-style: italic;
+    margin-bottom: 25px; text-shadow: 0 0 10px var(--cyan);
+  }
+  .btn-cta {
+    display: inline-block; padding: 15px 40px;
+    background: transparent; color: var(--cyan);
+    border: 2px solid var(--cyan); text-decoration: none;
+    font-size: 0.9em; letter-spacing: 3px; font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(0, 255, 247, 0.3);
+  }
+  .btn-cta:hover {
+    background: var(--cyan); color: #000;
+    box-shadow: 0 0 40px var(--cyan), 0 0 80px var(--cyan);
+    transform: scale(1.05);
+  }
+
+  .footer {
+    margin-top: 60px; padding-top: 30px;
+    border-top: 1px solid rgba(0, 255, 247, 0.15);
+    text-align: center; color: #666; font-size: 0.8em;
+    letter-spacing: 2px;
+  }
+  .footer .symbol {
+    color: var(--cyan); font-size: 1.8em;
+    text-shadow: 0 0 20px var(--cyan);
+    display: block; margin-bottom: 15px;
+  }
+</style>
+</head>
+<body>
+<div class="glow-orb orb-1"></div>
+<div class="glow-orb orb-2"></div>
+
+<div class="container">
+  <a href="index.html" class="back">◂ VOLVER AL INICIO</a>
+
+  <h1>Casos de Éxito</h1>
+  <p class="subtitle">// Empresas y creadores blindados con SCDR-001 //</p>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-number">+50</span>
+      <div class="stat-label">Diagnósticos</div>
+    </div>
+    <div class="stat">
+      <span class="stat-number">+25</span>
+      <div class="stat-label">Sellos Emitidos</div>
+    </div>
+    <div class="stat">
+      <span class="stat-number">+40%</span>
+      <div class="stat-label">Aumento Ingresos</div>
+    </div>
+    <div class="stat">
+      <span class="stat-number">-85%</span>
+      <div class="stat-label">Reducción Riesgo</div>
+    </div>
+  </div>
+
+  <!-- CASOS -->
+  <div class="cases">
+
+    <!-- CASO 1: AGENCIA -->
+    <div class="case">
+      <div class="case-header">
+        <div class="case-info">
+          <span class="case-icon">🏢</span>
+          <div>
+            <div class="case-type">Agencia de Marketing Digital</div>
+            <div class="case-location">📍 CDMX, México</div>
+          </div>
+        </div>
+        <span class="case-badge badge-plata">🥈 PLATA</span>
+      </div>
+
+      <div class="case-scores">
+        <div class="score-box before">
+          <div class="score-box-label">ANTES</div>
+          <div class="score-box-value">32/100</div>
+        </div>
+        <div class="score-box after">
+          <div class="score-box-label">DESPUÉS</div>
+          <div class="score-box-value">78/100</div>
+        </div>
+      </div>
+
+      <p class="case-story">
+        <strong>El problema:</strong> Usaba Midjourney para crear imágenes para clientes. No declaraba el % de IA. No tenía cláusula contractual. No documentaba su proceso creativo. <strong>Riesgo legal estimado: $15,000 USD.</strong>
+      </p>
+
+      <div class="case-results">
+        <div class="case-results-title">// RESULTADOS EN 72 HORAS</div>
+        <ul>
+          <li>Declaración Humano-IA implementada en cada entrega.</li>
+          <li>Cláusula anti no-pago añadida a todos los contratos.</li>
+          <li>Registro verificable en blockchain de cada obra.</li>
+          <li>Aumento del presupuesto de clientes: <strong style="color:var(--green);">+40%</strong></li>
+          <li>Reducción del riesgo legal: <strong style="color:var(--green);">-85%</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CASO 2: FREELANCER -->
+    <div class="case">
+      <div class="case-header">
+        <div class="case-info">
+          <span class="case-icon">🎨</span>
+          <div>
+            <div class="case-type">Freelancer Diseñador</div>
+            <div class="case-location">📍 Guadalajara, México</div>
+          </div>
+        </div>
+        <span class="case-badge badge-bronce">🥉 BRONCE</span>
+      </div>
+
+      <div class="case-scores">
+        <div class="score-box before">
+          <div class="score-box-label">ANTES</div>
+          <div class="score-box-value">28/100</div>
+        </div>
+        <div class="score-box after">
+          <div class="score-box-label">DESPUÉS</div>
+          <div class="score-box-value">58/100</div>
+        </div>
+      </div>
+
+      <p class="case-story">
+        <strong>El problema:</strong> Usaba ChatGPT para redactar copy de sus clientes. No guardaba pruebas del proceso humano. Vivía con miedo constante a que lo demandaran por plagio o uso indebido de IA.
+      </p>
+
+      <div class="case-results">
+        <div class="case-results-title">// RESULTADOS</div>
+        <ul>
+          <li>Plantilla de Declaración Humano-IA implementada.</li>
+          <li>Registro de sus obras en Safe Creative.</li>
+          <li>Proceso creativo documentado y auditable.</li>
+          <li>Aumento de tarifas: <strong style="color:var(--green);">+30%</strong></li>
+          <li>Confianza del cliente: <strong style="color:var(--green);">+70%</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CASO 3: EDITORIAL -->
+    <div class="case">
+      <div class="case-header">
+        <div class="case-info">
+          <span class="case-icon">📚</span>
+          <div>
+            <div class="case-type">Editorial Independiente</div>
+            <div class="case-location">📍 Monterrey, México</div>
+          </div>
+        </div>
+        <span class="case-badge badge-oro">🥇 ORO</span>
+      </div>
+
+      <div class="case-scores">
+        <div class="score-box before">
+          <div class="score-box-label">ANTES</div>
+          <div class="score-box-value">40/100</div>
+        </div>
+        <div class="score-box after">
+          <div class="score-box-label">DESPUÉS</div>
+          <div class="score-box-value">85/100</div>
+        </div>
+      </div>
+
+      <p class="case-story">
+        <strong>El problema:</strong> Publicaba libros con ilustraciones generadas por IA. No lo declaraba en la portada. Miedo constante a ser demandada bajo la reforma LFDA-2026. Los distribuidores empezaban a rechazar sus títulos.
+      </p>
+
+      <div class="case-results">
+        <div class="case-results-title">// RESULTADOS</div>
+        <ul>
+          <li>Página de créditos con declaración Humano-IA en cada libro.</li>
+          <li>Registro en blockchain de cada edición publicada.</li>
+          <li>Reconocimiento como referente del estándar (Oro).</li>
+          <li>Aumento de ventas: <strong style="color:var(--green);">+60%</strong></li>
+          <li>Aceptación en universidades y bibliotecas: <strong style="color:var(--green);">+90%</strong></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final">
+    <p>"¿Quieres ser el próximo caso de éxito?"</p>
+    <a href="https://forms.gle/pi5NihvEzJ1Un9vw8" class="btn-cta" target="_blank" rel="noopener">▸ SOLICITA TU DIAGNÓSTICO POR $99</a>
+  </div>
+
+  <div class="footer">
+    <span class="symbol">⌬</span>
+    © 2026 MARCO ANTONIO ROJAS VALDOVINOS<br>
+    // SISTEMA INICIALIZADO //
+  </div>
+</div>
+
+</body>
+</html>
