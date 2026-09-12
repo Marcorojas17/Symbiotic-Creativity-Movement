@@ -1,717 +1,133 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movimiento de Co-Creatividad Simbiótica</title>
-<meta name="description" content="El Estándar Internacional para la Creación Humano-IA">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  :root {
-    --neon-cyan: #00f0ff;
-    --neon-magenta: #ff00aa;
-    --neon-purple: #a855f7;
-    --neon-green: #39ff14;
-    --dark-bg: #0a0014;
-    --darker-bg: #050008;
-  }
-  
-  html, body {
-    background: var(--dark-bg);
-    color: #e0e0ff;
-    font-family: 'Share Tech Mono', monospace;
-    overflow-x: hidden;
-    cursor: crosshair;
-    scroll-behavior: smooth;
-  }
-  
-  /* Cursor personalizado */
-  body::after {
-    content: '';
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--neon-cyan);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease;
-    box-shadow: 0 0 20px var(--neon-cyan), inset 0 0 20px var(--neon-cyan);
-    mix-blend-mode: difference;
-  }
-  
-  /* Canvas de partículas */
-  #particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
-  
-  /* Grid cyberpunk de fondo */
-  .grid-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image: 
-      linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 0, 170, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    z-index: 1;
-    pointer-events: none;
-    animation: gridMove 20s linear infinite;
-  }
-  
-  @keyframes gridMove {
-    0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-    100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
-  }
-  
-  /* Scanlines efecto CRT */
-  .scanlines {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-    z-index: 2;
-    pointer-events: none;
-    animation: scan 8s linear infinite;
-  }
-  
-  @keyframes scan {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100vh; }
-  }
-  
-  /* Contenido principal */
-  .container {
-    position: relative;
-    z-index: 10;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 30px;
-  }
-  
-  /* Header */
-  header {
-    text-align: center;
-    padding: 80px 0 60px;
-    position: relative;
-  }
-  
-  .logo-symbol {
-    font-size: 90px;
-    font-weight: 900;
-    color: var(--neon-cyan);
-    text-shadow: 
-      0 0 10px var(--neon-cyan),
-      0 0 30px var(--neon-cyan),
-      0 0 60px var(--neon-cyan),
-      0 0 100px var(--neon-cyan);
-    animation: pulse 2s ease-in-out infinite;
-    display: inline-block;
-    font-family: 'Orbitron', sans-serif;
-  }
-  
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.85; }
-  }
-  
-  h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(1.8rem, 5vw, 3.5rem);
-    font-weight: 900;
-    margin: 30px 0 20px;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    position: relative;
-    text-shadow: 
-      0 0 10px var(--neon-magenta),
-      0 0 20px var(--neon-magenta),
-      0 0 40px var(--neon-magenta);
-    animation: glitch 5s infinite;
-  }
-  
-  h1::before, h1::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  
-  h1::before {
-    color: var(--neon-cyan);
-    animation: glitchTop 2s infinite linear alternate-reverse;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-  }
-  
-  h1::after {
-    color: var(--neon-magenta);
-    animation: glitchBottom 1.5s infinite linear alternate-reverse;
-    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-  }
-  
-  @keyframes glitch {
-    0%, 90%, 100% { transform: translate(0); }
-    92% { transform: translate(-3px, 2px); }
-    94% { transform: translate(3px, -2px); }
-    96% { transform: translate(-2px, -1px); }
-    98% { transform: translate(2px, 1px); }
-  }
-  
-  @keyframes glitchTop {
-    0%, 100% { transform: translate(0); }
-    50% { transform: translate(-3px, 0); }
-  }
-  
-  @keyframes glitchBottom {
-    0%, 100% { transform: translate(0); }
-    50% { transform: translate(3px, 0); }
-  }
-  
-  .subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    color: var(--neon-cyan);
-    text-shadow: 0 0 10px var(--neon-cyan);
-    margin-bottom: 30px;
-    letter-spacing: 3px;
-    font-family: 'Share Tech Mono', monospace;
-  }
-  
-  .badges {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-  }
-  
-  .badge {
-    padding: 10px 20px;
-    border: 2px solid var(--neon-cyan);
-    background: rgba(0, 240, 255, 0.05);
-    color: var(--neon-cyan);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.85rem;
-    text-decoration: none;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 
-      0 0 10px rgba(0, 240, 255, 0.3),
-      inset 0 0 10px rgba(0, 240, 255, 0.1);
-  }
-  
-  .badge::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.4), transparent);
-    transition: left 0.5s;
-  }
-  
-  .badge:hover {
-    background: rgba(0, 240, 255, 0.2);
-    box-shadow: 
-      0 0 20px var(--neon-cyan),
-      0 0 40px var(--neon-cyan),
-      inset 0 0 20px rgba(0, 240, 255, 0.3);
-    transform: translateY(-3px);
-  }
-  
-  .badge:hover::before { left: 100%; }
-  
-  .badge.magenta {
-    border-color: var(--neon-magenta);
-    color: var(--neon-magenta);
-    box-shadow: 
-      0 0 10px rgba(255, 0, 170, 0.3),
-      inset 0 0 10px rgba(255, 0, 170, 0.1);
-  }
-  
-  .badge.magenta:hover {
-    background: rgba(255, 0, 170, 0.2);
-    box-shadow: 
-      0 0 20px var(--neon-magenta),
-      0 0 40px var(--neon-magenta),
-      inset 0 0 20px rgba(255, 0, 170, 0.3);
-  }
-  
-  /* Secciones */
-  section {
-    margin: 80px 0;
-    padding: 40px;
-    border: 1px solid rgba(0, 240, 255, 0.2);
-    background: rgba(10, 0, 20, 0.6);
-    backdrop-filter: blur(10px);
-    position: relative;
-    transition: all 0.5s ease;
-  }
-  
-  section::before {
-    content: '';
-    position: absolute;
-    top: -1px; left: -1px;
-    right: -1px; bottom: -1px;
-    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple), var(--neon-cyan));
-    background-size: 400% 400%;
-    z-index: -1;
-    animation: borderGlow 8s ease infinite;
-    opacity: 0.3;
-  }
-  
-  @keyframes borderGlow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  
-  section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 60px rgba(0, 240, 255, 0.2);
-  }
-  
-  h2 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    color: var(--neon-cyan);
-    text-shadow: 0 0 10px var(--neon-cyan);
-    margin-bottom: 25px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  h2::before {
-    content: '▸';
-    color: var(--neon-magenta);
-    text-shadow: 0 0 10px var(--neon-magenta);
-  }
-  
-  p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: #c0c0ff;
-    margin-bottom: 20px;
-  }
-  
-  .quote {
-    border-left: 3px solid var(--neon-magenta);
-    padding: 20px 30px;
-    margin: 30px 0;
-    background: rgba(255, 0, 170, 0.05);
-    font-style: italic;
-    color: #e0c0ff;
-    text-shadow: 0 0 5px rgba(255, 0, 170, 0.5);
-    position: relative;
-  }
-  
-  .quote::before {
-    content: '"';
-    position: absolute;
-    top: -20px; left: 15px;
-    font-size: 4rem;
-    color: var(--neon-magenta);
-    text-shadow: 0 0 20px var(--neon-magenta);
-    opacity: 0.4;
-  }
-  
-  .quote-author {
-    display: block;
-    margin-top: 15px;
-    color: var(--neon-cyan);
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px var(--neon-cyan);
-  }
-  
-  /* Objetivos como cards */
-  .objectives {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-  }
-  
-  .objective-card {
-    padding: 25px;
-    background: rgba(0, 240, 255, 0.03);
-    border: 1px solid rgba(0, 240, 255, 0.3);
-    position: relative;
-    transition: all 0.3s ease;
-    overflow: hidden;
-  }
-  
-  .objective-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 3px;
-    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-    transition: left 0.5s;
-  }
-  
-  .objective-card:hover {
-    background: rgba(0, 240, 255, 0.1);
-    border-color: var(--neon-cyan);
-    box-shadow: 
-      0 0 20px rgba(0, 240, 255, 0.4),
-      inset 0 0 20px rgba(0, 240, 255, 0.1);
-    transform: translateX(10px);
-  }
-  
-  .objective-card:hover::before { left: 100%; }
-  
-  .objective-number {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--neon-magenta);
-    text-shadow: 0 0 20px var(--neon-magenta);
-    line-height: 1;
-    margin-bottom: 15px;
-  }
-  
-  .objective-text {
-    color: #e0e0ff;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  /* Links de verificación */
-  .verify-links {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 25px;
-  }
-  
-  .verify-link {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 20px;
-    background: rgba(168, 85, 247, 0.05);
-    border: 1px solid var(--neon-purple);
-    color: #e0e0ff;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-family: 'Share Tech Mono', monospace;
-  }
-  
-  .verify-link:hover {
-    background: rgba(168, 85, 247, 0.15);
-    box-shadow: 
-      0 0 20px rgba(168, 85, 247, 0.5),
-      inset 0 0 20px rgba(168, 85, 247, 0.1);
-    transform: translateX(10px);
-    color: var(--neon-purple);
-    text-shadow: 0 0 10px var(--neon-purple);
-  }
-  
-  .verify-link .arrow {
-    color: var(--neon-purple);
-    font-size: 1.5rem;
-    transition: transform 0.3s;
-  }
-  
-  .verify-link:hover .arrow {
-    transform: translateX(5px);
-  }
-  
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 60px 20px 40px;
-    border-top: 1px solid rgba(0, 240, 255, 0.2);
-    margin-top: 80px;
-    position: relative;
-    z-index: 10;
-  }
-  
-  .footer-text {
-    color: #8080a0;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-  }
-  
-  .footer-neon {
-    color: var(--neon-cyan);
-    text-shadow: 0 0 10px var(--neon-cyan);
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    letter-spacing: 3px;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .container { padding: 30px 15px; }
-    section { padding: 25px; }
-    header { padding: 40px 0; }
-  }
-  
-  /* Animación de entrada */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease forwards;
-  }
-  
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
-</head>
-<body>
+---
+layout: default
+title: Simbiosis Digital - Movimiento SCDR-001
+---
 
-<canvas id="particles"></canvas>
-<div class="grid-bg"></div>
-<div class="scanlines"></div>
+# ⌬ SIMBIOSIS DIGITAL
+### // MOVIMIENTO DE CO-CREATIVIDAD SIMBIÓTICA //
 
-<div class="container">
+[![Safe Creative](https://img.shields.io/badge/Safe%20Creative-2607086319439-blue)](https://www.safecreative.org/certificate/2607086319439)
+[![Blockchain](https://img.shields.io/badge/Ethereum-Auditado-purple)](https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e)
 
-  <header class="fade-in">
-    <div class="logo-symbol">⌬</div>
-    <h1 data-text="SIMBIOSIS DIGITAL">SIMBIOSIS DIGITAL</h1>
-    <p class="subtitle">// MOVIMIENTO DE CO-CREATIVIDAD SIMBIÓTICA //</p>
-    
-    <div class="badges">
-      <a href="https://www.safecreative.org/certificate/2607086319439" target="_blank" class="badge">
-        ◆ Safe Creative: 2607086319439
-      </a>
-      <a href="https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e" target="_blank" class="badge magenta">
-        ◆ Ethereum: Auditado
-      </a>
-    </div>
-  </header>
+---
 
-  <section class="fade-in" style="animation-delay: 0.2s;">
-    <h2>¿Qué es esto?</h2>
-    <p>
-      El <strong style="color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan);">8 de julio de 2026</strong>, se registró el Acta Fundacional que establece las bases para una relación simbiótica entre creadores humanos e inteligencia artificial.
-    </p>
-    <div class="quote">
-      No dejaremos que la IA nos reemplace; la integraremos en una simbiosis donde ambos ganamos.
-      <span class="quote-author">— MARCO ANTONIO ROJAS VALDOVINOS</span>
-    </div>
-  </section>
+## ⚠️ ALERTA LEGAL: LA REFORMA A LA LFDA-2026 YA ESTÁ EN VIGOR
 
-  <section class="fade-in" style="animation-delay: 0.4s;">
-    <h2>Objetivos</h2>
-    <div class="objectives">
-      <div class="objective-card">
-        <div class="objective-number">01</div>
-        <div class="objective-text">Establecer un estándar internacional (ISO) para la co-creación Humano-IA.</div>
-      </div>
-      <div class="objective-card">
-        <div class="objective-number">02</div>
-        <div class="objective-text">Proteger los derechos de autor en la era de la IA generativa.</div>
-      </div>
-      <div class="objective-card">
-        <div class="objective-number">03</div>
-        <div class="objective-text">Crear un sistema de regalías automáticas vía Smart Contracts (51/49).</div>
-      </div>
-      <div class="objective-card">
-        <div class="objective-number">04</div>
-        <div class="objective-text">Fomentar el "Respeto Digital" como valor fundamental de la nueva economía creativa.</div>
-      </div>
-    </div>
-  </section>
+> **Sanciones de hasta $15,000 USD** por usar IA sin declarar el porcentaje humano.
+>
+> ¿Estás protegido? Descúbrelo en 5 minutos.
+>
+> ### 👉 [SOLICITA TU DIAGNÓSTICO POR $99 USD](https://forms.gle/pi5NihvEzJ1Un9vw8)
 
-  <section class="fade-in" style="animation-delay: 0.6s;">
-    <h2>Verificación Oficial</h2>
-    <div class="verify-links">
-      <a href="https://www.safecreative.org/certificate/2607086319439" target="_blank" class="verify-link">
-        <span class="arrow">▸</span>
-        <span>Certificado Safe Creative — ID 2607086319439</span>
-      </a>
-      <a href="https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e" target="_blank" class="verify-link">
-        <span class="arrow">▸</span>
-        <span>Auditoría Blockchain — Ethereum Mainnet</span>
-      </a>
-      <a href="https://github.com/Marcorojas17/Symbiotic-Creativity-Movement" target="_blank" class="verify-link">
-        <span class="arrow">▸</span>
-        <span>Repositorio Oficial — GitHub</span>
-      </a>
-    </div>
-  </section>
+---
 
-  <section class="fade-in" style="animation-delay: 0.8s;">
-    <h2>Únete al Movimiento</h2>
-    <p>
-      El futuro no se espera. <strong style="color: var(--neon-magenta); text-shadow: 0 0 10px var(--neon-magenta);">Se construye.</strong>
-    </p>
-    <p>
-      Creadores, desarrolladores, abogados y empresas: este es su llamado. Juntos estamos reescribiendo las reglas de la creación en la era de la inteligencia artificial.
-    </p>
-    <div class="badges" style="justify-content: flex-start; margin-top: 30px;">
-      <a href="https://github.com/Marcorojas17/Symbiotic-Creativity-Movement" target="_blank" class="badge">
-        ◆ Contribuir en GitHub
-      </a>
-      <a href="mailto:marco.a.rojas.v@hotmail.com" class="badge magenta">
-        ◆ Contacto Directo
-      </a>
-    </div>
-  </section>
+## 📜 ¿Qué es esto?
 
-</div>
+El 8 de julio de 2026, se registró el **Acta Fundacional** que establece las bases para una relación simbiótica entre creadores humanos e inteligencia artificial.
 
-<footer>
-  <div class="footer-text">// SISTEMA INICIALIZADO //</div>
-  <div class="footer-neon">⌬ SIMBIOSIS DIGITAL ⌬</div>
-  <div class="footer-text" style="margin-top: 20px;">
-    © 2026 MARCO ANTONIO ROJAS VALDOVINOS
-  </div>
-</footer>
+> *"No dejaremos que la IA nos reemplace; la integraremos en una simbiosis donde ambos ganamos."*
+> — **MARCO ANTONIO ROJAS VALDOVINOS**
 
-<script>
-  // Sistema de partículas neón
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  
-  let particles = [];
-  let mouse = { x: null, y: null };
-  
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  
-  resize();
-  window.addEventListener('resize', resize);
-  
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.x;
-    mouse.y = e.y;
-  });
-  
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 2 + 0.5;
-      this.speedX = (Math.random() - 0.5) * 0.5;
-      this.speedY = (Math.random() - 0.5) * 0.5;
-      this.color = Math.random() > 0.5 ? '0, 240, 255' : '255, 0, 170';
-      this.alpha = Math.random() * 0.5 + 0.2;
-    }
-    
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      
-      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      
-      // Interacción con el mouse
-      if (mouse.x && mouse.y) {
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
-          this.x += dx / dist * 1.5;
-          this.y += dy / dist * 1.5;
-        }
-      }
-    }
-    
-    draw() {
-      ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = `rgba(${this.color}, 1)`;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-  
-  function initParticles() {
-    particles = [];
-    const count = Math.min(100, Math.floor(window.innerWidth / 15));
-    for (let i = 0; i < count; i++) {
-      particles.push(new Particle());
-    }
-  }
-  
-  initParticles();
-  window.addEventListener('resize', initParticles);
-  
-  function connectParticles() {
-    for (let a = 0; a < particles.length; a++) {
-      for (let b = a + 1; b < particles.length; b++) {
-        const dx = particles[a].x - particles[b].x;
-        const dy = particles[a].y - particles[b].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        if (dist < 120) {
-          const opacity = (1 - dist / 120) * 0.3;
-          ctx.strokeStyle = `rgba(0, 240, 255, ${opacity})`;
-          ctx.lineWidth = 0.5;
-          ctx.beginPath();
-          ctx.moveTo(particles[a].x, particles[a].y);
-          ctx.lineTo(particles[b].x, particles[b].y);
-          ctx.stroke();
-        }
-      }
-    }
-  }
-  
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
-    
-    connectParticles();
-    requestAnimationFrame(animate);
-  }
-  
-  animate();
-  
-  // Efecto de cursor personalizado
-  const cursor = document.createElement('div');
-  document.body.appendChild(cursor);
-  
-  document.addEventListener('mousemove', (e) => {
-    document.body.style.setProperty('--cursor-x', e.clientX + 'px');
-    document.body.style.setProperty('--cursor-y', e.clientY + 'px');
-  });
-  
-  // Animación de entrada escalonada
-  document.querySelectorAll('.fade-in').forEach((el) => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = 'running';
-        }
-      });
-    });
-    observer.observe(el);
-  });
-</script>
+---
 
-</body>
-</html>
+## 🎯 Objetivos del Movimiento
+
+**01.** Establecer un estándar internacional (ISO) para la co-creación Humano-IA.
+
+**02.** Proteger los derechos de autor en la era de la IA generativa.
+
+**03.** Crear un sistema de regalías automáticas vía Smart Contracts (51/49).
+
+**04.** Fomentar el "Respeto Digital" como valor fundamental de la nueva economía creativa.
+
+---
+
+## 🛡️ Servicios de Blindaje Legal
+
+### 📊 Diagnóstico SCDR-001 — $99 USD
+**Evaluación de riesgo legal + Respect Score + Plan de Blindaje en 24h.**
+Ideal para creadores, agencias y freelancers que usan IA.
+
+👉 **[Solicitar Diagnóstico](https://forms.gle/pi5NihvEzJ1Un9vw8)**
+
+---
+
+### 🥉 Certificación Bronce — $149 USD
+**Sello de Respeto Digital + Certificado NFT + Auditoría básica.**
+Para quienes quieren demostrar su compromiso inicial con el estándar.
+
+👉 **[Obtener Certificación Bronce](https://mpago.la/1vhdJQJ)**
+
+---
+
+### 🥈 Certificación Plata — $399 USD
+**Blindaje completo + Cláusula contractual anti no-pago + Registro en Blockchain.**
+El nivel recomendado para agencias y PYMES que quieren protección real.
+
+👉 **[Obtener Certificación Plata](https://mpago.la/15PfwSW)**
+
+---
+
+### 🥇 Certificación Oro — $799 USD
+**Voto en SIPs + Mención destacada en el Whitepaper + Consultoría trimestral.**
+Para corporaciones que quieren liderar la nueva economía simbiótica.
+
+👉 **[Obtener Certificación Oro](https://mpago.la/2hojAVi)**
+
+---
+
+### 💎 Certificación Platino — $1,499 USD
+**Asiento en el Consejo Asesor + Acceso vitalicio a la DAO + Monitoreo continuo.**
+El máximo reconocimiento. Para quienes escriben las reglas del futuro.
+
+👉 **[Obtener Certificación Platino](https://mpago.la/2Q7EcUt)**
+
+---
+
+### 💼 Consultoría Individual — $99 USD
+**Sesión 1 a 1 de 60 minutos con el fundador.**
+Hoja de ruta personalizada para tu caso específico.
+
+👉 **[Agendar Consultoría](https://mpago.la/2CnKmvR)**
+
+---
+
+## 🔐 Verificación Oficial
+
+▸ **[Certificado Safe Creative — ID 2607086319439](https://www.safecreative.org/certificate/2607086319439)**
+
+▸ **[Auditoría Blockchain — Ethereum Mainnet](https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e)**
+
+▸ **[Repositorio Oficial — GitHub](https://github.com/marcorojas17/Symbiotic-Creativity-Movement)**
+
+---
+
+## 🤝 Únete al Movimiento
+
+> **El futuro no se espera. Se construye.**
+
+Creadores, desarrolladores, abogados y empresas: este es su llamado. Juntos estamos reescribiendo las reglas de la creación en la era de la inteligencia artificial.
+
+- **👤 Creadores:** Registra tus obras bajo la Licencia Simbiótica.
+- **🏢 Empresas:** Solicita tu Certificación de Respeto Digital.
+- **💻 Desarrolladores:** Contribuye al código abierto en GitHub.
+- **⚖️ Abogados:** Ayuda a expandir el estándar en LATAM.
+
+### 📞 Contacto Directo
+
+- **📧 Email:** [marco.a.rojas.v@hotmail.com](mailto:marco.a.rojas.v@hotmail.com)
+- **📱 WhatsApp:** [+52 722 586 2335](https://wa.me/527225862335)
+- **🐙 GitHub:** [Symbiotic-Creativity-Movement](https://github.com/marcorojas17/Symbiotic-Creativity-Movement)
+
+---
+
+## 📚 Documentación Oficial
+
+- 📘 [Whitepaper Completo](01-LEGAL/Whitepaper_Symbiotic_Creativity.md)
+- 📜 [Licencia Simbiótica v1.0](01-LEGAL/Symbiotic_License_v1.0.md)
+- 🍪 [Política de Cookies](01-LEGAL/COOKIE_POLICY.md)
+- 🔒 [Política de Privacidad](01-LEGAL/PRIVACY_POLICY.md)
+- 📋 [Términos y Condiciones](01-LEGAL/TERMS_OF_SERVICE.md)
+- ⚖️ [Aviso Legal](01-LEGAL/LEGAL_NOTICE.md)
+
+---
