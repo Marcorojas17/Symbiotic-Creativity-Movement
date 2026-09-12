@@ -1,0 +1,29 @@
+{
+  "name": "symbiotic-creativity-contracts",
+  "version": "1.0.0",
+  "description": "Smart Contracts del Movimiento de Co-Creatividad Simbiotica y Respeto Digital",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet"
+  },
+  "keywords": [
+    "symbiotic",
+    "creativity",
+    "AI",
+    "blockchain",
+    "ethereum",
+    "royalties",
+    "DAO"
+  ],
+  "author": "Marco Antonio Rojas Valdovinos",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.19.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "dotenv": "^16.3.1"
+  }
+}
