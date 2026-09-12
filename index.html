@@ -32,7 +32,6 @@
     padding-top: 70px;
   }
 
-  /* FONDO ANIMADO */
   #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.15; }
 
   .grid-bg {
@@ -61,7 +60,6 @@
   @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-80px, -60px); } }
   @keyframes float3 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-100px, 100px); } }
 
-  /* NAVBAR */
   .navbar {
     position: fixed; top: 0; left: 0; width: 100%;
     background: var(--bg-nav); backdrop-filter: blur(20px);
@@ -95,7 +93,7 @@
   .nav-item:hover .arrow { transform: rotate(180deg); }
 
   .dropdown {
-    position: absolute; top: 100%; left: 0; min-width: 300px;
+    position: absolute; top: 100%; left: 0; min-width: 320px;
     background: rgba(5, 5, 8, 0.98); backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 255, 247, 0.3); border-top: 2px solid var(--cyan);
     box-shadow: 0 10px 40px rgba(0, 255, 247, 0.2); padding: 10px 0;
@@ -120,7 +118,6 @@
   }
   .hamburger:hover { background: rgba(0, 255, 247, 0.1); box-shadow: 0 0 15px var(--cyan); }
 
-  /* CONTENIDO */
   .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 10; }
 
   header { text-align: center; padding: 60px 0 50px; position: relative; }
@@ -278,6 +275,11 @@
     background: var(--magenta); color: #000; font-size: 0.65em; padding: 4px 12px;
     letter-spacing: 2px; font-weight: bold; box-shadow: 0 0 15px var(--magenta);
   }
+  .service.new::after {
+    content: '✦ NUEVO'; position: absolute; top: 15px; right: 15px;
+    background: var(--green); color: #000; font-size: 0.65em; padding: 4px 12px;
+    letter-spacing: 2px; font-weight: bold; box-shadow: 0 0 15px var(--green);
+  }
 
   .verify-list { list-style: none; }
   .verify-list li {
@@ -350,7 +352,7 @@
       background: rgba(0, 255, 247, 0.03); border: none; border-left: 2px solid var(--cyan);
       box-shadow: none; max-height: 0; overflow: hidden; padding: 0; transition: max-height 0.3s;
     }
-    .nav-item:hover .dropdown { max-height: 500px; }
+    .nav-item:hover .dropdown { max-height: 700px; }
     .dropdown li a { padding: 12px 30px; }
   }
 
@@ -398,6 +400,7 @@
         <a href="#servicios" class="nav-link">Servicios <span class="arrow">▼</span></a>
         <ul class="dropdown">
           <li><a href="#servicios">📊 Diagnóstico SCDR-001 — $99</a></li>
+          <li><a href="geo.html">🌐 Diagnóstico GEO — $149</a></li>
           <li><a href="#servicios">📄 Informe Detallado — $199</a></li>
           <li><a href="#servicios">💼 Consultoría Individual — $99</a></li>
           <li><a href="#servicios">🥉 Sello Bronce — $149</a></li>
@@ -486,6 +489,12 @@
         <div class="service-header"><h3>📊 Diagnóstico SCDR-001</h3><span class="price">$99 USD</span></div>
         <p>Evaluación de riesgo documental + Respect Score + Plan de Blindaje en 24h. Ideal para creadores, agencias y freelancers que usan IA.</p>
         <a href="https://forms.gle/pi5NihvEzJ1Un9vw8" class="btn" target="_blank" rel="noopener">Solicitar Diagnóstico</a>
+      </div>
+
+      <div class="service new">
+        <div class="service-header"><h3>🌐 Diagnóstico GEO</h3><span class="price">$149 USD</span></div>
+        <p>Google ya mide la visibilidad en IA. Analizamos si tu marca aparece en AI Overviews, comparamos con tu competencia y te damos un plan de acción para ser citado por IA.</p>
+        <a href="geo.html" class="btn">Conocer más</a>
       </div>
 
       <div class="service featured">
