@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marcorojas17.github.io/Symbiotic-Creativity-Movement/sitemap.xml
