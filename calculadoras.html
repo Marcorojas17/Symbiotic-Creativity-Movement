@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCDR-001 · Calculadoras de Métricas</title>
+<meta name="description" content="Calculadoras oficiales del Estándar SCDR-001: %AH Humano-IA, Respect Score y Precios.">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --green: #00ff41; --cyan: #00ffff; --magenta: #ff00ff;
+  --purple: #8b5cf6; --red: #ff0040; --yellow: #ffcc00;
+  --bg: #0a0d10; --bg-card: rgba(0, 20, 10, 0.6);
+  --border: rgba(0, 255, 65, 0.2);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg); color: var(--green);
+  font-family: 'Courier New', 'Monaco', monospace;
+  line-height: 1.7; overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.1; pointer-events: none; }
+
+.scanlines {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+  z-index: 1; pointer-events: none; animation: scanMove 8s linear infinite;
+}
+@keyframes scanMove { 0% { transform: translateY(0); } 100% { transform: translateY(12px); } }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 10; }
+
+/* HEADER */
+.header { text-align: center; padding: 40px 0 30px; border-bottom: 2px solid var(--border); margin-bottom: 40px; }
+h1 {
+  font-size: 2em; color: var(--green);
+  text-shadow: 0 0 10px var(--green), 0 0 20px var(--green), 0 0 40px var(--green);
+  letter-spacing: 5px; margin-bottom: 15px; animation: glitch 5s infinite;
+}
+@keyframes glitch {
+  0%,90%,100% { transform: translate(0); }
+  91% { transform: translate(-3px, 2px); color: var(--red); }
+  92% { transform: translate(3px, -2px); color: var(--cyan); }
+  93% { transform: translate(-2px, 1px); color: var(--magenta); }
+}
+.subtitle { color: rgba(0,255,65,0.6); letter-spacing: 4px; font-size: 0.85em; }
+
+/* TABS */
+.tabs { display: flex; gap: 0; margin-bottom: 30px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+.tab {
+  padding: 15px 30px; background: transparent; color: rgba(0,255,65,0.5);
+  border: none; border-bottom: 3px solid transparent;
+  font-family: inherit; font-size: 0.9em; cursor: pointer;
+  letter-spacing: 2px; transition: all 0.3s;
+}
+.tab:hover { color: var(--green); background: rgba(0,255,65,0.05); }
+.tab.active { color: var(--green); border-bottom-color: var(--green); text-shadow: 0 0 10px var(--green); }
+
+.tab-content { display: none; animation: fadeIn 0.5s; }
+.tab-content.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* CARDS */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 4px solid var(--cyan); padding: 30px; margin-bottom: 25px;
+  backdrop-filter: blur(10px);
+}
+.card h2 { color: var(--cyan); font-size: 1.3em; letter-spacing: 3px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+.card h2::before { content: '>'; color: var(--green); animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.card h3 { color: var(--green); font-size: 1em; letter-spacing: 2px; margin: 25px 0 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+/* INPUTS */
+.input-group { margin-bottom: 20px; }
+.input-group label { display: block; color: var(--green); font-size: 0.85em; letter-spacing: 1px; margin-bottom: 8px; }
+.input-group input, .input-group select {
+  width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+  color: var(--green); padding: 12px 15px; font-family: inherit; font-size: 0.95em;
+  transition: all 0.3s;
+}
+.input-group input:focus, .input-group select:focus {
+  outline: none; border-color: var(--green);
+  box-shadow: 0 0 15px rgba(0,255,65,0.3);
+}
+.input-group small { display: block; color: rgba(0,255,65,0.5); font-size: 0.75em; margin-top: 5px; }
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+
+@media (max-width: 768px) {
+  .grid-2, .grid-4 { grid-template-columns: 1fr; }
+  h1 { font-size: 1.4em; letter-spacing: 3px; }
+  .tab { padding: 12px 15px; font-size: 0.8em; }
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-block; padding: 15px 40px; background: transparent;
+  color: var(--green); border: 2px solid var(--green);
+  font-family: inherit; font-size: 1em; letter-spacing: 3px;
+  cursor: pointer; transition: all 0.3s; text-decoration: none;
+  box-shadow: 0 0 15px rgba(0,255,65,0.3);
+}
+.btn:hover { background: var(--green); color: #000; box-shadow: 0 0 40px var(--green); transform: translateY(-2px); }
+.btn.full { width: 100%; text-align: center; }
+
+/* RESULTS */
+.result {
+  background: rgba(0,0,0,0.6); border: 2px solid var(--cyan);
+  padding: 30px; margin-top: 30px; text-align: center;
+  box-shadow: 0 0 30px rgba(0,255,255,0.2);
+}
+.result-score { font-size: 4em; font-weight: bold; color: var(--cyan); text-shadow: 0 0 30px var(--cyan); line-height: 1; }
+.result-label { color: rgba(0,255,65,0.6); font-size: 0.85em; letter-spacing: 3px; margin-top: 10px; }
+.result-level { font-size: 1.5em; font-weight: bold; letter-spacing: 3px; margin-top: 20px; padding: 15px; border: 2px solid; display: inline-block; }
+
+.result-level.platino { color: #e5e4e2; border-color: #e5e4e2; box-shadow: 0 0 30px rgba(229,228,226,0.5); }
+.result-level.oro { color: #ffd700; border-color: #ffd700; box-shadow: 0 0 30px rgba(255,215,0,0.5); }
+.result-level.plata { color: #c0c0c0; border-color: #c0c0c0; box-shadow: 0 0 30px rgba(192,192,192,0.5); }
+.result-level.bronce { color: #cd7f32; border-color: #cd7f32; box-shadow: 0 0 30px rgba(205,127,50,0.5); }
+.result-level.rechazado { color: var(--red); border-color: var(--red); box-shadow: 0 0 30px rgba(255,0,64,0.5); }
+
+/* PROGRESS */
+.progress-item { margin: 15px 0; }
+.progress-label { display: flex; justify-content: space-between; color: var(--green); font-size: 0.85em; margin-bottom: 8px; }
+.progress-bar { height: 10px; background: rgba(0,255,65,0.1); border: 1px solid var(--border); overflow: hidden; }
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--green), var(--cyan));
+  box-shadow: 0 0 10px var(--green); transition: width 1s ease-out; position: relative;
+}
+.progress-fill::after {
+  content: ''; position: absolute; top: 0; right: 0; width: 20px; height: 100%;
+  background: linear-gradient(90deg, transparent, white); animation: shine 2s infinite;
+}
+@keyframes shine { 0%,100% { opacity: 0; } 50% { opacity: 0.6; } }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85em; }
+th, td { border: 1px solid var(--border); padding: 12px 15px; text-align: left; }
+th { background: rgba(0,255,65,0.08); color: var(--green); letter-spacing: 2px; }
+td { color: rgba(0,255,65,0.8); }
+td strong { color: var(--cyan); }
+
+/* FOOTER */
+footer { text-align: center; padding: 60px 20px 40px; border-top: 2px solid var(--border); margin-top: 60px; color: rgba(0,255,65,0.4); font-size: 0.8em; }
+footer .symbol { color: var(--green); font-size: 2em; text-shadow: 0 0 20px var(--green); display: block; margin-bottom: 15px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { text-shadow: 0 0 20px var(--green); } 50% { text-shadow: 0 0 40px var(--green), 0 0 80px var(--green); } }
+footer a { color: var(--cyan); text-decoration: none; }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #0a0d10; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--green), var(--cyan)); }
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+<div class="scanlines"></div>
+
+<div class="container">
+
+  <div class="header">
+    <h1>⌬ CALCULADORAS SCDR-001</h1>
+    <p class="subtitle">// MÉTRICAS · SCORING · PRECIOS //</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('tab-ah')">🧮 %AH Humano-IA</button>
+    <button class="tab" onclick="showTab('tab-rs')">📊 Respect Score</button>
+    <button class="tab" onclick="showTab('tab-precios')">💰 Precios</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- TAB 1: CALCULADORA %AH -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-ah" class="tab-content active">
+
+    <div class="card">
+      <h2>CALCULADORA DE %AH (AUTORÍA HUMANA)</h2>
+      <p style="color:rgba(0,255,65,0.6);font-size:0.9em;margin-bottom:20px;">
+        Basada en el Sistema UDC (Unidades de Decisión y Control) · Documento Fundacional 1
+      </p>
+
+      <!-- FASE 1 -->
+      <h3>📑 FASE 1 · CONCEPTO (Peso: 30%)</h3>
+      <div class="grid-2">
+        <div class="input-group">
+          <label>Concepto Original (100 pts)</label>
+          <input type="number" id="f1-original" value="0" min="0" max="1">
+          <small>Cantidad de conceptos originales inéditos</small>
+        </div>
+        <div class="input-group">
+          <label>Concepto Derivado (60 pts)</label>
+          <input type="number" id="f1-derivado" value="0" min="0">
+          <small>Inspirado en estilos existentes</small>
+        </div>
+        <div class="input-group">
+          <label>Concepto Genérico (20 pts)</label>
+          <input type="number" id="f1-generico" value="0" min="0">
+          <small>Arquetipos comunes</small>
+        </div>
+        <div class="input-group">
+          <label>Dirección Específica (80 pts)</label>
+          <input type="number" id="f1-dir-esp" value="0" min="0">
+          <small>Guion detallado / Estructura</small>
+        </div>
+        <div class="input-group">
+          <label>Dirección Genérica (30 pts)</label>
+          <input type="number" id="f1-dir-gen" value="0" min="0">
+          <small>Instrucciones básicas</small>
+        </div>
+      </div>
+
+      <!-- FASE 2 -->
+      <h3>🎛️ FASE 2 · DIRECCIÓN (Peso: 20%)</h3>
+      <div class="grid-2">
+        <div class="input-group">
+          <label>Prompts Iniciales Complejos (10 pts c/u)</label>
+          <input type="number" id="f2-iniciales" value="0" min="0">
+          <small>+100 caracteres con contexto</small>
+        </div>
+        <div class="input-group">
+          <label>Prompts Iterativos (5 pts c/u, máx 20)</label>
+          <input type="number" id="f2-iterativos" value="0" min="0" max="20">
+          <small>Refinamiento continuo</small>
+        </div>
+      </div>
+
+      <!-- FASE 3 -->
+      <h3>⚙️ FASE 3 · PRODUCCIÓN IA (Peso: 30%)</h3>
+      <div class="grid-2">
+        <div class="input-group">
+          <label>Generaciones IA Base (1 pt c/u)</label>
+          <input type="number" id="f3-generaciones" value="0" min="0">
+          <small>Renderizados/bloques/fragmentos</small>
+        </div>
+        <div class="input-group">
+          <label>Variaciones IA (0.5 pts por lote)</label>
+          <input type="number" id="f3-variaciones" value="0" min="0">
+          <small>Remixes / alteraciones</small>
+        </div>
+        <div class="input-group">
+          <label>Upscaling IA (0.5 pts c/u)</label>
+          <input type="number" id="f3-upscaling" value="0" min="0">
+          <small>Interpolación / optimización</small>
+        </div>
+      </div>
+
+      <!-- FASE 4 -->
+      <h3>🖌️ FASE 4 · EDICIÓN / CURACIÓN (Peso: 20%)</h3>
+      <div class="grid-2">
+        <div class="input-group">
+          <label>Curación (50 / 30 / 10 / 0 pts)</label>
+          <select id="f4-curacion">
+            <option value="0">Selección aleatoria (0 pts)</option>
+            <option value="10">Curación simple -20 opciones (10 pts)</option>
+            <option value="30">Curación media 20-100 opciones (30 pts)</option>
+            <option value="50">Curación compleja +100 opciones (50 pts)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Edición Manual (20 pts/hora, máx 10)</label>
+          <input type="number" id="f4-horas" value="0" min="0" max="10">
+          <small>Photoshop, DAW, edición de código</small>
+        </div>
+      </div>
+
+      <!-- BONOS -->
+      <h3>🚀 BONOS ADITIVOS TÉCNICOS (BAT)</h3>
+      <div class="input-group">
+        <label>Selecciona los bonos aplicables:</label>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+            <input type="checkbox" id="bat-multi" value="5" style="width:auto;">
+            <span>Integración de múltiples modelos (+5%)</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+            <input type="checkbox" id="bat-local" value="5" style="width:auto;">
+            <span>Uso de modelo local / Open Source (+5%)</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+            <input type="checkbox" id="bat-finetune" value="10" style="width:auto;">
+            <span>Fine-tuning con datos propios (+10%)</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+            <input type="checkbox" id="bat-scratch" value="20" style="width:auto;">
+            <span>Entrenamiento desde cero (+20%)</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn full" onclick="calcularAH()">▸ CALCULAR %AH</button>
+
+      <!-- RESULTADO -->
+      <div id="resultado-ah" class="result" style="display:none;">
+        <div class="result-score" id="ah-score">0%</div>
+        <div class="result-label">PORCENTAJE DE AUTORÍA HUMANA</div>
+        <div id="ah-level" class="result-level">—</div>
+
+        <div style="text-align:left;margin-top:30px;">
+          <h3 style="color:var(--cyan);">📊 Desglose por fase</h3>
+          <div class="progress-item">
+            <div class="progress-label"><span>F1 · Concepto (30%)</span><span id="ah-f1">0 / 0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="ah-f1-bar" style="width:0%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>F2 · Dirección (20%)</span><span id="ah-f2">0 / 0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="ah-f2-bar" style="width:0%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>F3 · Producción (30%)</span><span id="ah-f3">0 / 0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="ah-f3-bar" style="width:0%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>F4 · Edición (20%)</span><span id="ah-f4">0 / 0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="ah-f4-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <div id="ah-bat" style="margin-top:20px;color:var(--yellow);font-size:0.9em;"></div>
+        <div id="ah-verdict" style="margin-top:20px;padding:15px;background:rgba(0,0,0,0.5);border-left:3px solid var(--cyan);text-align:left;font-size:0.9em;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- TAB 2: CALCULADORA RESPECT SCORE -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-rs" class="tab-content">
+
+    <div class="card">
+      <h2>CALCULADORA DE RESPECT SCORE</h2>
+      <p style="color:rgba(0,255,65,0.6);font-size:0.9em;margin-bottom:20px;">
+        Basada en los 4 pilares del Estándar SCDR-001
+      </p>
+
+      <div class="input-group">
+        <label>📌 Pilar 1 · TRANSPARENCIA (Peso: 40%)</label>
+        <input type="number" id="rs-transparencia" value="50" min="0" max="100">
+        <small>¿Declaras el % de IA en tus obras? (0-100)</small>
+      </div>
+
+      <div class="input-group">
+        <label>💰 Pilar 2 · COMPENSACIÓN (Peso: 30%)</label>
+        <input type="number" id="rs-compensacion" value="50" min="0" max="100">
+        <small>¿Pagas regalías justas a creadores? (0-100)</small>
+      </div>
+
+      <div class="input-group">
+        <label>🔗 Pilar 3 · TRAZABILIDAD (Peso: 20%)</label>
+        <input type="number" id="rs-trazabilidad" value="50" min="0" max="100">
+        <small>¿Usas blockchain o sellado de tiempo? (0-100)</small>
+      </div>
+
+      <div class="input-group">
+        <label>🗳️ Pilar 4 · GOBERNANZA (Peso: 10%)</label>
+        <input type="number" id="rs-gobernanza" value="50" min="0" max="100">
+        <small>¿Participas activamente en el estándar? (0-100)</small>
+      </div>
+
+      <button class="btn full" onclick="calcularRS()">▸ CALCULAR RESPECT SCORE</button>
+
+      <div id="resultado-rs" class="result" style="display:none;">
+        <div class="result-score" id="rs-score">0</div>
+        <div class="result-label">RESPECT SCORE / 100</div>
+        <div id="rs-level" class="result-level">—</div>
+
+        <div style="text-align:left;margin-top:30px;">
+          <div class="progress-item">
+            <div class="progress-label"><span>Transparencia (40%)</span><span id="rs-p1">0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="rs-p1-bar" style="width:0%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Compensación (30%)</span><span id="rs-p2">0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="rs-p2-bar" style="width:0%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Trazabilidad (20%)</span><span id="rs-p3">0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="rs-p3-bar" style="width:0%"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label"><span>Gobernanza (10%)</span><span id="rs-p4">0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="rs-p4-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- TAB 3: CALCULADORA DE PRECIOS -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-precios" class="tab-content">
+
+    <div class="card">
+      <h2>CALCULADORA DE PRECIOS Y SERVICIOS</h2>
+      <p style="color:rgba(0,255,65,0.6);font-size:0.9em;margin-bottom:20px;">
+        Cotización instantánea en USD y MXN (tipo de cambio: 17.5 MXN/USD)
+      </p>
+
+      <div class="input-group">
+        <label>Selecciona el servicio:</label>
+        <select id="precio-servicio" onchange="calcularPrecio()">
+          <option value="99">📊 Diagnóstico SCDR-001 - $99 USD</option>
+          <option value="149">🌐 Diagnóstico GEO - $149 USD</option>
+          <option value="199">📄 Informe Detallado - $199 USD</option>
+          <option value="99">💼 Consultoría Individual - $99 USD</option>
+          <option value="149">🥉 Sello Bronce - $149 USD</option>
+          <option value="399">🥈 Sello Plata - $399 USD</option>
+          <option value="799">🥇 Sello Oro - $799 USD</option>
+          <option value="1499">💎 Sello Platino - $1,499 USD</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Tipo de cambio MXN/USD:</label>
+        <input type="number" id="precio-tc" value="17.5" step="0.1" onchange="calcularPrecio()">
+        <small>Actualiza según el tipo de cambio del día</small>
+      </div>
+
+      <button class="btn full" onclick="calcularPrecio()">▸ CALCULAR PRECIO</button>
+
+      <div id="resultado-precio" class="result" style="display:none;">
+        <div class="result-score" id="precio-usd">$0</div>
+        <div class="result-label">PRECIO EN USD</div>
+
+        <div style="margin-top:25px;padding:20px;background:rgba(0,0,0,0.5);border-left:3px solid var(--cyan);">
+          <div style="color:rgba(0,255,65,0.6);font-size:0.85em;">PRECIO EN PESOS MEXICANOS</div>
+          <div style="color:var(--green);font-size:2em;font-weight:bold;margin-top:5px;" id="precio-mxn">$0 MXN</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLA DE PRECIOS -->
+    <div class="card">
+      <h2>TABLA COMPLETA DE SERVICIOS</h2>
+      <table>
+        <tr><th>Servicio</th><th>USD</th><th>MXN</th></tr>
+        <tr><td>📊 Diagnóstico SCDR-001</td><td><strong>$99</strong></td><td id="tbl-99">$1,732</td></tr>
+        <tr><td>🌐 Diagnóstico GEO</td><td><strong>$149</strong></td><td id="tbl-149">$2,607</td></tr>
+        <tr><td>📄 Informe Detallado</td><td><strong>$199</strong></td><td id="tbl-199">$3,482</td></tr>
+        <tr><td>💼 Consultoría Individual</td><td><strong>$99</strong></td><td id="tbl-99b">$1,732</td></tr>
+        <tr><td>🥉 Sello Bronce</td><td><strong>$149</strong></td><td id="tbl-bronce">$2,607</td></tr>
+        <tr><td>🥈 Sello Plata</td><td><strong>$399</strong></td><td id="tbl-plata">$6,982</td></tr>
+        <tr><td>🥇 Sello Oro</td><td><strong>$799</strong></td><td id="tbl-oro">$13,982</td></tr>
+        <tr><td>💎 Sello Platino</td><td><strong>$1,499</strong></td><td id="tbl-platino">$26,232</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="symbol">⌬</span>
+    <p>// SISTEMA INICIALIZADO //</p>
+    <p style="font-size:1em;margin:15px 0;">SCDR-001 · Calculadoras v1.0 · 2026</p>
+    <p style="margin-top:20px;">
+      <a href="https://github.com/Marcorojas17/kronos-vault">GitHub</a> ·
+      <a href="https://www.safecreative.org/certificate/2607086319439">Safe Creative</a> ·
+      <a href="https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e">Etherscan</a>
+    </p>
+    <p style="margin-top:25px;font-size:0.85em;">Herramientas oficiales del Estándar SCDR-001.</p>
+  </footer>
+
+</div>
+
+<script>
+// ═══════════════ TABS ═══════════════
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ═══════════════ CALCULADORA %AH ═══════════════
+function calcularAH() {
+  // FASE 1
+  const f1_original = parseFloat(document.getElementById('f1-original').value) || 0;
+  const f1_derivado = parseFloat(document.getElementById('f1-derivado').value) || 0;
+  const f1_generico = parseFloat(document.getElementById('f1-generico').value) || 0;
+  const f1_dir_esp = parseFloat(document.getElementById('f1-dir-esp').value) || 0;
+  const f1_dir_gen = parseFloat(document.getElementById('f1-dir-gen').value) || 0;
+  
+  const f1_humano = (f1_original * 100) + (f1_derivado * 60) + (f1_generico * 20) + (f1_dir_esp * 80) + (f1_dir_gen * 30);
+  
+  // FASE 2
+  const f2_iniciales = parseFloat(document.getElementById('f2-iniciales').value) || 0;
+  const f2_iterativos = Math.min(parseFloat(document.getElementById('f2-iterativos').value) || 0, 20);
+  
+  const f2_humano = (f2_iniciales * 10) + (f2_iterativos * 5);
+  
+  // FASE 3
+  const f3_gen = parseFloat(document.getElementById('f3-generaciones').value) || 0;
+  const f3_var = parseFloat(document.getElementById('f3-variaciones').value) || 0;
+  const f3_up = parseFloat(document.getElementById('f3-upscaling').value) || 0;
+  
+  const f3_ia = (f3_gen * 1) + (f3_var * 0.5) + (f3_up * 0.5);
+  
+  // FASE 4
+  const f4_curacion = parseFloat(document.getElementById('f4-curacion').value) || 0;
+  const f4_horas = Math.min(parseFloat(document.getElementById('f4-horas').value) || 0, 10);
+  
+  const f4_humano = f4_curacion + (f4_horas * 20);
+  
+  // PESOS
+  const f1_h_pond = f1_humano * 0.30;
+  const f2_h_pond = f2_humano * 0.20;
+  const f3_ia_pond = f3_ia * 0.30;
+  const f4_h_pond = f4_humano * 0.20;
+  
+  const php = f1_h_pond + f2_h_pond + 0 + f4_h_pond;
+  const pia = f3_ia_pond;
+  const ptp = php + pia;
+  
+  let ah = ptp > 0 ? (php / ptp) * 100 : 0;
+  
+  // BONOS
+  let bat = 0;
+  if (document.getElementById('bat-multi').checked) bat += 5;
+  if (document.getElementById('bat-local').checked) bat += 5;
+  if (document.getElementById('bat-finetune').checked) bat += 10;
+  if (document.getElementById('bat-scratch').checked) bat += 20;
+  
+  const ahFinal = Math.min(ah + bat, 100);
+  
+  // MOSTRAR
+  document.getElementById('resultado-ah').style.display = 'block';
+  document.getElementById('ah-score').textContent = ahFinal.toFixed(2) + '%';
+  
+  // NIVEL
+  const levelEl = document.getElementById('ah-level');
+  let nivel = '';
+  let nivelClass = '';
+  
+  if (ahFinal >= 90) { nivel = '💎 PLATINO'; nivelClass = 'platino'; }
+  else if (ahFinal >= 75) { nivel = '🥇 ORO'; nivelClass = 'oro'; }
+  else if (ahFinal >= 60) { nivel = '🥈 PLATA'; nivelClass = 'plata'; }
+  else if (ahFinal >= 51) { nivel = '🥉 BRONCE'; nivelClass = 'bronce'; }
+  else if (ahFinal >= 49) { nivel = '⚠️ CASO BORDE A'; nivelClass = 'rechazado'; }
+  else if (ahFinal >= 45) { nivel = '⚠️ CASO BORDE B'; nivelClass = 'rechazado'; }
+  else { nivel = '❌ RECHAZADO'; nivelClass = 'rechazado'; }
+  
+  levelEl.textContent = nivel;
+  levelEl.className = 'result-level ' + nivelClass;
+  
+  // BARRAS
+  document.getElementById('ah-f1').textContent = f1_h_pond.toFixed(1) + ' pts';
+  document.getElementById('ah-f2').textContent = f2_h_pond.toFixed(1) + ' pts';
+  document.getElementById('ah-f3').textContent = f3_ia_pond.toFixed(1) + ' pts (IA)';
+  document.getElementById('ah-f4').textContent = f4_h_pond.toFixed(1) + ' pts';
+  
+  const maxPhase = Math.max(f1_h_pond, f2_h_pond, f3_ia_pond, f4_h_pond, 1);
+  document.getElementById('ah-f1-bar').style.width = (f1_h_pond / maxPhase * 100) + '%';
+  document.getElementById('ah-f2-bar').style.width = (f2_h_pond / maxPhase * 100) + '%';
+  document.getElementById('ah-f3-bar').style.width = (f3_ia_pond / maxPhase * 100) + '%';
+  document.getElementById('ah-f4-bar').style.width = (f4_h_pond / maxPhase * 100) + '%';
+  
+  // BAT
+  const batEl = document.getElementById('ah-bat');
+  if (bat > 0) {
+    batEl.textContent = '🚀 Bonos Aditivos Técnicos aplicados: +' + bat + '%';
+    batEl.style.display = 'block';
+  } else {
+    batEl.style.display = 'none';
+  }
+  
+  // VERDICT
+  const verdict = document.getElementById('ah-verdict');
+  let verdictText = '';
+  
+  if (ahFinal >= 51) {
+    verdictText = '✅ CERTIFICABLE: Tu obra cumple con el umbral del 51% de autoría humana. Puedes solicitar tu certificación SCDR-001.';
+  } else if (ahFinal >= 49) {
+    verdictText = '⚠️ CASO BORDE TIPO A: Tu obra está en el límite. Puedes solicitar arbitraje por +$50 USD. Se requiere Evidencia Nivel 1.';
+  } else if (ahFinal >= 45) {
+    verdictText = '⚠️ CASO BORDE TIPO B: Tu obra está por debajo del umbral. Arbitraje solo con Evidencia Nivel 3 (+$150 USD).';
+  } else {
+    verdictText = '❌ NO CERTIFICABLE: Tu obra no alcanza el 51% de autoría humana. No es elegible para arbitraje.';
+  }
+  
+  verdict.textContent = verdictText;
+}
+
+// ═══════════════ CALCULADORA RESPECT SCORE ═══════════════
+function calcularRS() {
+  const transparencia = parseFloat(document.getElementById('rs-transparencia').value) || 0;
+  const compensacion = parseFloat(document.getElementById('rs-compensacion').value) || 0;
+  const trazabilidad = parseFloat(document.getElementById('rs-trazabilidad').value) || 0;
+  const gobernanza = parseFloat(document.getElementById('rs-gobernanza').value) || 0;
+  
+  const p1 = transparencia * 0.40;
+  const p2 = compensacion * 0.30;
+  const p3 = trazabilidad * 0.20;
+  const p4 = gobernanza * 0.10;
+  
+  const score = p1 + p2 + p3 + p4;
+  
+  document.getElementById('resultado-rs').style.display = 'block';
+  document.getElementById('rs-score').textContent = score.toFixed(1);
+  
+  const levelEl = document.getElementById('rs-level');
+  let nivel = '';
+  let nivelClass = '';
+  
+  if (score >= 90) { nivel = '💎 PLATINO'; nivelClass = 'platino'; }
+  else if (score >= 75) { nivel = '🥇 ORO'; nivelClass = 'oro'; }
+  else if (score >= 60) { nivel = '🥈 PLATA'; nivelClass = 'plata'; }
+  else if (score >= 40) { nivel = '🥉 BRONCE'; nivelClass = 'bronce'; }
+  else { nivel = '❌ NO CERTIFICABLE'; nivelClass = 'rechazado'; }
+  
+  levelEl.textContent = nivel;
+  levelEl.className = 'result-level ' + nivelClass;
+  
+  document.getElementById('rs-p1').textContent = p1.toFixed(1) + ' pts';
+  document.getElementById('rs-p2').textContent = p2.toFixed(1) + ' pts';
+  document.getElementById('rs-p3').textContent = p3.toFixed(1) + ' pts';
+  document.getElementById('rs-p4').textContent = p4.toFixed(1) + ' pts';
+  
+  document.getElementById('rs-p1-bar').style.width = transparencia + '%';
+  document.getElementById('rs-p2-bar').style.width = compensacion + '%';
+  document.getElementById('rs-p3-bar').style.width = trazabilidad + '%';
+  document.getElementById('rs-p4-bar').style.width = gobernanza + '%';
+}
+
+// ═══════════════ CALCULADORA PRECIOS ═══════════════
+function calcularPrecio() {
+  const usd = parseFloat(document.getElementById('precio-servicio').value);
+  const tc = parseFloat(document.getElementById('precio-tc').value) || 17.5;
+  const mxn = usd * tc;
+  
+  document.getElementById('resultado-precio').style.display = 'block';
+  document.getElementById('precio-usd').textContent = '$' + usd + ' USD';
+  document.getElementById('precio-mxn').textContent = '$' + mxn.toLocaleString('es-MX', {maximumFractionDigits: 0}) + ' MXN';
+  
+  // Actualizar tabla
+  document.querySelectorAll('td[id^="tbl-"]').forEach(td => {
+    const id = td.id;
+    let precioUSD = 0;
+    if (id.includes('99')) precioUSD = 99;
+    else if (id.includes('149')) precioUSD = 149;
+    else if (id.includes('199')) precioUSD = 199;
+    else if (id.includes('bronce')) precioUSD = 149;
+    else if (id.includes('plata')) precioUSD = 399;
+    else if (id.includes('oro')) precioUSD = 799;
+    else if (id.includes('platino')) precioUSD = 1499;
+    
+    td.textContent = '$' + (precioUSD * tc).toLocaleString('es-MX', {maximumFractionDigits: 0});
+  });
+}
+
+// ═══════════════ MATRIX BACKGROUND ═══════════════
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const chars = '01⌬ABCDEF!@#$%^&*';
+const fontSize = 14;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = Array(columns).fill(1);
+
+window.addEventListener('resize', () => {
+  columns = Math.floor(canvas.width / fontSize);
+  drops = Array(columns).fill(1);
+});
+
+function draw() {
+  ctx.fillStyle = 'rgba(10, 13, 16, 0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#00ff41';
+  ctx.font = fontSize + 'px monospace';
+  ctx.shadowColor = '#00ff41';
+  ctx.shadowBlur = 8;
+  for (let i = 0; i < drops.length; i++) {
+    const text = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i]++;
+  }
+}
+setInterval(draw, 50);
+</script>
+
+</body>
+</html>
