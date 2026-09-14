@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora SCDR-001 · Soberanía Autoral</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Arial', sans-serif;
+  background: #0a0d10;
+  color: #f8fafc;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+.card {
+  background: #1e293b;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 650px;
+  margin: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  border: 1px solid #334155;
+}
+h1 {
+  color: #38bdf8;
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+.subtitle {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9em;
+  margin-bottom: 30px;
+}
+.fase {
+  background: #0f172a;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 3px solid #38bdf8;
+}
+.fase-title {
+  color: #38bdf8;
+  font-size: 0.85em;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #cbd5e1;
+}
+select, input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #334155;
+  color: #fff;
+  font-size: 0.95em;
+}
+button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-top: 25px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+button:hover {
+  background: linear-gradient(135deg, #0369a1, #075985);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);
+}
+.result {
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1em;
+  display: none;
+}
+.success {
+  background: rgba(6, 95, 70, 0.3);
+  color: #34d399;
+  border: 2px solid #059669;
+}
+.danger {
+  background: rgba(153, 27, 27, 0.3);
+  color: #fca5a5;
+  border: 2px solid #dc2626;
+}
+.cta-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 30px;
+  background: #f59e0b;
+  color: #000;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1em;
+  transition: all 0.3s;
+}
+.cta-btn:hover {
+  background: #fbbf24;
+  transform: scale(1.05);
+}
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #64748b;
+  font-size: 0.8em;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🔮 Calculadora SCDR-001</h1>
+  <p class="subtitle">Estima tu Porcentaje de Autoría Humana (%AH) en 30 segundos</p>
+
+  <div class="fase">
+    <div class="fase-title">Fase 1 · Concepto (Peso 30%)</div>
+    <label>1. Tipo de concepto:</label>
+    <select id="concepto">
+      <option value="100">Concepto Original Inédito (100 pts)</option>
+      <option value="60">Concepto Derivado / Inspirado (60 pts)</option>
+      <option value="20">Concepto Genérico / Tropo Común (20 pts)</option>
+    </select>
+    <label>2. Dirección creativa:</label>
+    <select id="direccion">
+      <option value="80">Dirección Específica (80 pts)</option>
+      <option value="30">Dirección Genérica (30 pts)</option>
+      <option value="0">Sin dirección creativa (0 pts)</option>
+    </select>
+  </div>
+
+  <div class="fase">
+    <div class="fase-title">Fase 2 · Dirección (Peso 20%)</div>
+    <label>3. Prompts iniciales complejos (10 pts c/u):</label>
+    <input type="number" id="promptsIniciales" value="1" min="0">
+    <label>4. Prompts iterativos / refinamiento (5 pts c/u):</label>
+    <input type="number" id="promptsIterativos" value="4" min="0">
+  </div>
+
+  <div class="fase">
+    <div class="fase-title">Fase 3 · Producción IA (Peso 30%)</div>
+    <label>5. Total de activos generados en bruto por la IA:</label>
+    <input type="number" id="activosIA" value="10" min="1">
+    <label>6. Horas de edición manual en software nativo (20 pts c/u):</label>
+    <input type="number" id="horasEdicion" value="2" min="0">
+  </div>
+
+  <div class="fase">
+    <div class="fase-title">Fase 4 · Curación (Peso 20%)</div>
+    <label>7. Nivel de curación realizado:</label>
+    <select id="curacion">
+      <option value="50">Curación Compleja (+100 opciones) - 50 pts</option>
+      <option value="30">Curación Media (20-100 opciones) - 30 pts</option>
+      <option value="10">Curación Simple (Menos de 20) - 10 pts</option>
+      <option value="0">Selección aleatoria - 0 pts</option>
+    </select>
+  </div>
+
+  <div class="fase">
+    <div class="fase-title">Bonos Aditivos Técnicos (Opcional)</div>
+    <label>8. Nivel de infraestructura técnica:</label>
+    <select id="bono">
+      <option value="0">Herramienta corporativa estándar (Midjourney, ChatGPT) - +0%</option>
+      <option value="5">Integración de múltiples modelos - +5%</option>
+      <option value="5">Uso de modelo local open source (Stable Diffusion, Llama) - +5%</option>
+      <option value="10">Fine-tuning con datos propios - +10%</option>
+      <option value="20">Entrenamiento desde cero - +20%</option>
+    </select>
+  </div>
+
+  <button onclick="calcularSoberania()">▸ CALCULAR MI PORCENTAJE</button>
+
+  <div id="resultadoBox" class="result"></div>
+
+  <div class="footer">
+    <p>SCDR-001 · v1.0 · 2026</p>
+    <p style="margin-top: 8px;">Verificable en marcorojas17.github.io/kronos-vault</p>
+  </div>
+</div>
+
+<script>
+function calcularSoberania() {
+  // FASE 1: Concepto (peso 30%)
+  const ptsConcepto = parseFloat(document.getElementById('concepto').value);
+  const ptsDireccion = parseFloat(document.getElementById('direccion').value);
+  const f1Humana = (ptsConcepto + ptsDireccion) * 0.30;
+
+  // FASE 2: Dirección (peso 20%)
+  const promptsIniciales = parseInt(document.getElementById('promptsIniciales').value) || 0;
+  const promptsIterativos = parseInt(document.getElementById('promptsIterativos').value) || 0;
+  const f2Humana = ((promptsIniciales * 10) + (promptsIterativos * 5)) * 0.20;
+
+  // FASE 3: Producción IA (peso 30%)
+  const activosIA = parseInt(document.getElementById('activosIA').value) || 1;
+  const horasEdicion = parseInt(document.getElementById('horasEdicion').value) || 0;
+  const f3IA = activosIA * 1 * 0.30;
+  const f3Humana = (horasEdicion * 20) * 0.30;
+
+  // FASE 4: Curación (peso 20%)
+  const ptsCuracion = parseFloat(document.getElementById('curacion').value);
+  const f4Humana = ptsCuracion * 0.20;
+
+  // Cálculo total
+  const PHP = f1Humana + f2Humana + f3Humana + f4Humana;
+  const PTP = PHP + f3IA;
+  let ah = (PHP / PTP) * 100;
+
+  // Bono aditivo técnico
+  const bono = parseFloat(document.getElementById('bono').value);
+  ah = Math.min(ah + bono, 100);
+
+  ah = ah.toFixed(2);
+
+  const resBox = document.getElementById('resultadoBox');
+  resBox.style.display = "block";
+
+  if (ah >= 51.00) {
+    resBox.className = "result success";
+    resBox.innerHTML = `
+      <div style="font-size: 1.4em; margin-bottom: 15px;">✅ ${ah}% Humano</div>
+      <div style="margin-bottom: 15px;">Tu obra califica para la Soberanía Autoral SCDR-001.</div>
+      <div style="font-size: 0.9em; opacity: 0.8; margin-bottom: 20px;">Nivel sugerido: ${getNivel(ah)}</div>
+      <a href="https://mpago.la/1WymNWS" class="cta-btn" target="_blank">▸ Certificar con Hash Blockchain ($99)</a>
+    `;
+  } else {
+    resBox.className = "result danger";
+    resBox.innerHTML = `
+      <div style="font-size: 1.4em; margin-bottom: 15px;">⚠️ ${ah}% Humano</div>
+      <div style="margin-bottom: 15px;">No alcanzas el mínimo del 51% requerido.</div>
+      <div style="font-size: 0.9em; opacity: 0.8;">Incrementa la edición manual, el refinamiento conceptual o la curación de opciones.</div>
+    `;
+  }
+}
+
+function getNivel(ah) {
+  if (ah >= 90) return "💎 PLATINO";
+  if (ah >= 75) return "🥇 ORO";
+  if (ah >= 60) return "🥈 PLATA";
+  return "🥉 BRONCE";
+}
+</script>
+</body>
+</html>
