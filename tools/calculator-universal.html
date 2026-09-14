@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Universal SCDR-001</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Arial', sans-serif;
+  background: #0a0d10;
+  color: #f8fafc;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+.card {
+  background: #1e293b;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 750px;
+  margin: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  border: 1px solid #334155;
+}
+h1 {
+  color: #38bdf8;
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+.subtitle {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9em;
+  margin-bottom: 30px;
+}
+.disciplina-selector {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 2px solid #38bdf8;
+}
+.disciplina-selector label {
+  color: #38bdf8;
+  font-size: 0.9em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+.disciplina-selector select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #334155;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+}
+.fase {
+  background: #0f172a;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 3px solid #38bdf8;
+}
+.fase-title {
+  color: #38bdf8;
+  font-size: 0.85em;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+}
+.fase-title span {
+  color: #64748b;
+  font-size: 0.85em;
+}
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #cbd5e1;
+}
+select, input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #334155;
+  color: #fff;
+  font-size: 0.95em;
+}
+button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-top: 25px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+button:hover {
+  background: linear-gradient(135deg, #0369a1, #075985);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);
+}
+.result {
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1em;
+  display: none;
+}
+.success {
+  background: rgba(6, 95, 70, 0.3);
+  color: #34d399;
+  border: 2px solid #059669;
+}
+.danger {
+  background: rgba(153, 27, 27, 0.3);
+  color: #fca5a5;
+  border: 2px solid #dc2626;
+}
+.cta-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 30px;
+  background: #f59e0b;
+  color: #000;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1em;
+}
+.cta-btn:hover { background: #fbbf24; transform: scale(1.05); }
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #64748b;
+  font-size: 0.8em;
+}
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🔮 Calculadora Universal SCDR-001</h1>
+  <p class="subtitle">Selecciona tu disciplina y mide tu soberanía autoral</p>
+
+  <!-- SELECTOR DE DISCIPLINA -->
+  <div class="disciplina-selector">
+    <label>¿Qué tipo de obra vas a certificar?</label>
+    <select id="disciplina" onchange="cambiarDisciplina()">
+      <option value="">-- Selecciona tu disciplina --</option>
+      <option value="visual">🎨 Visual (Ilustración, Diseño, Fotografía)</option>
+      <option value="musica">🎵 Música (Composición, Producción)</option>
+      <option value="video">🎬 Video (Film, Animación, Edición)</option>
+      <option value="texto">✍️ Texto (Escritura, Copy, Periodismo)</option>
+      <option value="codigo">💻 Código (Software, Apps, Scripts)</option>
+      <option value="3d">🎮 3D/Juego (Modelado, Texturas, Animación)</option>
+    </select>
+  </div>
+
+  <!-- CONTENEDOR DINÁMICO -->
+  <div id="contenedorFases"></div>
+
+  <button onclick="calcular()">▸ CALCULAR MI PORCENTAJE</button>
+
+  <div id="resultadoBox" class="result"></div>
+
+  <div class="footer">
+    <p>SCDR-001 · v1.0 · 2026</p>
+    <p style="margin-top: 8px;">marcorojas17.github.io/kronos-vault</p>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CATÁLOGO DE ACCIONES POR DISCIPLINA
+// ═══════════════════════════════════════════════════════════════
+const catalogo = {
+  visual: {
+    f1: {
+      titulo: "Fase 1 · Concepto Visual",
+      peso: 0.30,
+      campos: [
+        { id: "concepto", label: "Tipo de concepto:", opciones: [
+          {v: 100, t: "Concepto original inédito (100 pts)"},
+          {v: 60, t: "Concepto derivado / inspirado (60 pts)"},
+          {v: 20, t: "Concepto genérico / tropo (20 pts)"}
+        ]},
+        { id: "direccion", label: "Dirección creativa:", opciones: [
+          {v: 80, t: "Dirección específica (moodboard, paleta, composición) (80 pts)"},
+          {v: 30, t: "Dirección genérica de estilo (30 pts)"},
+          {v: 0, t: "Sin dirección creativa (0 pts)"}
+        ]}
+      ]
+    },
+    f2: {
+      titulo: "Fase 2 · Dirección Visual (Prompting)",
+      peso: 0.20,
+      campos: [
+        { id: "promptsIniciales", label: "Prompts iniciales complejos (10 pts c/u):", tipo: "number", value: 1 },
+        { id: "promptsIterativos", label: "Prompts iterativos / refinamiento (5 pts c/u):", tipo: "number", value: 4 }
+      ]
+    },
+    f3: {
+      titulo: "Fase 3 · Producción IA Visual",
+      peso: 0.30,
+      campos: [
+        { id: "activosIA", label: "Total de imágenes generadas en bruto (1 pt c/u):", tipo: "number", value: 10 },
+        { id: "horasEdicion", label: "Horas de edición manual en Photoshop/Figma (20 pts c/u):", tipo: "number", value: 2 }
+      ]
+    },
+    f4: {
+      titulo: "Fase 4 · Curación Visual",
+      peso: 0.20,
+      campos: [
+        { id: "curacion", label: "Nivel de curación:", opciones: [
+          {v: 50, t: "Curación compleja (+100 opciones) - 50 pts"},
+          {v: 30, t: "Curación media (20-100 opciones) - 30 pts"},
+          {v: 10, t: "Curación simple (<20 opciones) - 10 pts"},
+          {v: 0, t: "Selección aleatoria - 0 pts"}
+        ]}
+      ]
+    }
+  },
+
+  musica: {
+    f1: {
+      titulo: "Fase 1 · Concepto Musical",
+      peso: 0.30,
+      campos: [
+        { id: "concepto", label: "Tipo de concepto musical:", opciones: [
+          {v: 100, t: "Composición original inédita (100 pts)"},
+          {v: 60, t: "Composición derivada / inspirada (60 pts)"},
+          {v: 20, t: "Concepto genérico / género común (20 pts)"}
+        ]},
+        { id: "direccion", label: "Dirección musical:", opciones: [
+          {v: 80, t: "Estructura completa (intro, verso, coro, bridge) + letra (80 pts)"},
+          {v: 30, t: "Instrucciones genéricas de estilo (30 pts)"},
+          {v: 0, t: "Sin dirección creativa (0 pts)"}
+        ]}
+      ]
+    },
+    f2: {
+      titulo: "Fase 2 · Dirección Musical (Prompting)",
+      peso: 0.20,
+      campos: [
+        { id: "promptsIniciales", label: "Prompts iniciales complejos (10 pts c/u):", tipo: "number", value: 1 },
+        { id: "promptsIterativos", label: "Prompts iterativos / refinamiento (5 pts c/u):", tipo: "number", value: 3 }
+      ]
+    },
+    f3: {
+      titulo: "Fase 3 · Producción IA Musical",
+      peso: 0.30,
+      campos: [
+        { id: "activosIA", label: "Pistas/versiones generadas en bruto por IA (1 pt c/u):", tipo: "number", value: 10 },
+        { id: "horasEdicion", label: "Horas de edición manual en DAW (20 pts c/u):", tipo: "number", value: 3 }
+      ]
+    },
+    f4: {
+      titulo: "Fase 4 · Curación Musical",
+      peso: 0.20,
+      campos: [
+        { id: "curacion", label: "Nivel de curación:", opciones: [
+          {v: 50, t: "Curación compleja (+100 versiones evaluadas) - 50 pts"},
+          {v: 30, t: "Curación media (20-100 versiones) - 30 pts"},
+          {v: 10, t: "Curación simple (<20 versiones) - 10 pts"},
+          {v: 0, t: "Selección aleatoria - 0 pts"}
+        ]},
+        { id: "grabacion", label: "¿Grabaste voz/instrumento en vivo?", opciones: [
+          {v: 40, t: "Sí, grabación completa en vivo (40 pts)"},
+          {v: 20, t: "Sí, parcial (20 pts)"},
+          {v: 0, t: "No (0 pts)"}
+        ]}
+      ]
+    }
+  },
+
+  video: {
+    f1: {
+      titulo: "Fase 1 · Concepto de Video",
+      peso: 0.30,
+      campos: [
+        { id: "concepto", label: "Tipo de concepto:", opciones: [
+          {v: 100, t: "Guion original + storyboard completo (100 pts)"},
+          {v: 60, t: "Guion derivado / adaptado (60 pts)"},
+          {v: 20, t: "Concepto genérico / idea básica (20 pts)"}
+        ]},
+        { id: "direccion", label: "Dirección de video:", opciones: [
+          {v: 80, t: "Dirección específica (planos, cámara, narrativa) (80 pts)"},
+          {v: 30, t: "Dirección genérica de estilo (30 pts)"},
+          {v: 0, t: "Sin dirección creativa (0 pts)"}
+        ]}
+      ]
+    },
+    f2: {
+      titulo: "Fase 2 · Dirección de Video (Prompting)",
+      peso: 0.20,
+      campos: [
+        { id: "promptsIniciales", label: "Prompts iniciales complejos (10 pts c/u):", tipo: "number", value: 2 },
+        { id: "promptsIterativos", label: "Prompts iterativos / refinamiento (5 pts c/u):", tipo: "number", value: 6 }
+      ]
+    },
+    f3: {
+      titulo: "Fase 3 · Producción IA de Video",
+      peso: 0.30,
+      campos: [
+        { id: "activosIA", label: "Clips/frames generados en bruto por IA (1 pt c/u):", tipo: "number", value: 20 },
+        { id: "horasEdicion", label: "Horas de edición manual en Premiere/DaVinci (20 pts c/u):", tipo: "number", value: 5 }
+      ]
+    },
+    f4: {
+      titulo: "Fase 4 · Curación de Video",
+      peso: 0.20,
+      campos: [
+        { id: "curacion", label: "Nivel de curación:", opciones: [
+          {v: 50, t: "Curación compleja (+100 clips evaluados) - 50 pts"},
+          {v: 30, t: "Curación media (20-100 clips) - 30 pts"},
+          {v: 10, t: "Curación simple (<20 clips) - 10 pts"},
+          {v: 0, t: "Selección aleatoria - 0 pts"}
+        ]},
+        { id: "rodaje", label: "¿Rodaste material propio con cámara?", opciones: [
+          {v: 60, t: "Sí, rodaje completo (60 pts)"},
+          {v: 30, t: "Sí, parcial (30 pts)"},
+          {v: 0, t: "No, todo fue IA (0 pts)"}
+        ]}
+      ]
+    }
+  },
+
+  texto: {
+    f1: {
+      titulo: "Fase 1 · Concepto de Texto",
+      peso: 0.30,
+      campos: [
+        { id: "concepto", label: "Tipo de concepto:", opciones: [
+          {v: 100, t: "Tesis original + argumentación propia (100 pts)"},
+          {v: 60, t: "Tema derivado / adaptado (60 pts)"},
+          {v: 20, t: "Tema genérico / común (20 pts)"}
+        ]},
+        { id: "direccion", label: "Dirección de texto:", opciones: [
+          {v: 80, t: "Estructura completa + outline detallado (80 pts)"},
+          {v: 30, t: "Instrucciones genéricas de tono (30 pts)"},
+          {v: 0, t: "Sin dirección creativa (0 pts)"}
+        ]}
+      ]
+    },
+    f2: {
+      titulo: "Fase 2 · Dirección de Texto (Prompting)",
+      peso: 0.20,
+      campos: [
+        { id: "promptsIniciales", label: "Prompts iniciales complejos (10 pts c/u):", tipo: "number", value: 2 },
+        { id: "promptsIterativos", label: "Prompts iterativos / refinamiento (5 pts c/u):", tipo: "number", value: 8 }
+      ]
+    },
+    f3: {
+      titulo: "Fase 3 · Producción IA de Texto",
+      peso: 0.30,
+      campos: [
+        { id: "activosIA", label: "Bloques de texto generados por IA (1 pt c/u):", tipo: "number", value: 15 },
+        { id: "horasEdicion", label: "Horas de reescritura manual (20 pts c/u):", tipo: "number", value: 4 }
+      ]
+    },
+    f4: {
+      titulo: "Fase 4 · Curación de Texto",
+      peso: 0.20,
+      campos: [
+        { id: "curacion", label: "Nivel de curación:", opciones: [
+          {v: 50, t: "Curación compleja (edición línea por línea) - 50 pts"},
+          {v: 30, t: "Curación media (revisión estructural) - 30 pts"},
+          {v: 10, t: "Curación simple (solo ortografía) - 10 pts"},
+          {v: 0, t: "Sin curación - 0 pts"}
+        ]}
+      ]
+    }
+  },
+
+  codigo: {
+    f1: {
+      titulo: "Fase 1 · Concepto de Software",
+      peso: 0.30,
+      campos: [
+        { id: "concepto", label: "Tipo de concepto:", opciones: [
+          {v: 100, t: "Arquitectura original + diseño de sistema (100 pts)"},
+          {v: 60, t: "Sistema derivado / basado en patrón existente (60 pts)"},
+          {v: 20, t: "Concepto genérico / CRUD básico (20 pts)"}
+        ]},
+        { id: "direccion", label: "Dirección de arquitectura:", opciones: [
+          {v: 80, t: "Diagrama completo + especificación técnica (80 pts)"},
+          {v: 30, t: "Instrucciones genéricas de stack (30 pts)"},
+          {v: 0, t: "Sin dirección (0 pts)"}
+        ]}
+      ]
+    },
+    f2: {
+      titulo: "Fase 2 · Dirección de Código (Prompting)",
+      peso: 0.20,
+      campos: [
+        { id: "promptsIniciales", label: "Prompts iniciales complejos (10 pts c/u):", tipo: "number", value: 3 },
+        { id: "promptsIterativos", label: "Prompts iterativos / refinamiento (5 pts c/u):", tipo: "number", value: 15 }
+      ]
+    },
+    f3: {
+      titulo: "Fase 3 · Producción IA de Código",
+      peso: 0.30,
+      campos: [
+        { id: "activosIA", label: "Funciones/clases generadas por IA (1 pt c/u):", tipo: "number", value: 30 },
+        { id: "horasEdicion", label: "Horas de refactorización manual (20 pts c/u):", tipo: "number", value: 8 }
+      ]
+    },
+    f4: {
+      titulo: "Fase 4 · Curación de Código",
+      peso: 0.20,
+      campos: [
+        { id: "curacion", label: "Nivel de curación:", opciones: [
+          {v: 50, t: "Curación compleja (code review completo) - 50 pts"},
+          {v: 30, t: "Curación media (tests + debug) - 30 pts"},
+          {v: 10, t: "Curación simple (solo compilar) - 10 pts"},
+          {v: 0, t: "Sin curación - 0 pts"}
+        ]}
+      ]
+    }
+  },
+
+  "3d": {
+    f1: {
+      titulo: "Fase 1 · Concepto 3D",
+      peso: 0.30,
+      campos: [
+        { id: "concepto", label: "Tipo de concepto:", opciones: [
+          {v: 100, t: "Diseño original de personaje/entorno (100 pts)"},
+          {v: 60, t: "Diseño derivado / basado en referencia (60 pts)"},
+          {v: 20, t: "Concepto genérico (20 pts)"}
+        ]},
+        { id: "direccion", label: "Dirección 3D:", opciones: [
+          {v: 80, t: "Dirección específica (topología, materiales, iluminación) (80 pts)"},
+          {v: 30, t: "Instrucciones genéricas (30 pts)"},
+          {v: 0, t: "Sin dirección (0 pts)"}
+        ]}
+      ]
+    },
+    f2: {
+      titulo: "Fase 2 · Dirección 3D (Prompting)",
+      peso: 0.20,
+      campos: [
+        { id: "promptsIniciales", label: "Prompts iniciales complejos (10 pts c/u):", tipo: "number", value: 2 },
+        { id: "promptsIterativos", label: "Prompts iterativos / refinamiento (5 pts c/u):", tipo: "number", value: 10 }
+      ]
+    },
+    f3: {
+      titulo: "Fase 3 · Producción IA 3D",
+      peso: 0.30,
+      campos: [
+        { id: "activosIA", label: "Modelos/texturas generados por IA (1 pt c/u):", tipo: "number", value: 25 },
+        { id: "horasEdicion", label: "Horas de modelado/retopo manual en Blender/Maya (20 pts c/u):", tipo: "number", value: 10 }
+      ]
+    },
+    f4: {
+      titulo: "Fase 4 · Curación 3D",
+      peso: 0.20,
+      campos: [
+        { id: "curacion", label: "Nivel de curación:", opciones: [
+          {v: 50, t: "Curación compleja (+100 assets evaluados) - 50 pts"},
+          {v: 30, t: "Curación media (20-100 assets) - 30 pts"},
+          {v: 10, t: "Curación simple (<20 assets) - 10 pts"},
+          {v: 0, t: "Sin curación - 0 pts"}
+        ]}
+      ]
+    }
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// FUNCIÓN: CAMBIAR DISCIPLINA
+// ═══════════════════════════════════════════════════════════════
+function cambiarDisciplina() {
+  const disciplina = document.getElementById('disciplina').value;
+  const contenedor = document.getElementById('contenedorFases');
+  contenedor.innerHTML = '';
+
+  if (!disciplina) return;
+
+  const cat = catalogo[disciplina];
+
+  // Generar F1
+  contenedor.innerHTML += generarFase(cat.f1);
+  // Generar F2
+  contenedor.innerHTML += generarFase(cat.f2);
+  // Generar F3
+  contenedor.innerHTML += generarFase(cat.f3);
+  // Generar F4
+  contenedor.innerHTML += generarFase(cat.f4);
+}
+
+function generarFase(fase) {
+  let html = `<div class="fase">
+    <div class="fase-title">${fase.titulo} <span>Peso: ${(fase.peso*100)}%</span></div>`;
+
+  fase.campos.forEach(campo => {
+    html += `<label>${campo.label}</label>`;
+    if (campo.tipo === "number") {
+      html += `<input type="number" id="${campo.id}" value="${campo.value}" min="0">`;
+    } else {
+      html += `<select id="${campo.id}">`;
+      campo.opciones.forEach(opt => {
+        html += `<option value="${opt.v}">${opt.t}</option>`;
+      });
+      html += `</select>`;
+    }
+  });
+
+  html += `</div>`;
+  return html;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FUNCIÓN: CALCULAR
+// ═══════════════════════════════════════════════════════════════
+function calcular() {
+  const disciplina = document.getElementById('disciplina').value;
+  if (!disciplina) {
+    alert("Selecciona una disciplina primero");
+    return;
+  }
+
+  const cat = catalogo[disciplina];
+
+  // Leer valores de los campos
+  function leer(id) {
+    const el = document.getElementById(id);
+    return el ? parseFloat(el.value) || 0 : 0;
+  }
+
+  // FASE 1
+  const f1Humana = (leer('concepto') + leer('direccion')) * cat.f1.peso;
+
+  // FASE 2
+  const f2Humana = ((leer('promptsIniciales') * 10) + (leer('promptsIterativos') * 5)) * cat.f2.peso;
+
+  // FASE 3
+  const f3IA = leer('activosIA') * 1 * cat.f3.peso;
+  const f3Humana = leer('horasEdicion') * 20 * cat.f3.peso;
+
+  // FASE 4
+  let f4Humana = leer('curacion') * cat.f4.peso;
+
+  // Campo extra (grabacion/rodaje)
+  const grabacion = leer('grabacion') || leer('rodaje');
+  if (grabacion) f4Humana += grabacion * cat.f4.peso;
+
+  // TOTALES
+  const PHP = f1Humana + f2Humana + f3Humana + f4Humana;
+  const PTP = PHP + f3IA;
+  let ah = (PHP / PTP) * 100;
+
+  // Bono
+  const bono = leer('bono');
+  ah = Math.min(ah + bono, 100);
+  ah = ah.toFixed(2);
+
+  const resBox = document.getElementById('resultadoBox');
+  resBox.style.display = "block";
+
+  if (ah >= 51.00) {
+    resBox.className = "result success";
+    resBox.innerHTML = `
+      <div style="font-size: 1.4em; margin-bottom: 15px;">✅ ${ah}% Humano</div>
+      <div style="margin-bottom: 15px;">Tu obra califica para la Soberanía Autoral SCDR-001.</div>
+      <div style="font-size: 0.9em; opacity: 0.8; margin-bottom: 20px;">Nivel: ${getNivel(ah)}</div>
+      <a href="https://mpago.la/1WymNWS" class="cta-btn" target="_blank">▸ Certificar por $99 USD</a>
+    `;
+  } else {
+    resBox.className = "result danger";
+    resBox.innerHTML = `
+      <div style="font-size: 1.4em; margin-bottom: 15px;">⚠️ ${ah}% Humano</div>
+      <div style="margin-bottom: 15px;">No alcanzas el mínimo del 51%.</div>
+      <div style="font-size: 0.9em; opacity: 0.8;">Incrementa edición manual, curación o dirección creativa.</div>
+    `;
+  }
+}
+
+function getNivel(ah) {
+  if (ah >= 90) return "💎 PLATINO";
+  if (ah >= 75) return "🥇 ORO";
+  if (ah >= 60) return "🥈 PLATA";
+  return "🥉 BRONCE";
+}
+</script>
+</body>
+</html>
