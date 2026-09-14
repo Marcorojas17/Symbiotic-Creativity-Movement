@@ -4,50 +4,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calculadora Universal SCDR-001</title>
+<meta name="description" content="Calcula tu Porcentaje de Autoría Humana (%AH) para cualquier disciplina: Visual, Música, Video, Texto, Código, 3D.">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Courier New', 'Monaco', monospace;
   background: #0a0d10;
   color: #f8fafc;
   padding: 40px 20px;
   min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(0, 255, 247, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 247, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 .card {
-  background: #1e293b;
+  background: rgba(30, 41, 59, 0.95);
   padding: 40px;
   border-radius: 16px;
   max-width: 750px;
   margin: auto;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 255, 247, 0.1);
   border: 1px solid #334155;
+  backdrop-filter: blur(10px);
 }
 h1 {
-  color: #38bdf8;
+  color: #00fff7;
   text-align: center;
-  font-size: 1.8em;
+  font-size: 1.6em;
   margin-bottom: 10px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(0, 255, 247, 0.5);
 }
 .subtitle {
   text-align: center;
   color: #94a3b8;
-  font-size: 0.9em;
+  font-size: 0.85em;
   margin-bottom: 30px;
+  letter-spacing: 1px;
 }
 .disciplina-selector {
   background: linear-gradient(135deg, #0f172a, #1e293b);
   padding: 25px;
   border-radius: 12px;
   margin-bottom: 30px;
-  border: 2px solid #38bdf8;
+  border: 2px solid #00fff7;
+  box-shadow: 0 0 25px rgba(0, 255, 247, 0.2);
 }
 .disciplina-selector label {
-  color: #38bdf8;
-  font-size: 0.9em;
+  color: #00fff7;
+  font-size: 0.85em;
   letter-spacing: 2px;
   text-transform: uppercase;
   display: block;
   margin-bottom: 12px;
+  font-weight: bold;
 }
 .disciplina-selector select {
   width: 100%;
@@ -58,32 +69,38 @@ h1 {
   color: #fff;
   font-size: 1em;
   font-weight: bold;
+  cursor: pointer;
 }
 .fase {
   background: #0f172a;
-  padding: 20px;
+  padding: 22px;
   border-radius: 10px;
   margin-bottom: 20px;
-  border-left: 3px solid #38bdf8;
+  border-left: 3px solid #00fff7;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 .fase-title {
-  color: #38bdf8;
+  color: #00fff7;
   font-size: 0.85em;
   letter-spacing: 2px;
   margin-bottom: 15px;
   text-transform: uppercase;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 255, 247, 0.15);
 }
 .fase-title span {
   color: #64748b;
   font-size: 0.85em;
+  font-weight: normal;
 }
 label {
   display: block;
   margin-top: 15px;
   font-weight: bold;
-  font-size: 0.9em;
+  font-size: 0.88em;
   color: #cbd5e1;
 }
 select, input[type="number"] {
@@ -95,25 +112,33 @@ select, input[type="number"] {
   background: #334155;
   color: #fff;
   font-size: 0.95em;
+  font-family: inherit;
+  cursor: pointer;
+}
+select:focus, input[type="number"]:focus {
+  outline: none;
+  border-color: #00fff7;
+  box-shadow: 0 0 15px rgba(0, 255, 247, 0.3);
 }
 button {
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   background: linear-gradient(135deg, #0284c7, #0369a1);
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: 1.1em;
+  font-size: 1.05em;
   cursor: pointer;
   margin-top: 25px;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   transition: all 0.3s;
+  font-family: inherit;
 }
 button:hover {
   background: linear-gradient(135deg, #0369a1, #075985);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.5), 0 0 40px rgba(0, 255, 247, 0.3);
 }
 .result {
   margin-top: 30px;
@@ -124,14 +149,16 @@ button:hover {
   display: none;
 }
 .success {
-  background: rgba(6, 95, 70, 0.3);
+  background: rgba(6, 95, 70, 0.4);
   color: #34d399;
   border: 2px solid #059669;
+  box-shadow: 0 0 30px rgba(5, 150, 105, 0.3);
 }
 .danger {
-  background: rgba(153, 27, 27, 0.3);
+  background: rgba(153, 27, 27, 0.4);
   color: #fca5a5;
   border: 2px solid #dc2626;
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.3);
 }
 .cta-btn {
   display: inline-block;
@@ -142,26 +169,36 @@ button:hover {
   text-decoration: none;
   border-radius: 10px;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 0.95em;
+  letter-spacing: 1px;
+  transition: all 0.3s;
 }
-.cta-btn:hover { background: #fbbf24; transform: scale(1.05); }
+.cta-btn:hover {
+  background: #fbbf24;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+}
 .footer {
   text-align: center;
   margin-top: 30px;
   color: #64748b;
   font-size: 0.8em;
+  letter-spacing: 1px;
 }
-.hidden { display: none !important; }
+.footer a {
+  color: #00fff7;
+  text-decoration: none;
+}
 </style>
 </head>
 <body>
 <div class="card">
   <h1>🔮 Calculadora Universal SCDR-001</h1>
-  <p class="subtitle">Selecciona tu disciplina y mide tu soberanía autoral</p>
+  <p class="subtitle">Mide tu Porcentaje de Autoría Humana en cualquier disciplina</p>
 
   <!-- SELECTOR DE DISCIPLINA -->
   <div class="disciplina-selector">
-    <label>¿Qué tipo de obra vas a certificar?</label>
+    <label>¿Qué tipo de obra vas a medir?</label>
     <select id="disciplina" onchange="cambiarDisciplina()">
       <option value="">-- Selecciona tu disciplina --</option>
       <option value="visual">🎨 Visual (Ilustración, Diseño, Fotografía)</option>
@@ -182,7 +219,9 @@ button:hover {
 
   <div class="footer">
     <p>SCDR-001 · v1.0 · 2026</p>
-    <p style="margin-top: 8px;">marcorojas17.github.io/kronos-vault</p>
+    <p style="margin-top: 8px;">
+      <a href="https://marcorojas17.github.io/kronos-vault/">marcorojas17.github.io/kronos-vault</a>
+    </p>
   </div>
 </div>
 
@@ -466,7 +505,7 @@ const catalogo = {
       peso: 0.30,
       campos: [
         { id: "activosIA", label: "Modelos/texturas generados por IA (1 pt c/u):", tipo: "number", value: 25 },
-        { id: "horasEdicion", label: "Horas de modelado/retopo manual en Blender/Maya (20 pts c/u):", tipo: "number", value: 10 }
+        { id: "horasEdicion", label: "Horas de modelado/retopo manual (20 pts c/u):", tipo: "number", value: 10 }
       ]
     },
     f4: {
@@ -496,13 +535,9 @@ function cambiarDisciplina() {
 
   const cat = catalogo[disciplina];
 
-  // Generar F1
   contenedor.innerHTML += generarFase(cat.f1);
-  // Generar F2
   contenedor.innerHTML += generarFase(cat.f2);
-  // Generar F3
   contenedor.innerHTML += generarFase(cat.f3);
-  // Generar F4
   contenedor.innerHTML += generarFase(cat.f4);
 }
 
@@ -533,13 +568,12 @@ function generarFase(fase) {
 function calcular() {
   const disciplina = document.getElementById('disciplina').value;
   if (!disciplina) {
-    alert("Selecciona una disciplina primero");
+    alert("⚠️ Selecciona una disciplina primero");
     return;
   }
 
   const cat = catalogo[disciplina];
 
-  // Leer valores de los campos
   function leer(id) {
     const el = document.getElementById(id);
     return el ? parseFloat(el.value) || 0 : 0;
@@ -557,8 +591,6 @@ function calcular() {
 
   // FASE 4
   let f4Humana = leer('curacion') * cat.f4.peso;
-
-  // Campo extra (grabacion/rodaje)
   const grabacion = leer('grabacion') || leer('rodaje');
   if (grabacion) f4Humana += grabacion * cat.f4.peso;
 
@@ -566,11 +598,7 @@ function calcular() {
   const PHP = f1Humana + f2Humana + f3Humana + f4Humana;
   const PTP = PHP + f3IA;
   let ah = (PHP / PTP) * 100;
-
-  // Bono
-  const bono = leer('bono');
-  ah = Math.min(ah + bono, 100);
-  ah = ah.toFixed(2);
+  ah = Math.min(ah, 100).toFixed(2);
 
   const resBox = document.getElementById('resultadoBox');
   resBox.style.display = "block";
@@ -578,17 +606,17 @@ function calcular() {
   if (ah >= 51.00) {
     resBox.className = "result success";
     resBox.innerHTML = `
-      <div style="font-size: 1.4em; margin-bottom: 15px;">✅ ${ah}% Humano</div>
-      <div style="margin-bottom: 15px;">Tu obra califica para la Soberanía Autoral SCDR-001.</div>
-      <div style="font-size: 0.9em; opacity: 0.8; margin-bottom: 20px;">Nivel: ${getNivel(ah)}</div>
-      <a href="https://mpago.la/1WymNWS" class="cta-btn" target="_blank">▸ Certificar por $99 USD</a>
+      <div style="font-size: 1.6em; margin-bottom: 15px;">✅ ${ah}% Humano</div>
+      <div style="margin-bottom: 15px; font-size: 1.05em;">Tu obra califica para la Soberanía Autoral SCDR-001.</div>
+      <div style="font-size: 1em; opacity: 0.9; margin-bottom: 20px;">Nivel sugerido: <strong>${getNivel(ah)}</strong></div>
+      <a href="https://mpago.la/1WymNWS" class="cta-btn" target="_blank">▸ Certificar con Hash Blockchain ($99)</a>
     `;
   } else {
     resBox.className = "result danger";
     resBox.innerHTML = `
-      <div style="font-size: 1.4em; margin-bottom: 15px;">⚠️ ${ah}% Humano</div>
-      <div style="margin-bottom: 15px;">No alcanzas el mínimo del 51%.</div>
-      <div style="font-size: 0.9em; opacity: 0.8;">Incrementa edición manual, curación o dirección creativa.</div>
+      <div style="font-size: 1.6em; margin-bottom: 15px;">⚠️ ${ah}% Humano</div>
+      <div style="margin-bottom: 15px; font-size: 1.05em;">No alcanzas el mínimo del 51% requerido.</div>
+      <div style="font-size: 0.95em; opacity: 0.85;">Incrementa la edición manual, el refinamiento conceptual o la curación de opciones.</div>
     `;
   }
 }
