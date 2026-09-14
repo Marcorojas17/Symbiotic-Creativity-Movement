@@ -1,106 +1,229 @@
-# 🌱 Simbiosis Digital — Estándar SCDR-001
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SCDR-001 · MOVIMIENTO DE CO-CREATIVIDAD SIMBIÓTICA · v1.0              -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 
-**El Estándar Privado para la Co-Creatividad Humano-IA y el Respeto Digital**
+<div align="center">
 
-[![Safe Creative](https://img.shields.io/badge/Safe%20Creative-2607086319439-blue)](https://www.safecreative.org/certificate/2607086319439)
-[![Blockchain](https://img.shields.io/badge/Ethereum-Auditado-purple)](https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e)
-[![License](https://img.shields.io/badge/License-Symbiotic%20v1.0-red)](01-LEGAL/Symbiotic_License_v1.0.md)
-[![Web](https://img.shields.io/badge/Web-Simbiosis%20Digital-green)](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/)
+```text
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+║ ▓                                                                          ▓ ║
+║ ▓   ███████╗ ██████╗██████╗ ██████╗     ██████╗  ██████╗  ██╗             ▓ ║
+║ ▓   ██╔════╝██╔════╝██╔══██╗██╔══██╗    ██╔══██╗██╔═══██╗███║             ▓ ║
+║ ▓   ███████╗██║     ██║  ██║██████╔╝    ██████╔╝██║   ██║╚██║             ▓ ║
+║ ▓   ╚════██║██║     ██║  ██║██╔══██╗    ██╔══██╗██║   ██║ ██║             ▓ ║
+║ ▓   ███████║╚██████╗██████╔╝██║  ██║    ██║  ██║╚██████╔╝ ██║             ▓ ║
+║ ▓   ╚══════╝ ╚═════╝╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═╝ ╚═════╝  ╚═╝             ▓ ║
+║ ▓                                                                          ▓ ║
+║ ▓   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ▓ ║
+║ ▓   M O V I M I E N T O   D E   C O - C R E A T I V I D A D                ▓ ║
+║ ▓   S I M B I Ó T I C A   H U M A N O - I A                                 ▓ ║
+║ ▓   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ▓ ║
+║ ▓                                                                          ▓ ║
+║ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+```
 
----
+[![Estado](https://img.shields.io/badge/estado-v1.0%20experimental-ffcc00?style=for-the-badge&labelColor=0a0d10)](https://github.com/Marcorojas17/Symbiotic-Creativity-Movement)
+[![Licencia](https://img.shields.io/badge/licencia-CC0%20%2B%20Comercial-00ff41?style=for-the-badge&labelColor=0a0d10)](licenses/)
+[![Blockchain](https://img.shields.io/badge/ethereum-anclado-8b5cf6?style=for-the-badge&labelColor=0a0d10)](https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e)
+[![Safe Creative](https://img.shields.io/badge/safe%20creative-2607086319439-ff00ff?style=for-the-badge&labelColor=0a0d10)](https://www.safecreative.org/certificate/2607086319439)
+[![Google AI](https://img.shields.io/badge/google%20ai-citado-00ffff?style=for-the-badge&labelColor=0a0d10)](https://www.google.com/search?q=marco+antonio+rojas+valdovinos)
 
-## 📜 ¿Qué es esto?
+</div>
 
-Este repositorio contiene el **Bloque Génesis** de un nuevo paradigma legal y económico. El **8 de julio de 2026**, se registró el Acta Fundacional que establece las bases para una relación simbiótica entre creadores humanos e inteligencia artificial.
-
-> *"No dejaremos que la IA nos reemplace; la integraremos en una simbiosis donde ambos ganamos."*
-> — **Marco Antonio Rojas Valdovinos**
-
----
-
-## ⚠️ Aviso Importante
-
-SCDR-001 es un **estándar privado e independiente**.
-**NO es una certificación oficial ISO ni NOM.**
-Nuestro marco está alineado con principios de normas internacionales y con la NOM-151-SCFI-2016 para preservación de datos, pero no somos un organismo certificador acreditado.
-**No somos abogados.** Somos una metodología de auditoría preventiva y blindaje documental.
-
----
-
-## 🎯 Objetivos del Movimiento
-
-1. ⚖️ Desarrollar un estándar privado de referencia para la co-creación Humano-IA.
-2. 🛡️ Proteger los derechos de autor en la era de la IA generativa.
-3. 💸 Diseñar un modelo de regalías justas 51/49 (Humano/IA) como referencia ética.
-4. 🌐 Fomentar el "Respeto Digital" como valor fundamental de la nueva economía creativa.
-
----
-
-## 📂 Estructura del Repositorio
-
-| Carpeta | Contenido |
-| :--- | :--- |
-| `00-GENESIS` | Pruebas de existencia, certificados y hashes criptográficos |
-| `01-LEGAL` | Whitepaper, licencias, políticas y páginas HTML legales |
-| `02-SMART-CONTRACTS` | Contratos inteligentes (no desplegados en mainnet) |
-| `03-API-TECH` | Herramientas para medición de autoría Humano-IA |
-| `04-GOVERNANCE` | Propuestas de mejora (SIPs) |
-| `05-DESIGN` | Identidad visual y UX del ecosistema |
-| `06-COMMUNITY` | Guías de contribución y código de conducta |
-| `07-PAYMENTS` | Documentación de pasarelas de pago (Mercado Pago) |
-| `08-COMPLIANCE` | Mapeo de normas ISO y NOM aplicables |
+```text
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│  [ HASH  ]  SHA-256           [ TIME  ]  RFC 3161 (VATES)                        │
+│  [ PROOF ]  .evidence         [ AUDIT ]  Hash Chain                              │
+│  [ FORM  ]  JCS RFC 8785      [ SIGN  ]  JWS RFC 7797                            │
+│  [ CHAIN ]  Ethereum · Polygon [ ANCHR ] Safe Creative · OpenTimestamps          │
+└──────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 🌐 Páginas Web Oficiales
+## ⚠️ ¿USAS IA EN TU TRABAJO?
 
-| Página | Descripción |
-| :--- | :--- |
-| [Inicio](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/) | Página principal |
-| [Historia](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/historia.html) | Historia de Fundación |
-| [Cómo Funciona](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/como-funciona.html) | Los 4 pilares del estándar |
-| [Criptografía](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/criptografia.html) | Base técnica verificable |
-| [Casos](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/casos.html) | Casos de Éxito |
-| [GEO](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/geo.html) | Diagnóstico de visibilidad en IA |
+**Tienes exposición legal de hasta $12,601,600 MXN.**
+
+La reforma a la **Ley Federal del Derecho de Autor (LFDA)** de mayo 2026 introdujo sanciones para quien use IA sin declarar el porcentaje humano.
+
+Y millones de creadores en LATAM no lo saben.
 
 ---
 
-## 💳 Servicios
-
-| Servicio | Inversión | Enlace |
-| :--- | :--- | :--- |
-| 📊 Diagnóstico SCDR-001 | $99 USD | [Solicitar](https://forms.gle/pi5NihvEzJ1Un9vw8) |
-| 🌐 Diagnóstico GEO | $149 USD | [Conocer más](geo.html) |
-| 📄 Informe Detallado | $199 USD | [Solicitar](https://mpago.la/2CnKmvR) |
-| 💼 Consultoría Individual | $99 USD | [Agendar](https://mpago.la/2CnKmvR) |
-| 🥉 Sello Bronce | $149 USD | [Obtener](https://mpago.la/1vhdJQJ) |
-| 🥈 Sello Plata | $399 USD | [Obtener](https://mpago.la/15PfwSW) |
-| 🥇 Sello Oro | $799 USD | [Obtener](https://mpago.la/2hojAVi) |
-| 💎 Sello Platino | $1,499 USD | [Obtener](https://mpago.la/2Q7EcUt) |
-
----
-
-## 🔗 Verificación Oficial
-
-- **Certificado Safe Creative:** [ID 2607086319439](https://www.safecreative.org/certificate/2607086319439)
-- **Anclaje Blockchain (Ethereum):** [Ver en Etherscan](https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e)
-- **Hash SHA-256 del Acta Fundacional:** `41a3683bbf83296eeb45da9b0e0ea5a7c095e78b493772e79520a92dbc39f4c3`
+```text
+┌─[ 01 ]─────────────────────────────────────────────────────── EL PROBLEMA ─┐
+│                                                                            │
+│  ▸ Usas ChatGPT, Midjourney, DALL-E o similar                             │
+│  ▸ No declaras el % Humano-IA en tus obras                                 │
+│  ▸ No tienes prueba documental de tu proceso creativo                      │
+│  ▸ Tu cliente puede decir "esto lo hizo la IA, no te pago"                 │
+│  ▸ Riesgo de sanción: hasta $12,601,600 MXN                                │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 📞 Contacto
+```text
+┌─[ 02 ]─────────────────────────────────────── LA SOLUCIÓN: SCDR-001 ─┐
+│                                                                       │
+│  Un estándar privado, verificable y legalmente fundamentado que       │
+│  documenta la co-creatividad Humano-IA con evidencia irrefutable.     │
+│                                                                       │
+└───────────────────────────────────────────────────────────────────────┘
+```
 
-- **Email:** [marco.a.rojas.v@hotmail.com](mailto:marco.a.rojas.v@hotmail.com)
-- **WhatsApp:** [+52 722 586 2335](https://wa.me/527225862335)
-- **Web:** [Simbiosis Digital](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/)
+### ✅ ¿Qué certifica?
+
+| # | Elemento | Descripción |
+|---|----------|-------------|
+| 01 | **Existencia** | Tu obra existía en fecha/hora específica |
+| 02 | **Integridad** | No ha sido modificada desde su registro |
+| 03 | **Autoría declarada** | Declaras ser el autor con evidencia |
+| 04 | **Fecha cierta** | Sellado de tiempo cualificado (VATES) |
+| 05 | **Anclaje inmutable** | Registro en blockchain Ethereum |
+
+### 🛡️ Bases legales
+
+| Norma | Función |
+|-------|---------|
+| **Convenio de Berna** | Validez en 179 países |
+| **LFDA 2026 (México)** | Cumplimiento de la reforma |
+| **NOM-151-SCFI-2016** | Conservación de mensajes de datos |
+| **CNPCF arts. 348-350** | Blockchain como medio de prueba |
+| **Safe Creative** | Registro reconocido por la OMPI |
+| **Ethereum** | Anclaje inmutable y público |
 
 ---
 
-## 📜 Licencia
+```text
+┌─[ 03 ]─────────────────────────────────────── HERRAMIENTA GRATUITA ─┐
+│                                                                      │
+│  🧮 CALCULADORA UNIVERSAL SCDR-001                                  │
+│                                                                      │
+│  Mide tu Porcentaje de Autoría Humana en 30 segundos.                │
+│  Soporta 6 disciplinas: Visual, Música, Video, Texto, Código y 3D.   │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
 
-Este proyecto está bajo la **Licencia Simbiótica v1.0**.
-Ver [`01-LEGAL/Symbiotic_License_v1.0.md`](01-LEGAL/Symbiotic_License_v1.0.md).
+<div align="center">
+
+### 👉 [ABRIR CALCULADORA GRATIS](https://marcorojas17.github.io/Symbiotic-Creativity-Movement/tools/calculator-universal.html)
+
+</div>
 
 ---
 
-*© 2026 Marco Antonio Rojas Valdovinos. Todos los derechos reservados bajo el marco de Co-Creatividad Simbiótica.*
+```text
+┌─[ 04 ]─────────────────────────────────────────────── SERVICIOS ─┐
+│                                                                   │
+└───────────────────────────────────────────────────────────────────┘
+```
+
+| Nivel | Precio | Incluye | Enlace |
+|-------|:------:|---------|--------|
+| 📊 **Diagnóstico** | $99 USD | Respect Score + Plan 24h | [Solicitar](https://mpago.la/1WymNWS) |
+| 🌐 **Diagnóstico GEO** | $149 USD | Visibilidad en IA | [Solicitar](https://mpago.la/1NSgqWg) |
+| 📄 **Informe Detallado** | $199 USD | 20-30 págs + Cláusulas | [Solicitar](https://mpago.la/1rtjF7T) |
+| 💼 **Consultoría** | $99 USD | Sesión 1:1 60 min | [Agendar](https://mpago.la/2YvLu2S) |
+| 🥉 **Sello Bronce** | $149 USD | Certificado + Safe Creative | [Obtener](https://mpago.la/2zyA54Q) |
+| 🥈 **Sello Plata** | $399 USD | Cláusula anti no-pago + Blockchain | [Obtener](https://mpago.la/2k1Fmd2) |
+| 🥇 **Sello Oro** | $799 USD | Whitepaper + Consultoría trimestral | [Obtener](https://mpago.la/1E3bJpK) |
+| 💎 **Sello Platino** | $1,499 USD | Consejo Asesor + Monitoreo continuo | [Obtener](https://mpago.la/1JRZLKx) |
+
+---
+
+```text
+┌─[ 05 ]─────────────────────────────────── DOCUMENTOS FUNDACIONALES ─┐
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+| # | Documento | Función |
+|---|-----------|---------|
+| 00 | [Acta Fundacional](00-GENESIS/) | Prueba de existencia y génesis |
+| 01 | [Definición de Alcance](docs/01-ALCANCE.md) | Qué certifica y qué no |
+| 02 | [Separación Conceptual](docs/02-SEPARACION.md) | Protocolo vs Esquema vs Marca |
+| 03 | [Marco de Medición 51%](docs/03-MEDICION-51.md) | Sistema UDC |
+| 04 | [Criterios por Fase](docs/04-CRITERIOS.md) | 4 fases + Bonos Técnicos |
+| 05 | [Ponderación y Casos Límite](docs/05-PONDERACION.md) | Tabla + Arbitraje |
+| 06 | [Sistema Blockchain](docs/06-BLOCKCHAIN.md) | Arquitectura híbrida |
+| 07 | [Licencia Comercial](licenses/LICENCIA-COAUTORIA-IA-HUMANO.md) | Contrato bilingüe |
+
+---
+
+```text
+┌─[ 06 ]───────────────────────────────────── VERIFICACIÓN PÚBLICA ─┐
+│                                                                    │
+│  Cualquiera puede verificar la autenticidad sin contactar al       │
+│  emisor:                                                           │
+│                                                                    │
+│  ▸ Safe Creative: ID 2607086319439                                 │
+│  ▸ Ethereum TX: 0x8ca8e84e...2970e                                 │
+│  ▸ Google AI: Búscame como "Marco Antonio Rojas Valdovinos"        │
+│                                                                    │
+└────────────────────────────────────────────────────────────────────┘
+```
+
+### 🔗 Enlaces de Verificación
+
+- **[Safe Creative: ID 2607086319439](https://www.safecreative.org/certificate/2607086319439)**
+- **[Ethereum TX: 0x8ca8e84e...2970e](https://etherscan.io/tx/0x8ca8e84e1258abac9acb29d14d25114e4775d782ecfda51ae29933247ed2970e)**
+- **[Hash SHA-256](00-GENESIS/genesis_hash.txt):** `41a3683bbf83296eeb45da9b0e0ea5a7c095e78b493772e79520a92dbc39f4c3`
+
+---
+
+```text
+┌─[ 07 ]─────────────────────────────────────────────── CONTACTO ─┐
+│                                                                  │
+│  👤 Marco Antonio Rojas Valdovinos                              │
+│  📧 marco.a.rojas.v@hotmail.com                                 │
+│  📱 +52 722 586 2335                                            │
+│  🌐 marcorojas17.github.io/Symbiotic-Creativity-Movement        │
+│  🐙 github.com/Marcorojas17/Symbiotic-Creativity-Movement       │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+```text
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  ⚠  AVISO LEGAL · LECTURA OBLIGATORIA                                        ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  SCDR-001 es un ESTÁNDAR PRIVADO E INDEPENDIENTE.                            ║
+║  NO es una certificación oficial ISO ni NOM.                                 ║
+║  NO constituye asesoría legal.                                               ║
+║                                                                              ║
+║  Nuestro marco está alineado con principios de normas internacionales        ║
+║  y con la NOM-151-SCFI-2016 para preservación de datos.                     ║
+║                                                                              ║
+║  No somos abogados. Somos una metodología de auditoría preventiva            ║
+║  y blindaje documental.                                                      ║
+║                                                                              ║
+║  Para asuntos legales específicos, consulte a un abogado titulado.           ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+```
+
+<div align="center">
+
+```text
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║   [ SCDR-001 · v1.0 · 2026 ]                                 ║
+║                                                              ║
+║   El futuro no se espera.                                    ║
+║   Se construye.                                              ║
+║                                                              ║
+║   root@scdr-001:~# _                                         ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+</div>
